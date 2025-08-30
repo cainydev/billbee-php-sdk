@@ -36,7 +36,7 @@ class WebHookTest extends SerializerTestCase
                 self::assertEquals("Id", $result->getId());
                 self::assertEquals("https://foo.bar", $result->getWebHookUri());
                 self::assertEquals("a description", $result->getDescription());
-                self::assertEquals(true, $result->isPaused());
+                self::assertTrue($result->isPaused());
             }
         );
     }

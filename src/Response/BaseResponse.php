@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -26,7 +27,7 @@ class BaseResponse
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $paging;
+    public array $paging;
 
     /**
      * @var ?string
@@ -35,7 +36,7 @@ class BaseResponse
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $errorMessage = null;
+    public ?string $errorMessage = null;
 
     /**
      * @var int
@@ -44,7 +45,7 @@ class BaseResponse
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $errorCode = 0;
+    public int $errorCode = 0;
 
     /**
      * @var T

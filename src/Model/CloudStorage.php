@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class CloudStorage
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public int $id;
 
     /**
      * @var ?string
@@ -32,7 +33,7 @@ class CloudStorage
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $name;
+    public ?string $name;
 
     /**
      * @var ?string
@@ -41,7 +42,7 @@ class CloudStorage
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $type;
+    public ?string $type;
 
     /**
      * @var bool
@@ -50,7 +51,7 @@ class CloudStorage
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $usedAsPrinter;
+    public bool $usedAsPrinter;
 
     public function getId(): int
     {

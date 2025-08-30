@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -20,8 +21,7 @@ use Exception;
 class LayoutsEndpoint
 {
     /** @var ClientInterface */
-    private $client;
-
+    private ClientInterface $client;
 
     public function __construct(ClientInterface $client)
     {
@@ -36,7 +36,7 @@ class LayoutsEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function getLayouts()
+    public function getLayouts(): Response\GetLayoutsResponse
     {
         return $this->client->get(
             'layouts',

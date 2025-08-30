@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class WebHook
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public ?string $id;
 
     /**
      * @var ?string
@@ -32,7 +33,7 @@ class WebHook
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $webHookUri;
+    public ?string $webHookUri;
 
     /**
      * @var ?string
@@ -41,7 +42,7 @@ class WebHook
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $secret;
+    public ?string $secret;
 
     /**
      * @var ?string
@@ -50,7 +51,7 @@ class WebHook
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $description;
+    public ?string $description;
 
     /**
      * @var bool
@@ -59,7 +60,7 @@ class WebHook
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $isPaused = false;
+    public bool $isPaused = false;
 
     /**
      * @var ?string[]
@@ -67,9 +68,9 @@ class WebHook
      * @Serializer\SerializedName("Filters")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
-     * @see \BillbeeDe\BillbeeAPI\Model\WebHookFilter
+     * @see WebHookFilter
      */
-    public $filters = null;
+    public ?array $filters = null;
 
     /**
      * @var array<string, string>
@@ -78,7 +79,7 @@ class WebHook
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $headers = [];
+    public array $headers = [];
 
     /**
      * @var array<string, mixed>
@@ -87,7 +88,7 @@ class WebHook
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $properties = [];
+    public array $properties = [];
 
     public function getId(): ?string
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -15,7 +16,10 @@ namespace BillbeeDe\BillbeeAPI\Endpoint;
 use BillbeeDe\BillbeeAPI\ClientInterface;
 use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Model as Model;
+use BillbeeDe\BillbeeAPI\Model\Order;
 use BillbeeDe\BillbeeAPI\Response as Response;
+use BillbeeDe\BillbeeAPI\Response\BaseResponse;
+use BillbeeDe\BillbeeAPI\Response\GetOrderResponse;
 use BillbeeDe\BillbeeAPI\Type as Type;
 use DateTimeInterface;
 use Exception;
@@ -26,19 +30,20 @@ use Psr\Log\LoggerInterface;
 class OrdersEndpoint
 {
     /** @var ClientInterface */
-    private $client;
+    private ClientInterface $client;
 
     /** @var LoggerInterface|null */
-    private $logger;
+    private ?LoggerInterface $logger;
 
     /** @var SerializerInterface */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     public function __construct(
-        ClientInterface $client,
+        ClientInterface     $client,
         SerializerInterface $serializer,
-        LoggerInterface $logger = null
-    ) {
+        LoggerInterface     $logger = null
+    )
+    {
         $this->client = $client;
         $this->serializer = $serializer;
         $this->logger = $logger;
@@ -68,19 +73,20 @@ class OrdersEndpoint
      * @throws Exception If the response cannot be parsed
      */
     public function getOrders(
-        $page = 1,
-        $pageSize = 50,
+        int               $page = 1,
+        int               $pageSize = 50,
         DateTimeInterface $minOrderDate = null,
         DateTimeInterface $maxOrderDate = null,
-        array $shopId = [],
-        array $orderStateId = [],
-        array $tag = [],
-        $minimumOrderId = null,
+        array             $shopId = [],
+        array             $orderStateId = [],
+        array             $tag = [],
+        int               $minimumOrderId = null,
         DateTimeInterface $modifiedAtMin = null,
         DateTimeInterface $modifiedAtMax = null,
-        $articleTitleSource = Type\ArticleSource::ORDER_POSITION,
-        $excludeTags = false
-    ) {
+        int               $articleTitleSource = Type\ArticleSource::ORDER_POSITION,
+        bool              $excludeTags = false
+    ): Response\GetOrdersResponse
+    {
         $query = [
             'page' => max(1, $page),
             'pageSize' => max(1, $pageSize),
@@ -166,7 +172,7 @@ class OrdersEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function getPatchableFields()
+    public function getPatchableFields(): Response\GetPatchableFieldsResponse
     {
         return $this->client->get(
             'orders/PatchableFields',
@@ -185,7 +191,7 @@ class OrdersEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function getOrder($id)
+    public function getOrder(int $id): Response\GetOrderResponse
     {
         return $this->client->get(
             'orders/' . $id,
@@ -204,9 +210,9 @@ class OrdersEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function getOrderByOrderNumber($extRef)
+    public function getOrderByOrderNumber(string $extRef): Response\GetOrderResponse
     {
-        if (!strstr($extRef, '%')) {
+        if (!str_contains($extRef, '%')) {
             $extRef = urlencode($extRef);
         }
 
@@ -231,9 +237,9 @@ class OrdersEndpoint
      *
      * @see \BillbeeDe\BillbeeAPI\Type\Partner
      */
-    public function getOrderByPartner($externalId, $partner)
+    public function getOrderByPartner(string $externalId, string $partner): Response\GetOrderResponse
     {
-        if (!strstr($externalId, '%')) {
+        if (!str_contains($externalId, '%')) {
             $externalId = urlencode($externalId);
         }
 
@@ -251,13 +257,12 @@ class OrdersEndpoint
     /**
      * Get a single order by its internal billbee id
      *
-     * @param Model\Order $order The order Data
+     * @param Order $order The order Data
      * @param int $shopId The id of the shop
      *
-     * @return Response\GetOrderResponse The response
+     * @return GetOrderResponse|null The response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws Exception If the response cannot be parsed
      */
     public function createOrder(Model\Order $order, int $shopId): ?Response\GetOrderResponse
     {
@@ -269,17 +274,25 @@ class OrdersEndpoint
     }
 
     /**
+     * @param mixed $data
+     * @return string
+     */
+    private function serialize(mixed $data): string
+    {
+        return $this->serializer->serialize($data, 'json');
+    }
+
+    /**
      * Attach one or more tags to an order
      *
      * @param int $orderId The internal id of the order
      * @param string[] $tags Tags to attach
      *
-     * @return Response\BaseResponse<array{}> The response
+     * @return BaseResponse|null The response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws Exception If the response cannot be parsed
      */
-    public function addOrderTags($orderId, array $tags = []): ?Response\BaseResponse
+    public function addOrderTags(int $orderId, array $tags = []): ?Response\BaseResponse
     {
         return $this->client->post(
             'orders/' . $orderId . '/tags',
@@ -299,7 +312,7 @@ class OrdersEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function addOrderShipment($orderId, Model\Shipment $shipment)
+    public function addOrderShipment(int $orderId, Model\Shipment $shipment): bool
     {
         $res = $this->client->post(
             'orders/' . $orderId . '/shipment',
@@ -321,7 +334,7 @@ class OrdersEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function createDeliveryNote($orderId, $includePdf = false)
+    public function createDeliveryNote(int $orderId, bool $includePdf = false): Response\CreateDeliveryNoteResponse
     {
         return $this->client->post(
             'orders/CreateDeliveryNote/' . $orderId . '?includePdf=' . ($includePdf ? 'True' : 'False'),
@@ -343,13 +356,13 @@ class OrdersEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function createInvoice($orderId, $includePdf = false, $templateId = null, $sendToCloudId = null)
+    public function createInvoice(int $orderId, bool $includePdf = false, int $templateId = null, int $sendToCloudId = null): Response\CreateInvoiceResponse
     {
         $node = 'orders/CreateInvoice/' . $orderId . '?includeInvoicePdf=' . ($includePdf ? 'True' : 'False');
-        if ($templateId != null && is_numeric($templateId)) {
+        if ($templateId != null) {
             $node .= '&templateId=' . $templateId;
         }
-        if ($sendToCloudId != null && is_numeric($sendToCloudId)) {
+        if ($sendToCloudId != null) {
             $node .= '&sendToCloudId=' . $sendToCloudId;
         }
 
@@ -359,6 +372,10 @@ class OrdersEndpoint
             Response\CreateInvoiceResponse::class
         );
     }
+
+    #endregion
+
+    #region PUT
 
     /**
      * Sends a message to the customer
@@ -371,16 +388,16 @@ class OrdersEndpoint
      * @throws Exception If the response cannot be parsed
      * @throws InvalidArgumentException If the request is not valid
      */
-    public function sendMessage($orderId, Model\MessageForCustomer $message)
+    public function sendMessage(int $orderId, Model\MessageForCustomer $message): bool
     {
         if ($message->sendMode < 0 || $message->sendMode > 4) {
             $msg = sprintf("The sendMode is invalid. Check the %s class for valid values", Type\SendMode::class);
             throw new InvalidArgumentException($msg);
         }
-        if (!is_array($message->subject) || count($message->subject) == 0) {
+        if (count($message->subject) == 0) {
             throw new InvalidArgumentException("You have to specify a message subject");
         }
-        if (!is_array($message->body) || count($message->body) == 0) {
+        if (count($message->body) == 0) {
             throw new InvalidArgumentException("You have to specify a message body");
         }
         if ($message->sendMode == Type\SendMode::EXTERNAL_EMAIL && empty($message->alternativeEmailAddress)) {
@@ -404,10 +421,6 @@ class OrdersEndpoint
         return $res === '' || $res === null;
     }
 
-    #endregion
-
-    #region PUT
-
     /**
      * Updates/Sets the tags attached to an order
      *
@@ -419,7 +432,7 @@ class OrdersEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function setOrderTags($orderId, array $tags = [])
+    public function setOrderTags(int $orderId, array $tags = []): Response\BaseResponse
     {
         return $this->client->put(
             'orders/' . $orderId . '/tags',
@@ -427,6 +440,10 @@ class OrdersEndpoint
             Response\BaseResponse::class
         );
     }
+
+    #endregion
+
+    #region PATCH
 
     /**
      * Changes the main state of a single order
@@ -441,7 +458,7 @@ class OrdersEndpoint
      *
      * @see \BillbeeDe\BillbeeAPI\Type\OrderState
      */
-    public function setOrderState($orderId, $newState)
+    public function setOrderState(int $orderId, int $newState): bool
     {
         $res = $this->client->put(
             'orders/' . $orderId . '/orderstate',
@@ -454,18 +471,15 @@ class OrdersEndpoint
 
     #endregion
 
-    #region PATCH
-
     /**
      * Updates one or more fields of an order
      *
      * @param int $orderId The internal id of the order
      * @param array<string, mixed> $model The fields to patch
      *
-     * @return Response\GetOrderResponse The order
+     * @return GetOrderResponse|null The order
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws Exception If the response cannot be parsed
      */
     public function patchOrder(int $orderId, array $model): ?Response\GetOrderResponse
     {
@@ -474,13 +488,5 @@ class OrdersEndpoint
             $model,
             Response\GetOrderResponse::class
         );
-    }
-
-    #endregion
-
-    /** @param mixed $data */
-    private function serialize($data): string
-    {
-        return $this->serializer->serialize($data, 'json');
     }
 }

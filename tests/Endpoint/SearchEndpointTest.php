@@ -22,10 +22,10 @@ use PHPUnit\Framework\TestCase;
 class SearchEndpointTest extends TestCase
 {
     /** @var SearchEndpoint */
-    private $endpoint;
+    private SearchEndpoint $endpoint;
 
     /** @var TestClient */
-    private $client;
+    private TestClient $client;
 
     protected function setUp(): void
     {

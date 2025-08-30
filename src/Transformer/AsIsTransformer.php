@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -20,7 +21,6 @@ use JMS\Serializer\JsonSerializationVisitor;
 
 class AsIsTransformer implements SubscribingHandlerInterface
 {
-
     /**
      * @template T
      * @param T $data

@@ -19,27 +19,39 @@ class TestClient implements ClientInterface
     private $requests = [];
     private $handlers = [];
 
-    public function get($node, $query, $responseClass)
+    public function get(string $node, array $query, string $responseClass): null
     {
         return $this->handle('GET', $node, $query, $responseClass);
     }
 
-    public function post($node, $data, $responseClass)
+    private function handle($method, $node, $query, $responseClass)
+    {
+        $this->requests[] = [
+            $method,
+            $node,
+            $query,
+            $responseClass,
+        ];
+
+        return null;
+    }
+
+    public function post(string $node, mixed $data, string $responseClass): mixed
     {
         return $this->handle('POST', $node, $data, $responseClass);
     }
 
-    public function put($node, $data, $responseClass)
+    public function put(string $node, mixed $data, string $responseClass): mixed
     {
         return $this->handle('PUT', $node, $data, $responseClass);
     }
 
-    public function patch($node, $data, $responseClass)
+    public function patch(string $node, mixed $data, string $responseClass): mixed
     {
         return $this->handle('PATCH', $node, $data, $responseClass);
     }
 
-    public function delete($node, $query, $responseClass)
+    public function delete(string $node, array $query, string $responseClass): mixed
     {
         return $this->handle('DELETE', $node, $query, $responseClass);
     }
@@ -52,17 +64,5 @@ class TestClient implements ClientInterface
     public function clearRequests()
     {
         $this->requests = [];
-    }
-
-    private function handle($method, $node, $query, $responseClass)
-    {
-        array_push($this->requests, [
-            $method,
-            $node,
-            $query,
-            $responseClass,
-        ]);
-
-        return null;
     }
 }

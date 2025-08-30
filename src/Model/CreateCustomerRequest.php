@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class CreateCustomerRequest extends Customer
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $address;
+    public CustomerAddress $address;
 
     public function __construct()
     {

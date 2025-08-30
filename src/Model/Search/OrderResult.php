@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class OrderResult
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public int $id;
 
     /**
      * @var string
@@ -32,7 +33,7 @@ class OrderResult
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $externalReference = '';
+    public string $externalReference = '';
 
     /**
      * @var string
@@ -41,7 +42,7 @@ class OrderResult
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $buyerName = '';
+    public string $buyerName = '';
 
     /**
      * @var string
@@ -50,7 +51,7 @@ class OrderResult
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $invoiceNumber = '';
+    public string $invoiceNumber = '';
 
     /**
      * @var string
@@ -59,7 +60,7 @@ class OrderResult
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $customerName = '';
+    public string $customerName = '';
 
     /**
      * @var string
@@ -68,7 +69,7 @@ class OrderResult
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $articleTexts = '';
+    public string $articleTexts = '';
 
     public function getId(): int
     {

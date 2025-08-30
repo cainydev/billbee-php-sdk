@@ -14,6 +14,7 @@ namespace BillbeeDe\Tests\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Model\ShipmentWithLabel;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
+use DateTime;
 
 class ShipmentWithLabelTest extends SerializerTestCase
 {
@@ -32,7 +33,7 @@ class ShipmentWithLabelTest extends SerializerTestCase
                 self::assertEquals(1234, $result->getOrderId());
                 self::assertEquals(1, $result->getProviderId());
                 self::assertEquals(2, $result->getProductId());
-                self::assertEquals(true, $result->getChangeStateToSend());
+                self::assertTrue($result->getChangeStateToSend());
                 self::assertEquals("PrinterName", $result->getPrinterName());
                 self::assertEquals(100, $result->getWeightInGram());
                 self::assertEquals("2022-07-22T00:00:00+00:00", $result->getShipDate()->format('c'));
@@ -50,7 +51,7 @@ class ShipmentWithLabelTest extends SerializerTestCase
             ->setChangeStateToSend(true)
             ->setPrinterName("PrinterName")
             ->setWeightInGram(100)
-            ->setShipDate(new \DateTime("2022-07-22T00:00:00+00:00"))
+            ->setShipDate(new DateTime("2022-07-22T00:00:00+00:00"))
             ->setClientReference("ClientReference")
             ->setDimension(DimensionsTest::getDimensions());
     }

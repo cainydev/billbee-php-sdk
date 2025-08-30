@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class InvoicePosition
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public int $id;
 
     /**
      * @var int
@@ -32,7 +33,7 @@ class InvoicePosition
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $position;
+    public int $position;
 
     /**
      * @var float
@@ -41,7 +42,7 @@ class InvoicePosition
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $amount = 0.00;
+    public float $amount = 0.00;
 
     /**
      * @var float
@@ -50,7 +51,7 @@ class InvoicePosition
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $netValue = 0.00;
+    public float $netValue = 0.00;
 
     /**
      * @var float
@@ -59,7 +60,7 @@ class InvoicePosition
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $totalNetValue = 0.00;
+    public float $totalNetValue = 0.00;
 
     /**
      * @var float
@@ -68,7 +69,7 @@ class InvoicePosition
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $grossValue = 0.00;
+    public float $grossValue = 0.00;
 
     /**
      * @var float
@@ -77,7 +78,7 @@ class InvoicePosition
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $totalGrossValue = 0.00;
+    public float $totalGrossValue = 0.00;
 
     /**
      * @var ?float
@@ -86,7 +87,7 @@ class InvoicePosition
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $vatRate = 0.00;
+    public ?float $vatRate = 0.00;
 
     /**
      * @var ?int
@@ -95,7 +96,7 @@ class InvoicePosition
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $articleId;
+    public ?int $articleId;
 
     /**
      * @var ?string
@@ -104,7 +105,7 @@ class InvoicePosition
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $sku = '';
+    public ?string $sku = '';
 
     /**
      * @var ?string
@@ -113,21 +114,21 @@ class InvoicePosition
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $title = '';
+    public ?string $title = '';
 
     /**
      * @var float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("TotalVatAmount")
      */
-    private $totalVatAmount = 0;
+    private int|float $totalVatAmount = 0;
 
     /**
      * @var ?float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("RebatePercent")
      */
-    private $rebatePercent = null;
+    private ?float $rebatePercent = null;
 
     public function getId(): int
     {

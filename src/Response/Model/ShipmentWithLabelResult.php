@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class ShipmentWithLabelResult
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $orderId;
+    public int $orderId;
 
     /**
      * @var ?string
@@ -32,7 +33,7 @@ class ShipmentWithLabelResult
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $orderReference;
+    public ?string $orderReference;
 
     /**
      * @var ?string
@@ -41,7 +42,7 @@ class ShipmentWithLabelResult
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shippingId;
+    public ?string $shippingId;
 
     /**
      * @var ?string
@@ -50,7 +51,7 @@ class ShipmentWithLabelResult
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $trackingUrl;
+    public ?string $trackingUrl;
 
     /**
      * @var ?string
@@ -59,7 +60,7 @@ class ShipmentWithLabelResult
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $labelDataPdf;
+    public ?string $labelDataPdf;
 
     /**
      * @var ?string
@@ -68,7 +69,7 @@ class ShipmentWithLabelResult
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $exportDocsPdf;
+    public ?string $exportDocsPdf;
 
     /**
      * @var ?string
@@ -77,7 +78,7 @@ class ShipmentWithLabelResult
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $carrier;
+    public ?string $carrier;
 
     /**
      * @var ?string
@@ -87,7 +88,7 @@ class ShipmentWithLabelResult
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      *             Field will be a DateTime object in the next major version.
      */
-    public $shippingDate;
+    public ?string $shippingDate;
 
     public function getOrderId(): int
     {

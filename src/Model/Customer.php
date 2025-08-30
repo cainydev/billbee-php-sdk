@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class Customer
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public ?int $id;
 
     /**
      * @var ?string
@@ -32,7 +33,7 @@ class Customer
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $name;
+    public ?string $name;
 
     /**
      * @var ?string
@@ -41,7 +42,7 @@ class Customer
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $email;
+    public ?string $email;
 
     /**
      * @var ?string
@@ -50,7 +51,7 @@ class Customer
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $tel1;
+    public ?string $tel1;
 
     /**
      * @var ?string
@@ -59,7 +60,7 @@ class Customer
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $tel2;
+    public ?string $tel2;
 
     /**
      * @var ?int
@@ -68,7 +69,7 @@ class Customer
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $number;
+    public ?int $number;
 
     /**
      * @var ?int
@@ -77,7 +78,7 @@ class Customer
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $priceGroupId;
+    public ?int $priceGroupId;
 
     /**
      * @var ?int
@@ -86,7 +87,7 @@ class Customer
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $languageId;
+    public ?int $languageId;
 
     /**
      * @var ?string
@@ -95,63 +96,63 @@ class Customer
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $vatId;
+    public ?string $vatId;
 
     /**
      * @var ?int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("Type")
      */
-    private $type = null;
+    private ?int $type = null;
 
     /**
      * @var CustomerMetaData|null
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\CustomerMetaData")
      * @Serializer\SerializedName("DefaultMailAddress")
      */
-    private $defaultMailAddress = null;
+    private ?CustomerMetaData $defaultMailAddress = null;
 
     /**
      * @var CustomerMetaData|null
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\CustomerMetaData")
      * @Serializer\SerializedName("DefaultCommercialMailAddress")
      */
-    private $defaultCommercialMailAddress = null;
+    private ?CustomerMetaData $defaultCommercialMailAddress = null;
 
     /**
      * @var CustomerMetaData|null
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\CustomerMetaData")
      * @Serializer\SerializedName("DefaultStatusUpdatesMailAddress")
      */
-    private $defaultStatusUpdatesMailAddress = null;
+    private ?CustomerMetaData $defaultStatusUpdatesMailAddress = null;
 
     /**
      * @var CustomerMetaData|null
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\CustomerMetaData")
      * @Serializer\SerializedName("DefaultPhone1")
      */
-    private $defaultPhone1 = null;
+    private ?CustomerMetaData $defaultPhone1 = null;
 
     /**
      * @var CustomerMetaData|null
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\CustomerMetaData")
      * @Serializer\SerializedName("DefaultPhone2")
      */
-    private $defaultPhone2 = null;
+    private ?CustomerMetaData $defaultPhone2 = null;
 
     /**
      * @var CustomerMetaData|null
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\CustomerMetaData")
      * @Serializer\SerializedName("DefaultFax")
      */
-    private $defaultFax = null;
+    private ?CustomerMetaData $defaultFax = null;
 
     /**
      * @var CustomerMetaData[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\CustomerMetaData>")
      * @Serializer\SerializedName("MetaData")
      */
-    private $metaData = [];
+    private array $metaData = [];
 
     public function getId(): ?int
     {

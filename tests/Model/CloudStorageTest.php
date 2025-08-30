@@ -22,7 +22,7 @@ class CloudStorageTest extends SerializerTestCase
                 self::assertEquals(1, $result->getId());
                 self::assertEquals("GDrive", $result->getName());
                 self::assertEquals("GoogleDriveStorage", $result->getType());
-                self::assertEquals(true, $result->isUsedAsPrinter());
+                self::assertTrue($result->isUsedAsPrinter());
             }
         );
     }

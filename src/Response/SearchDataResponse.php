@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -24,7 +25,7 @@ class SearchDataResponse
      *
      * @deprecated Use getter/setter instead. Will be protected in the next major version.
      */
-    public $products;
+    public array $products;
 
     /**
      * @var Search\OrderResult[]
@@ -33,7 +34,7 @@ class SearchDataResponse
      *
      * @deprecated Use getter/setter instead. Will be protected in the next major version.
      */
-    public $orders;
+    public array $orders;
 
     /**
      * @var Search\CustomerResult[]
@@ -42,7 +43,7 @@ class SearchDataResponse
      *
      * @deprecated Use getter/setter instead. Will be protected in the next major version.
      */
-    public $customers;
+    public array $customers;
 
     /**
      * @return Search\ProductResult[]

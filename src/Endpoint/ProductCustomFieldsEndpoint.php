@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -21,15 +22,12 @@ use Exception;
 class ProductCustomFieldsEndpoint
 {
     /** @var ClientInterface */
-    private $client;
+    private ClientInterface $client;
 
     public function __construct(ClientInterface $client)
     {
         $this->client = $client;
     }
-
-
-    #region GET
 
     /**
      * Get a list of all custom fields
@@ -41,7 +39,7 @@ class ProductCustomFieldsEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function getCustomFieldDefinitions($page = 1, $pageSize = 50)
+    public function getCustomFieldDefinitions(int $page = 1, int $pageSize = 50): Response\GetCustomFieldDefinitionsResponse
     {
         $query = [
             'page' => max(1, $page),
@@ -65,9 +63,9 @@ class ProductCustomFieldsEndpoint
      * @throws InvalidIdException If the id is not an integer or negative
      * @throws Exception If the response cannot be parsed
      */
-    public function getCustomFieldDefinition($id)
+    public function getCustomFieldDefinition(int $id): Response\GetCustomFieldDefinitionResponse
     {
-        if (!is_integer($id) || $id < 1) {
+        if ($id < 1) {
             throw new InvalidIdException();
         }
 
@@ -77,6 +75,4 @@ class ProductCustomFieldsEndpoint
             Response\GetCustomFieldDefinitionResponse::class
         );
     }
-
-    #endregion
 }

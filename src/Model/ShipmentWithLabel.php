@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -12,6 +13,7 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
+use DateTime;
 use JMS\Serializer\Annotation as Serializer;
 
 class ShipmentWithLabel
@@ -24,7 +26,7 @@ class ShipmentWithLabel
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $orderId;
+    public int $orderId;
 
     /**
      * The id of the provider. You can query all providers with the shippingproviders endpoint
@@ -34,7 +36,7 @@ class ShipmentWithLabel
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $providerId;
+    public int $providerId;
 
     /**
      * The id of the shipping provider product to be used
@@ -44,7 +46,7 @@ class ShipmentWithLabel
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $productId;
+    public int $productId;
 
     /**
      * Optional parameter to automatically change the orderstate to sent after creating the shipment
@@ -54,7 +56,7 @@ class ShipmentWithLabel
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $changeStateToSend;
+    public ?bool $changeStateToSend;
 
     /**
      * Optional the name of a connected cloudprinter to send the label to
@@ -64,7 +66,7 @@ class ShipmentWithLabel
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $printerName;
+    public ?string $printerName;
 
     /**
      * Optional the shipments weight in gram to override the calculated weight
@@ -74,17 +76,17 @@ class ShipmentWithLabel
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $weightInGram;
+    public ?int $weightInGram;
 
     /**
      * Optional specify the shipdate to be transmitted to the carrier
-     * @var ?\DateTime
+     * @var ?DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\SerializedName("ShipDate")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shipDate;
+    public ?DateTime $shipDate;
 
     /**
      * Optional specify a reference text to be included on the label. Not all carriers support this option.
@@ -94,7 +96,7 @@ class ShipmentWithLabel
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $clientReference;
+    public ?string $clientReference;
 
     /**
      * Option specify the dimensions of the package in cm
@@ -104,7 +106,7 @@ class ShipmentWithLabel
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $dimension;
+    public ?Dimensions $dimension;
 
     public function getOrderId(): int
     {
@@ -172,12 +174,12 @@ class ShipmentWithLabel
         return $this;
     }
 
-    public function getShipDate(): ?\DateTime
+    public function getShipDate(): ?DateTime
     {
         return $this->shipDate;
     }
 
-    public function setShipDate(?\DateTime $shipDate): self
+    public function setShipDate(?DateTime $shipDate): self
     {
         $this->shipDate = $shipDate;
         return $this;

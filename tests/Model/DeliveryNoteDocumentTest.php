@@ -4,6 +4,8 @@ namespace BillbeeDe\Tests\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Model\DeliveryNoteDocument;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
+use DateTime;
+use DateTimeZone;
 
 class DeliveryNoteDocumentTest extends SerializerTestCase
 {
@@ -34,7 +36,7 @@ class DeliveryNoteDocumentTest extends SerializerTestCase
             ->setOrderNumber("Test")
             ->setDeliveryNoteNumber("20")
             ->setPDFData("base64-encrypted-pdf")
-            ->setDeliveryNoteDate(new \DateTime("2022-08-16T14:47:00", new \DateTimeZone('Europe/Berlin')))
+            ->setDeliveryNoteDate(new DateTime("2022-08-16T14:47:00", new DateTimeZone('Europe/Berlin')))
             ->setPdfDownloadUrl("https://objectstore.billbee.io");
     }
 }

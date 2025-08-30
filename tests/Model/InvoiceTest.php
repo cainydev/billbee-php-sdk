@@ -7,6 +7,7 @@ use BillbeeDe\BillbeeAPI\Model\InvoiceAdditionalFee;
 use BillbeeDe\BillbeeAPI\Model\InvoicePosition;
 use BillbeeDe\BillbeeAPI\Model\VatFlags;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
+use DateTime;
 
 class InvoiceTest extends SerializerTestCase
 {
@@ -55,7 +56,7 @@ class InvoiceTest extends SerializerTestCase
         );
     }
 
-    public static function getInvoice()
+    public static function getInvoice(): Invoice
     {
         return (new Invoice())
             ->setInvoiceNumber("RN-2022-0083")
@@ -67,7 +68,7 @@ class InvoiceTest extends SerializerTestCase
             ->setCompany("Firma")
             ->setCustomerNumber(1)
             ->setDebtorNumber(1)
-            ->setInvoiceDate(new \DateTime("2022-07-22T09:54:25.31"))
+            ->setInvoiceDate(new DateTime("2022-07-22T09:54:25.31"))
             ->setTotalNet(133.41)
             ->setCurrency("EUR")
             ->setTotalGross(158.76)
@@ -76,7 +77,7 @@ class InvoiceTest extends SerializerTestCase
             ->setTransactionId("txid")
             ->setEmail("max@mustermann.tld")
             ->setShopName("test")
-            ->setPayDate(new \DateTime("2022-08-10T00:00:00"))
+            ->setPayDate(new DateTime("2022-08-10T00:00:00"))
             ->setVatMode(0)
             ->setId(100000186018330)
             ->setShippingCountry("DE")

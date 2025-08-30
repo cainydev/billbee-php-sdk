@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class ProductCustomField
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public ?int $id;
 
     /**
      * @var ?int
@@ -32,7 +33,7 @@ class ProductCustomField
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $definitionId;
+    public ?int $definitionId;
 
     /**
      * @var ?CustomFieldDefinition
@@ -41,7 +42,7 @@ class ProductCustomField
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $definition;
+    public ?CustomFieldDefinition $definition;
 
     /**
      * @var ?int
@@ -50,7 +51,7 @@ class ProductCustomField
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $articleId;
+    public ?int $articleId;
 
     /**
      * @var string|string[]|null
@@ -59,7 +60,7 @@ class ProductCustomField
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $value;
+    public string|array|null $value;
 
     public function getId(): ?int
     {
@@ -106,13 +107,13 @@ class ProductCustomField
     }
 
     /** @return string[]|string|null */
-    public function getValue()
+    public function getValue(): array|string|null
     {
         return $this->value;
     }
 
-    /** @param string[]|string|null $value */
-    public function setValue($value): self
+    /** @param string|string[]|null $value */
+    public function setValue(array|string|null $value): self
     {
         $this->value = $value;
         return $this;

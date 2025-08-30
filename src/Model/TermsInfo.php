@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class TermsInfo
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $termsWebPageLink;
+    public ?string $termsWebPageLink;
 
     /**
      * @var ?string
@@ -32,7 +33,7 @@ class TermsInfo
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $privacyWebPageLink;
+    public ?string $privacyWebPageLink;
 
     /**
      * @var ?string
@@ -41,7 +42,7 @@ class TermsInfo
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $termsContentLink;
+    public ?string $termsContentLink;
 
     /**
      * @var ?string
@@ -50,7 +51,7 @@ class TermsInfo
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $privacyContentLink;
+    public ?string $privacyContentLink;
 
     public function getTermsWebPageLink(): ?string
     {

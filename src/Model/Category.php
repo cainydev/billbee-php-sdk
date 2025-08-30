@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class Category
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public ?int $id;
 
     /**
      * @var ?string
@@ -32,7 +33,7 @@ class Category
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $name = '';
+    public ?string $name = '';
 
     public function getId(): ?int
     {

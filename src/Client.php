@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -26,7 +27,6 @@ use BillbeeDe\BillbeeAPI\Endpoint\ShipmentsEndpoint;
 use BillbeeDe\BillbeeAPI\Endpoint\WebHooksEndpoint;
 use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Logger\DiagnosticsLogger;
-use BillbeeDe\BillbeeAPI\Response as Response;
 use BillbeeDe\BillbeeAPI\Transformer\AsIsTransformer;
 use BillbeeDe\BillbeeAPI\Transformer\DefaultDateTimeHandler;
 use BillbeeDe\BillbeeAPI\Transformer\DefinitionConfigTransformer;
@@ -50,14 +50,21 @@ class Client implements ClientInterface, BatchClientInterface
      *
      * @var string
      */
-    protected $endpoint = 'https://api.billbee.io/api/v1/';
+    protected string $endpoint = 'https://api.billbee.io/api/v1/';
 
     /**
      * The serializer.
      *
      * @var SerializerInterface
      */
-    protected $serializer;
+    protected SerializerInterface $serializer;
+
+    /**
+     * Contains all requests in batch mode
+     *
+     * @var array{responseClass: class-string, requestFactory: callable}[]
+     */
+    protected array $requestPool = [];
 
     /**
      * If true, the requests will be performed using a batch call.
@@ -68,60 +75,53 @@ class Client implements ClientInterface, BatchClientInterface
      *
      * @var bool
      */
-    private $useBatching = false;
-
-    /**
-     * Contains all requests in batch mode
-     *
-     * @var array{responseClass: class-string, requestFactory: callable}[]
-     */
-    protected $requestPool = [];
+    private bool $useBatching = false;
 
     /**
      * If true, the requests will be logged
      *
      * @var bool
      */
-    private $logRequests = false;
+    private bool $logRequests = false;
 
     /** @var ProductsEndpoint */
-    private $productsEndpoint;
+    private ProductsEndpoint $productsEndpoint;
 
     /** @var ProvisioningEndpoint */
-    private $provisioningEndpoint;
+    private ProvisioningEndpoint $provisioningEndpoint;
 
     /** @var EventsEndpoint */
-    private $eventsEndpoint;
+    private EventsEndpoint $eventsEndpoint;
 
     /** @var OrdersEndpoint */
-    private $ordersEndpoint;
+    private OrdersEndpoint $ordersEndpoint;
 
     /** @var InvoiceEndpoint */
-    private $invoicesEndpoint;
+    private InvoiceEndpoint $invoicesEndpoint;
 
     /** @var ShipmentsEndpoint */
-    private $shipmentsEndpoint;
+    private ShipmentsEndpoint $shipmentsEndpoint;
 
     /** @var ProductCustomFieldsEndpoint */
-    private $customFieldsEndpoint;
+    private ProductCustomFieldsEndpoint $customFieldsEndpoint;
 
     /** @var WebHooksEndpoint */
-    private $webHooksEndpoint;
+    private WebHooksEndpoint $webHooksEndpoint;
 
     /** @var CustomersEndpoint */
-    private $customersEndpoint;
+    private CustomersEndpoint $customersEndpoint;
 
     /** @var CloudStorageEndpoint */
-    private $cloudStoragesEndpoint;
+    private CloudStorageEndpoint $cloudStoragesEndpoint;
 
     /** @var LayoutsEndpoint */
-    private $layoutsEndpoint;
+    private LayoutsEndpoint $layoutsEndpoint;
 
     /** @var SearchEndpoint */
-    private $searchEndpoint;
+    private SearchEndpoint $searchEndpoint;
 
     /** @var CustomClient */
-    private $client;
+    private CustomClient $client;
 
     /**
      * Instantiates a new Billbee API client
@@ -129,10 +129,9 @@ class Client implements ClientInterface, BatchClientInterface
      * @param string $username The Billbee username
      * @param string $apiPassword The API password for the user
      * @param string $apiKey The API Key
-     * @param LoggerInterface $logger Sets a optional logger
-     * @throws Exception
+     * @param LoggerInterface|null $logger Sets a optional logger
      */
-    public function __construct($username, $apiPassword, $apiKey, LoggerInterface $logger = null)
+    public function __construct(string $username, string $apiPassword, string $apiKey, LoggerInterface $logger = null)
     {
         $this->client = new CustomClient([
             'base_uri' => $this->endpoint,
@@ -173,74 +172,74 @@ class Client implements ClientInterface, BatchClientInterface
     }
 
     /** @return ProductsEndpoint */
-    public function products()
+    public function products(): ProductsEndpoint
     {
         return $this->productsEndpoint;
     }
 
 
     /** @return ProvisioningEndpoint */
-    public function provisioning()
+    public function provisioning(): ProvisioningEndpoint
     {
         return $this->provisioningEndpoint;
     }
 
     /** @return EventsEndpoint */
-    public function events()
+    public function events(): EventsEndpoint
     {
         return $this->eventsEndpoint;
     }
 
     /** @return OrdersEndpoint */
-    public function orders()
+    public function orders(): OrdersEndpoint
     {
         return $this->ordersEndpoint;
     }
 
     /** @return InvoiceEndpoint */
-    public function invoices()
+    public function invoices(): InvoiceEndpoint
     {
         return $this->invoicesEndpoint;
     }
 
     /** @return ShipmentsEndpoint */
-    public function shipments()
+    public function shipments(): ShipmentsEndpoint
     {
         return $this->shipmentsEndpoint;
     }
 
     /** @return ProductCustomFieldsEndpoint */
-    public function productCustomFields()
+    public function productCustomFields(): ProductCustomFieldsEndpoint
     {
         return $this->customFieldsEndpoint;
     }
 
     /** @return WebHooksEndpoint */
-    public function webHooks()
+    public function webHooks(): WebHooksEndpoint
     {
         return $this->webHooksEndpoint;
     }
 
     /** @return CustomersEndpoint */
-    public function customers()
+    public function customers(): CustomersEndpoint
     {
         return $this->customersEndpoint;
     }
 
     /** @return CloudStorageEndpoint */
-    public function cloudStorages()
+    public function cloudStorages(): CloudStorageEndpoint
     {
         return $this->cloudStoragesEndpoint;
     }
 
     /** @return LayoutsEndpoint */
-    public function layouts()
+    public function layouts(): LayoutsEndpoint
     {
         return $this->layoutsEndpoint;
     }
 
     /** @return SearchEndpoint */
-    public function search()
+    public function search(): SearchEndpoint
     {
         return $this->searchEndpoint;
     }
@@ -248,14 +247,12 @@ class Client implements ClientInterface, BatchClientInterface
     /**
      * Execute all requests in the pool
      *
-     * @return Response\BaseResponse[]|mixed[]
+     * @return array|null
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws Exception If the response cannot be parsed
-     *
      * @see Client::$useBatching
      */
-    public function executeBatch()
+    public function executeBatch(): ?array
     {
         $responses = [];
         if ($this->getPoolSize() > 0) {
@@ -292,123 +289,39 @@ class Client implements ClientInterface, BatchClientInterface
      *
      * @return int
      */
-    public function getPoolSize()
+    public function getPoolSize(): int
     {
         return count($this->requestPool);
     }
 
-    /**+
-     * Enables the batch mode
-     * Requests will be performed using a batch call.
-     * Each single call returns null.
-     * Call the executeBatch method to execute all calls and retrieve the responses
-     *
-     * @see Client::executeBatch()
-     */
-    public function enableBatchMode(): void
-    {
-        $this->useBatching = true;
-    }
-
-    /**+
-     * Disables the batch mode
-     * Requests are executed directly and returns the result.
-     */
-    public function disableBatchMode(): void
-    {
-        $this->useBatching = false;
-    }
-
-    public function isBatchModeEnabled()
-    {
-        return $this->useBatching;
-    }
-
-    public function get(
-        $node,
-        $query,
-        $responseClass
-    ) {
-        return $this->internalRequest($responseClass, function () use ($node, $query) {
-            return $this->client->createRequest('GET', $node, [
-                'query' => $query,
-            ]);
-        });
-    }
-
-    public function post(
-        $node,
-        $data,
-        $responseClass
-    ) {
-        return $this->internalRequest($responseClass, function () use ($data, $node) {
-            $field = is_string($data) ? 'body' : 'json';
-
-            return $this->client->createRequest('POST', $node, [
-                $field => $data,
-                'headers' => [
-                    'Content-Type' => 'application/json',
-                ]
-            ]);
-        });
-    }
-
-    public function put(
-        $node,
-        $data,
-        $responseClass
-    ) {
-        return $this->internalRequest($responseClass, function () use ($data, $node) {
-            $field = is_string($data) ? 'body' : 'json';
-
-            return $this->client->createRequest('PUT', $node, [
-                $field => $data,
-                'headers' => [
-                    'Content-Type' => 'application/json',
-                ]
-            ]);
-        });
-    }
-
     /**
-     * Starts an PATCH request
-     *
-     * @param string $node The requested node
-     * @param mixed $data The body
-     * @param string $responseClass The response class
-     *
-     * @return mixed The mapped response object
-     *
-     * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws Exception If the response cannot be parsed
+     * Converts a request to a batch boundary
+     * @param RequestInterface $request The request
+     * @return string The boundary
      */
-    public function patch(
-        $node,
-        $data,
-        $responseClass
-    ) {
-        return $this->internalRequest($responseClass, function () use ($data, $node) {
-            $field = is_string($data) ? 'body' : 'json';
+    private function requestToBoundary(RequestInterface $request): string
+    {
+        $uri = $request->getUri();
+        $plainRequest = '';
+        $route = $uri->getPath();
+        if (strlen($uri->getQuery()) > 0) {
+            $route .= '?' . $uri->getQuery();
+        }
+        $plainRequest .= "Content-Type: application/http; msgtype=request\r\n";
+        $plainRequest .= "\r\n";
+        $plainRequest .= sprintf("%s %s HTTP/%s\r\n", $request->getMethod(), $route, $request->getProtocolVersion());
+        $plainRequest .= sprintf("Host: %s\r\n", $uri->getHost());
+        $headers = $request->getHeaders();
+        foreach ($headers as $name => $values) {
+            if (strtolower($name) == 'host') {
+                continue;
+            }
+            $plainRequest .= sprintf("%s: %s\r\n", $name, implode(", ", $values));
+        }
 
-            return $this->client->createRequest('PATCH', $node, [
-                $field => $data,
-                'headers' => [
-                    'Content-Type' => 'application/json',
-                ]
-            ]);
-        });
-    }
-
-    public function delete(
-        $node,
-        $query,
-        $responseClass
-    ) {
-        return $this->internalRequest($responseClass, function () use ($node, $query) {
-            return $this->client->createRequest('DELETE', $node, [
-                'query' => $query,
-            ]);
-        });
+        $plainRequest .= "\r\n";
+        $plainRequest .= $request->getBody()->getContents();
+        return $plainRequest;
     }
 
     /**
@@ -423,7 +336,7 @@ class Client implements ClientInterface, BatchClientInterface
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    private function internalRequest($responseClass, callable $requestFactory, $ignorePool = false)
+    private function internalRequest(?string $responseClass, callable $requestFactory, bool $ignorePool = false): mixed
     {
         if ($this->useBatching === true && $ignorePool === false) {
             $req = [
@@ -466,14 +379,10 @@ class Client implements ClientInterface, BatchClientInterface
 
         $data = null;
         if ($responseClass !== null) {
-            try {
-                if (trim($contents) != '' && trim($responseClass) != '') {
-                    $data = $this->serializer->deserialize($contents, $responseClass, 'json');
-                } elseif (trim($contents) != '') {
-                    $data = $contents;
-                }
-            } catch (Exception $exception) {
-                throw $exception;
+            if (trim($contents) != '' && trim($responseClass) != '') {
+                $data = $this->serializer->deserialize($contents, $responseClass, 'json');
+            } elseif (trim($contents) != '') {
+                $data = $contents;
             }
         } else {
             $data = [];
@@ -502,7 +411,7 @@ class Client implements ClientInterface, BatchClientInterface
      * @param string $batchResult
      * @return string[]
      */
-    private function getResponsesFromBody($batchResult): array
+    private function getResponsesFromBody(string $batchResult): array
     {
         $lines = explode("\r\n", $batchResult, 2);
         $batchName = $lines[0];
@@ -518,38 +427,127 @@ class Client implements ClientInterface, BatchClientInterface
         return $responses;
     }
 
-    /**
-     * Converts a request to a batch boundary
-     * @param RequestInterface $request The request
-     * @return string The boundary
+    /**+
+     * Enables the batch mode
+     * Requests will be performed using a batch call.
+     * Each single call returns null.
+     * Call the executeBatch method to execute all calls and retrieve the responses
+     *
+     * @see Client::executeBatch()
      */
-    private function requestToBoundary(RequestInterface $request)
+    public function enableBatchMode(): void
     {
-        $uri = $request->getUri();
-        $plainRequest = '';
-        $route = $uri->getPath();
-        if (strlen($uri->getQuery()) > 0) {
-            $route .= '?' . $uri->getQuery();
-        }
-        $plainRequest .= "Content-Type: application/http; msgtype=request\r\n";
-        $plainRequest .= "\r\n";
-        $plainRequest .= sprintf("%s %s HTTP/%s\r\n", $request->getMethod(), $route, $request->getProtocolVersion());
-        $plainRequest .= sprintf("Host: %s\r\n", $uri->getHost());
-        $headers = $request->getHeaders();
-        foreach ($headers as $name => $values) {
-            if (strtolower($name) == 'host') {
-                continue;
-            }
-            $plainRequest .= sprintf("%s: %s\r\n", $name, implode(", ", $values));
-        }
+        $this->useBatching = true;
+    }
 
-        $plainRequest .= "\r\n";
-        $plainRequest .= $request->getBody()->getContents();
-        return $plainRequest;
+    /**+
+     * Disables the batch mode
+     * Requests are executed directly and returns the result.
+     */
+    public function disableBatchMode(): void
+    {
+        $this->useBatching = false;
+    }
+
+    public function isBatchModeEnabled(): bool
+    {
+        return $this->useBatching;
+    }
+
+    public function get(
+        string $node,
+        array  $query,
+        string $responseClass
+    ): mixed
+    {
+        return $this->internalRequest($responseClass, function () use ($node, $query) {
+            return $this->client->createRequest('GET', $node, [
+                'query' => $query,
+            ]);
+        });
+    }
+
+    public function post(
+        string $node,
+        mixed  $data,
+        string $responseClass
+    ): mixed
+    {
+        return $this->internalRequest($responseClass, function () use ($data, $node) {
+            $field = is_string($data) ? 'body' : 'json';
+
+            return $this->client->createRequest('POST', $node, [
+                $field => $data,
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ]
+            ]);
+        });
+    }
+
+    public function put(
+        string $node,
+        mixed  $data,
+        string $responseClass
+    ): mixed
+    {
+        return $this->internalRequest($responseClass, function () use ($data, $node) {
+            $field = is_string($data) ? 'body' : 'json';
+
+            return $this->client->createRequest('PUT', $node, [
+                $field => $data,
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ]
+            ]);
+        });
+    }
+
+    /**
+     * Starts an PATCH request
+     *
+     * @param string $node The requested node
+     * @param mixed $data The body
+     * @param string $responseClass The response class
+     *
+     * @return mixed The mapped response object
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws Exception If the response cannot be parsed
+     */
+    public function patch(
+        string $node,
+        mixed  $data,
+        string $responseClass
+    ): mixed
+    {
+        return $this->internalRequest($responseClass, function () use ($data, $node) {
+            $field = is_string($data) ? 'body' : 'json';
+
+            return $this->client->createRequest('PATCH', $node, [
+                $field => $data,
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ]
+            ]);
+        });
+    }
+
+    public function delete(
+        string $node,
+        array  $query,
+        string $responseClass
+    ): mixed
+    {
+        return $this->internalRequest($responseClass, function () use ($node, $query) {
+            return $this->client->createRequest('DELETE', $node, [
+                'query' => $query,
+            ]);
+        });
     }
 
     /** @return bool */
-    public function getLogRequests()
+    public function getLogRequests(): bool
     {
         return $this->logRequests;
     }
@@ -558,7 +556,7 @@ class Client implements ClientInterface, BatchClientInterface
      * @param bool $logRequests
      * @return Client
      */
-    public function setLogRequests($logRequests)
+    public function setLogRequests(bool $logRequests): static
     {
         $this->logRequests = $logRequests;
         return $this;

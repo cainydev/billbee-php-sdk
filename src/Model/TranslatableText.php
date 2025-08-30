@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class TranslatableText
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $text;
+    public ?string $text;
 
     /**
      * @var ?string
@@ -32,7 +33,7 @@ class TranslatableText
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $languageCode;
+    public ?string $languageCode;
 
     public function __construct(string $text = '', string $languageCode = '')
     {

@@ -37,7 +37,7 @@ class SoldProductTest extends SerializerTestCase
                 self::assertEquals(500, $result->getWeight());
                 self::assertEquals("TESTBESTAND", $result->getSKU());
                 self::assertEquals("TESTBESTAND", $result->getSkuOrId());
-                self::assertEquals(true, $result->getIsDigital());
+                self::assertTrue($result->getIsDigital());
                 self::assertEquals("testejcz", $result->getEAN());
                 self::assertEquals("1234", $result->getTaric());
                 self::assertEquals("AX", $result->getCountryOfOrigin());

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -14,15 +15,16 @@ namespace BillbeeDe\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Type\OrderState;
 use BillbeeDe\BillbeeAPI\Type\PaymentType;
+use DateTime;
 use JMS\Serializer\Annotation as Serializer;
 
 class Order
 {
-    const VAT_MODE_DEFAULT = 0;
-    const VAT_MODE_SMALL_BUSINESS = 1;
-    const VAT_MODE_INTRA_COMMUNITY_DELIVERY = 2;
-    const VAT_MODE_EXPORT_3RD_COUNTRY = 3;
-    const VAT_MODE_DIFFERENTIAL_TAXATION = 4;
+    public const VAT_MODE_DEFAULT = 0;
+    public const VAT_MODE_SMALL_BUSINESS = 1;
+    public const VAT_MODE_INTRA_COMMUNITY_DELIVERY = 2;
+    public const VAT_MODE_EXPORT_3RD_COUNTRY = 3;
+    public const VAT_MODE_DIFFERENTIAL_TAXATION = 4;
 
     /**
      * @var ?int
@@ -31,7 +33,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public ?int $id;
 
     /**
      * @var ?int
@@ -40,7 +42,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $parentOrderId;
+    public ?int $parentOrderId;
 
     /**
      * @var ?string
@@ -49,7 +51,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $externalId;
+    public ?string $externalId;
 
     /**
      * @var bool
@@ -58,7 +60,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $acceptLossOfReturnRight;
+    public bool $acceptLossOfReturnRight;
 
     /**
      * @var ?string
@@ -67,7 +69,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $orderNumber;
+    public ?string $orderNumber;
 
     /**
      * @var int
@@ -76,7 +78,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $state = OrderState::ORDERED;
+    public int $state = OrderState::ORDERED;
 
     /**
      * @var ?int
@@ -86,43 +88,43 @@ class Order
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      *             The default value will be null. Set it on your own.
      */
-    public $vatMode = self::VAT_MODE_DEFAULT;
+    public ?int $vatMode = self::VAT_MODE_DEFAULT;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\SerializedName("CreatedAt")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $createdAt;
+    public DateTime $createdAt;
 
     /**
-     * @var ?\DateTime
+     * @var ?DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\SerializedName("ShippedAt")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shippedAt;
+    public ?DateTime $shippedAt;
 
     /**
-     * @var ?\DateTime
+     * @var ?DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\SerializedName("ConfirmedAt")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $confirmedAt;
+    public ?DateTime $confirmedAt;
 
     /**
-     * @var ?\DateTime
+     * @var ?DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\SerializedName("PayedAt")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $payedAt;
+    public ?DateTime $payedAt;
 
     /**
      * @var ?string
@@ -131,7 +133,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $sellerComment;
+    public ?string $sellerComment;
 
     /**
      * @var ?Comment[]
@@ -140,7 +142,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $comments;
+    public ?array $comments;
 
     /**
      * @var ?string
@@ -149,7 +151,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $invoiceNumberPrefix;
+    public ?string $invoiceNumberPrefix;
 
     /**
      * @var ?string
@@ -158,7 +160,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $invoiceNumberPostfix;
+    public ?string $invoiceNumberPostfix;
 
     /**
      * @var ?int
@@ -167,16 +169,16 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $invoiceNumber;
+    public ?int $invoiceNumber;
 
     /**
-     * @var ?\DateTime
+     * @var ?DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\SerializedName("InvoiceDate")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $invoiceDate;
+    public ?DateTime $invoiceDate;
 
     /**
      * @var ?Address
@@ -185,7 +187,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $invoiceAddress;
+    public ?Address $invoiceAddress;
 
     /**
      * @var ?Address
@@ -194,7 +196,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shippingAddress;
+    public ?Address $shippingAddress;
 
     /**
      * @var int
@@ -206,7 +208,7 @@ class Order
      *
      * @see PaymentType
      */
-    public $paymentMethod;
+    public int $paymentMethod;
 
     /**
      * @var float
@@ -215,7 +217,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shippingCost;
+    public float $shippingCost;
 
     /**
      * @var float
@@ -224,7 +226,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $totalCost;
+    public float $totalCost;
 
     /**
      * @var float
@@ -233,7 +235,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $adjustmentCost;
+    public float $adjustmentCost;
 
     /**
      * @var ?string
@@ -242,7 +244,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $adjustmentReason;
+    public ?string $adjustmentReason;
 
     /**
      * @var ?OrderItem[]
@@ -251,7 +253,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $orderItems;
+    public ?array $orderItems;
 
     /**
      * @var ?string
@@ -260,7 +262,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $currency;
+    public ?string $currency;
 
     /**
      * @var bool
@@ -270,13 +272,13 @@ class Order
      *
      * @deprecated Will be removed in the next major version.
      */
-    public $isCanceled = false;
+    public bool $isCanceled = false;
 
     /**
      * @var mixed
      * @deprecated Will be removed in the next major version.
      */
-    public $restfulPath;
+    public mixed $restfulPath;
 
     /**
      * @var ?OrderUser
@@ -285,7 +287,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $seller;
+    public ?OrderUser $seller;
 
     /**
      * @var ?OrderUser
@@ -294,16 +296,16 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $buyer;
+    public ?OrderUser $buyer;
 
     /**
-     * @var ?\DateTime
+     * @var ?DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\SerializedName("UpdatedAt")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $updatedAt;
+    public ?DateTime $updatedAt;
 
     /**
      * @var ?float
@@ -312,7 +314,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $taxRate1;
+    public ?float $taxRate1;
 
     /**
      * @var ?float
@@ -321,7 +323,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $taxRate2;
+    public ?float $taxRate2;
 
     /**
      * @var ?string
@@ -330,7 +332,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $vatId;
+    public ?string $vatId;
 
     /**
      * @var ?string[]
@@ -339,7 +341,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $tags;
+    public ?array $tags;
 
     /**
      * @var ?float
@@ -348,7 +350,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shipWeightKg;
+    public ?float $shipWeightKg;
 
     /**
      * @var ?string
@@ -357,7 +359,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $languageCode;
+    public ?string $languageCode;
 
     /**
      * @var ?float
@@ -366,7 +368,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $paidAmount;
+    public ?float $paidAmount;
 
     /**
      * @var ?int
@@ -376,7 +378,7 @@ class Order
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      * @deprecated remove in 2.0.0. Use Shipping $shippingProviderId or $shippingProviderProductId instead
      */
-    public $shippingProfileId;
+    public ?int $shippingProfileId;
 
     /**
      * @var ?string
@@ -386,7 +388,7 @@ class Order
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      * @deprecated remove in 2.0.0. Use Shipping $shippingProviderName or $shippingProviderProductName instead
      */
-    public $shippingProfileName;
+    public ?string $shippingProfileName;
 
     /**
      * @var ?int
@@ -395,7 +397,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shippingProviderId;
+    public ?int $shippingProviderId;
 
     /**
      * @var ?int
@@ -404,7 +406,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shippingProviderProductId;
+    public ?int $shippingProviderProductId;
 
     /**
      * @var ?string
@@ -413,7 +415,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shippingProviderName;
+    public ?string $shippingProviderName;
 
     /**
      * @var ?string
@@ -422,7 +424,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shippingProviderProductName;
+    public ?string $shippingProviderProductName;
 
     /**
      * @var ?string
@@ -431,7 +433,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $paymentInstruction;
+    public ?string $paymentInstruction;
 
     /**
      * @var ?string
@@ -440,7 +442,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $isCancellationFor;
+    public ?string $isCancellationFor;
 
     /**
      * @var ?string
@@ -449,7 +451,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $paymentTransactionId;
+    public ?string $paymentTransactionId;
 
     /**
      * @var ?string
@@ -458,7 +460,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $deliverySourceCountryCode;
+    public ?string $deliverySourceCountryCode;
 
     /**
      * @var ?string
@@ -467,7 +469,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $customInvoiceNote;
+    public ?string $customInvoiceNote;
 
     /**
      * @var ?string
@@ -476,7 +478,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $customerNumber;
+    public ?string $customerNumber;
 
     /**
      * @var ?string
@@ -485,7 +487,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $distributionCenter;
+    public ?string $distributionCenter;
 
     /**
      * @var ?Customer
@@ -494,7 +496,7 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $customer;
+    public ?Customer $customer;
 
     /**
      * @var ?Payment[]
@@ -503,74 +505,74 @@ class Order
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $payments;
+    public ?array $payments;
 
     /**
      * @var float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("RebateDifference")
      */
-    private $rebateDifference;
+    private float $rebateDifference;
 
     /**
      * @var ?Shipment[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\Shipment>")
      * @Serializer\SerializedName("ShippingIds")
      */
-    private $shipments = [];
+    private ?array $shipments = [];
 
     /**
      * @var ?OrderHistoryEntry[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\OrderHistoryEntry>")
      * @Serializer\SerializedName("History")
      */
-    private $historyEntries = [];
+    private ?array $historyEntries = [];
 
     /**
-     * @var ?\DateTime
+     * @var ?DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\SerializedName("LastModifiedAt")
      */
-    private $lastModifiedAt;
+    private ?DateTime $lastModifiedAt;
 
     /**
      * @var ?int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("ApiAccountId")
      */
-    private $apiAccountId;
+    private ?int $apiAccountId;
 
     /**
      * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("ApiAccountName")
      */
-    private $apiAccountName;
+    private ?string $apiAccountName;
 
     /**
      * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("MerchantVatId")
      */
-    private $merchantVatId;
+    private ?string $merchantVatId;
 
     /**
      * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("CustomerVatId")
      */
-    private $customerVatId;
+    private ?string $customerVatId;
 
     /**
      * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("PaymentReference")
      */
-    private $paymentReference;
+    private ?string $paymentReference;
 
     public function __construct()
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new DateTime();
     }
 
     public function getId(): ?int
@@ -650,45 +652,45 @@ class Order
         return $this;
     }
 
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): self
+    public function setCreatedAt(DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    public function getShippedAt(): ?\DateTime
+    public function getShippedAt(): ?DateTime
     {
         return $this->shippedAt;
     }
 
-    public function setShippedAt(?\DateTime $shippedAt): self
+    public function setShippedAt(?DateTime $shippedAt): self
     {
         $this->shippedAt = $shippedAt;
         return $this;
     }
 
-    public function getConfirmedAt(): ?\DateTime
+    public function getConfirmedAt(): ?DateTime
     {
         return $this->confirmedAt;
     }
 
-    public function setConfirmedAt(?\DateTime $confirmedAt): self
+    public function setConfirmedAt(?DateTime $confirmedAt): self
     {
         $this->confirmedAt = $confirmedAt;
         return $this;
     }
 
-    public function getPayedAt(): ?\DateTime
+    public function getPayedAt(): ?DateTime
     {
         return $this->payedAt;
     }
 
-    public function setPayedAt(?\DateTime $payedAt): self
+    public function setPayedAt(?DateTime $payedAt): self
     {
         $this->payedAt = $payedAt;
         return $this;
@@ -751,12 +753,12 @@ class Order
         return $this;
     }
 
-    public function getInvoiceDate(): ?\DateTime
+    public function getInvoiceDate(): ?DateTime
     {
         return $this->invoiceDate;
     }
 
-    public function setInvoiceDate(?\DateTime $invoiceDate): self
+    public function setInvoiceDate(?DateTime $invoiceDate): self
     {
         $this->invoiceDate = $invoiceDate;
         return $this;
@@ -885,12 +887,12 @@ class Order
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTime
+    public function getUpdatedAt(): ?DateTime
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTime $updatedAt): self
+    public function setUpdatedAt(?DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
         return $this;
@@ -1179,12 +1181,12 @@ class Order
         return $this;
     }
 
-    public function getLastModifiedAt(): ?\DateTime
+    public function getLastModifiedAt(): ?DateTime
     {
         return $this->lastModifiedAt;
     }
 
-    public function setLastModifiedAt(?\DateTime $lastModifiedAt): self
+    public function setLastModifiedAt(?DateTime $lastModifiedAt): self
     {
         $this->lastModifiedAt = $lastModifiedAt;
         return $this;

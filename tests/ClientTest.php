@@ -21,7 +21,7 @@ use Psr\Log\NullLogger;
 
 class ClientTest extends TestCase
 {
-    private $client;
+    private Client $client;
 
     protected function setUp(): void
     {

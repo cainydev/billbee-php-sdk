@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,10 +24,10 @@ use JMS\Serializer\SerializerInterface;
 class CustomersEndpoint
 {
     /** @var ClientInterface */
-    private $client;
+    private ClientInterface $client;
 
     /** @var SerializerInterface */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     public function __construct(ClientInterface $client, SerializerInterface $serializer)
     {
@@ -44,7 +45,7 @@ class CustomersEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function getCustomers()
+    public function getCustomers(): Response\GetCustomersResponse
     {
         return $this->client->get(
             'customers',
@@ -63,9 +64,9 @@ class CustomersEndpoint
      * @throws InvalidIdException If the id is not an integer or negative
      * @throws Exception If the response cannot be parsed
      */
-    public function getCustomer($id)
+    public function getCustomer(?int $id): Response\GetCustomerResponse
     {
-        if ($id === null || !is_integer($id) || $id < 1) {
+        if (!is_integer($id) || $id < 1) {
             throw new InvalidIdException();
         }
         return $this->client->get(
@@ -88,9 +89,9 @@ class CustomersEndpoint
      * @throws InvalidIdException If the id is not an integer or negative
      * @throws Exception If the response cannot be parsed
      */
-    public function getCustomerAddresses($id, $page = 1, $pageSize = 50)
+    public function getCustomerAddresses(?int $id, int $page = 1, int $pageSize = 50): Response\GetCustomerAddressesResponse
     {
-        if ($id === null || !is_integer($id) || $id < 1) {
+        if (!is_integer($id) || $id < 1) {
             throw new InvalidIdException();
         }
 
@@ -117,9 +118,9 @@ class CustomersEndpoint
      * @throws InvalidIdException If the id is not an integer or negative
      * @throws Exception If the response cannot be parsed
      */
-    public function getCustomerAddress($id)
+    public function getCustomerAddress(?int $id): Response\GetCustomerAddressResponse
     {
-        if ($id === null || !is_integer($id) || $id < 1) {
+        if (!is_integer($id) || $id < 1) {
             throw new InvalidIdException();
         }
 
@@ -143,9 +144,9 @@ class CustomersEndpoint
      * @throws InvalidIdException If the id is not an integer or negative
      * @throws Exception If the response cannot be parsed
      */
-    public function getCustomerOrders($id, $page = 1, $pageSize = 50)
+    public function getCustomerOrders(?int $id, int $page = 1, int $pageSize = 50): Response\GetOrdersResponse
     {
-        if ($id === null || !is_integer($id) || $id < 1) {
+        if (!is_integer($id) || $id < 1) {
             throw new InvalidIdException();
         }
 
@@ -174,7 +175,7 @@ class CustomersEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function createCustomer(Model\CreateCustomerRequest $request)
+    public function createCustomer(Model\CreateCustomerRequest $request): Response\GetCustomerResponse
     {
         return $this->client->post(
             'customers',
@@ -197,7 +198,7 @@ class CustomersEndpoint
      * @throws InvalidIdException If the customers id is invalid
      * @throws Exception If the response cannot be parsed
      */
-    public function updateCustomer(Model\Customer $customer)
+    public function updateCustomer(Model\Customer $customer): Response\GetCustomersResponse
     {
         if (!is_integer($customer->id) || $customer->id < 1) {
             throw new InvalidIdException();

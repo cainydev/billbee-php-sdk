@@ -25,7 +25,7 @@ class SourceTest extends SerializerTestCase
                 self::assertEquals("test", $result->getApiAccountName());
                 self::assertEquals(70815, $result->getApiAccountId());
                 self::assertEquals(1.0, $result->getExportFactor());
-                self::assertEquals(false, $result->getStockSyncInactive());
+                self::assertFalse($result->getStockSyncInactive());
                 self::assertEquals(2.0, $result->getStockSyncMin());
                 self::assertEquals(3.0, $result->getStockSyncMax());
                 self::assertEquals(1.0, $result->getUnitsPerItem());

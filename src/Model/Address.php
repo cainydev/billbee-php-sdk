@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class Address
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public int $id;
 
     /**
      * @var ?string
@@ -32,7 +33,7 @@ class Address
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $city;
+    public ?string $city;
 
     /**
      * @var ?string
@@ -41,7 +42,7 @@ class Address
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $street;
+    public ?string $street;
 
     /**
      * @var ?string
@@ -50,7 +51,7 @@ class Address
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $company;
+    public ?string $company;
 
     /**
      * @var ?string
@@ -59,7 +60,7 @@ class Address
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $line2;
+    public ?string $line2;
 
     /**
      * @var ?string
@@ -68,7 +69,7 @@ class Address
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $line3;
+    public ?string $line3;
 
     /**
      * @var ?string
@@ -77,7 +78,7 @@ class Address
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $zip;
+    public ?string $zip;
 
     /**
      * @var ?string
@@ -86,7 +87,7 @@ class Address
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $state;
+    public ?string $state;
 
     /**
      * @var ?string
@@ -95,7 +96,7 @@ class Address
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $country;
+    public ?string $country;
 
     /**
      * @var ?string
@@ -104,7 +105,7 @@ class Address
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $countryISO2;
+    public ?string $countryISO2;
 
     /**
      * @var ?string
@@ -113,7 +114,7 @@ class Address
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $firstName;
+    public ?string $firstName;
 
     /**
      * @var ?string
@@ -122,7 +123,7 @@ class Address
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $lastName;
+    public ?string $lastName;
 
     /**
      * @var ?string
@@ -131,7 +132,7 @@ class Address
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $phone;
+    public ?string $phone;
 
     /**
      * @var ?string
@@ -140,7 +141,7 @@ class Address
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $email;
+    public ?string $email;
 
     /**
      * @var ?string
@@ -149,13 +150,13 @@ class Address
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $houseNumber;
+    public ?string $houseNumber;
 
     /**
      * @var mixed
      * Not Mapped
      */
-    public $comment;
+    public mixed $comment;
 
     /**
      * @var ?string
@@ -164,7 +165,7 @@ class Address
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $nameAddition;
+    public ?string $nameAddition;
 
     public function getId(): int
     {

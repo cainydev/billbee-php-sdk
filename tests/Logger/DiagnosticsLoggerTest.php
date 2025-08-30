@@ -19,7 +19,7 @@ use Psr\Log\LoggerInterface;
 class DiagnosticsLoggerTest extends TestCase
 {
     /** @var DiagnosticsLogger */
-    private $logger;
+    private DiagnosticsLogger $logger;
 
     protected function setUp(): void
     {

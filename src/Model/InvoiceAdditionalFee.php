@@ -11,35 +11,35 @@ class InvoiceAdditionalFee
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Type")
      */
-    private $type = '';
+    private ?string $type = '';
 
     /**
      * @var float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("Gross")
      */
-    private $gross = 0.0;
+    private float $gross = 0.0;
 
     /**
      * @var float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("Net")
      */
-    private $net = 0.0;
+    private float $net = 0.0;
 
     /**
      * @var float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("VatAmount")
      */
-    private $vatAmount = 0.0;
+    private float $vatAmount = 0.0;
 
     /**
      * @var float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("VatRate")
      */
-    private $vatRate = 0.0;
+    private float $vatRate = 0.0;
 
     public function getType(): ?string
     {

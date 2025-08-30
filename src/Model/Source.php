@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class Source
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id = null;
+    public ?int $id = null;
 
     /**
      * @var ?string
@@ -32,7 +33,7 @@ class Source
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $source;
+    public ?string $source;
 
     /**
      * @var ?string
@@ -41,7 +42,7 @@ class Source
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $sourceId;
+    public ?string $sourceId;
 
     /**
      * @var ?string
@@ -50,7 +51,7 @@ class Source
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $apiAccountName;
+    public ?string $apiAccountName;
 
     /**
      * @var ?int
@@ -59,7 +60,7 @@ class Source
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $apiAccountId = null;
+    public ?int $apiAccountId = null;
 
     /**
      * @var ?float
@@ -68,7 +69,7 @@ class Source
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $exportFactor = null;
+    public ?float $exportFactor = null;
 
     /**
      * @var ?bool
@@ -77,7 +78,7 @@ class Source
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $stockSyncInactive;
+    public ?bool $stockSyncInactive;
 
     /**
      * @var ?float
@@ -86,7 +87,7 @@ class Source
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $stockSyncMin = null;
+    public ?float $stockSyncMin = null;
 
     /**
      * @var ?float
@@ -95,7 +96,7 @@ class Source
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $stockSyncMax = null;
+    public ?float $stockSyncMax = null;
 
     /**
      * @var ?float
@@ -104,7 +105,7 @@ class Source
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $unitsPerItem;
+    public ?float $unitsPerItem;
 
     /**
      * @var ?array<string, mixed>
@@ -113,7 +114,7 @@ class Source
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $custom = null;
+    public ?array $custom = null;
 
     public function getId(): ?int
     {

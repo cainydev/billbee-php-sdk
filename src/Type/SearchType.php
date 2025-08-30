@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -14,7 +15,7 @@ namespace BillbeeDe\BillbeeAPI\Type;
 
 class SearchType
 {
-    const PRODUCT = "product";
-    const ORDER = "order";
-    const CUSTOMER = "customer";
+    public const PRODUCT = "product";
+    public const ORDER = "order";
+    public const CUSTOMER = "customer";
 }

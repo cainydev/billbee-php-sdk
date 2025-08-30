@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class ShippingProvider
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public int $id;
 
     /**
      * @var ?string
@@ -32,7 +33,7 @@ class ShippingProvider
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $name;
+    public ?string $name;
 
     /**
      * @var ShippingProduct[]
@@ -41,7 +42,7 @@ class ShippingProvider
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $products = [];
+    public array $products = [];
 
     public function getId(): int
     {

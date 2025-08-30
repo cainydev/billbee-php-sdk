@@ -4,6 +4,7 @@ namespace BillbeeDe\Tests\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Model\PartnerOrder;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
+use DateTime;
 
 class PartnerOrderTest extends SerializerTestCase
 {
@@ -27,8 +28,8 @@ class PartnerOrderTest extends SerializerTestCase
                 self::assertEquals("2022-08-17T02:00:00+00:00", $result->getCreatedAt()->format('c'));
                 self::assertEquals("2022-08-17T02:00:00+00:00", $result->getPaidAt()->format('c'));
                 self::assertEquals("2022-08-17T02:00:00+00:00", $result->getShippedAt()->format('c'));
-                self::assertEquals(true, $result->hasInvoice());
-                self::assertEquals(true, $result->canCreateAutoInvoice());
+                self::assertTrue($result->hasInvoice());
+                self::assertTrue($result->canCreateAutoInvoice());
                 self::assertEquals(1, $result->getOrderStateId());
                 self::assertEquals("Bestellt", $result->getOrderStateText());
                 self::assertEquals(113.11, $result->getTotalGross());
@@ -43,11 +44,11 @@ class PartnerOrderTest extends SerializerTestCase
             ->setId(100000187723587)
             ->setExternalId("#19405145")
             ->setInvoiceNumber("12345")
-            ->setInvoiceCreatedAt(new \DateTime("2022-08-17T02:00:00+00:00"))
-            ->setInvoiceDate(new \DateTime("2022-08-17T02:00:00+00:00"))
-            ->setCreatedAt(new \DateTime("2022-08-17T02:00:00+00:00"))
-            ->setPaidAt(new \DateTime("2022-08-17T02:00:00+00:00"))
-            ->setShippedAt(new \DateTime("2022-08-17T02:00:00+00:00"))
+            ->setInvoiceCreatedAt(new DateTime("2022-08-17T02:00:00+00:00"))
+            ->setInvoiceDate(new DateTime("2022-08-17T02:00:00+00:00"))
+            ->setCreatedAt(new DateTime("2022-08-17T02:00:00+00:00"))
+            ->setPaidAt(new DateTime("2022-08-17T02:00:00+00:00"))
+            ->setShippedAt(new DateTime("2022-08-17T02:00:00+00:00"))
             ->setHasInvoice(true)
             ->setCanCreateAutoInvoice(true)
             ->setOrderStateId(1)

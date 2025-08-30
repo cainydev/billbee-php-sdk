@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -29,11 +30,11 @@ class CustomClient extends \GuzzleHttp\Client
 
     /**
      * @param string $method
-     * @param string $uri
+     * @param string|null $uri
      * @param array<string, mixed> $options
      * @return RequestInterface
      */
-    public function createRequest(string $method, ?string $uri, array $options)
+    public function createRequest(string $method, ?string $uri, array $options): RequestInterface
     {
         $options = $this->prepareDefaults($options);
         // Remove request modifying parameter because it can be done up-front.
@@ -44,7 +45,7 @@ class CustomClient extends \GuzzleHttp\Client
         $uri = $this->buildUri($uri, $options);
 
         $this->logger->info(sprintf('Created request: %s %s', strtoupper($method), $uri));
-        if (count($headers) > 0 || strlen($body) > 0) {
+        if (!empty($headers) || !empty($body)) {
             $this->logger->debug('Request headers + body', ['headers' => $headers, 'body' => $body]);
         }
 
@@ -110,7 +111,7 @@ class CustomClient extends \GuzzleHttp\Client
      * @param array<string, mixed> $options
      * @return RequestInterface
      */
-    protected function applyOptions(RequestInterface $request, array &$options)
+    protected function applyOptions(RequestInterface $request, array &$options): RequestInterface
     {
         $modify = [];
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -14,9 +15,9 @@ namespace BillbeeDe\BillbeeAPI\Type;
 
 class SearchMode
 {
-    const _AND = 0;
-    const _OR = 1;
-    const _EXPERT = 2;
-    const _PHRASE_PFX = 3;
-    const _SUGGEST = 4;
+    public const _AND = 0;
+    public const _OR = 1;
+    public const _EXPERT = 2;
+    public const _PHRASE_PFX = 3;
+    public const _SUGGEST = 4;
 }

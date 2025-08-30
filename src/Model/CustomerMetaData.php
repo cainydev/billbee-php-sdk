@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -24,35 +25,35 @@ class CustomerMetaData
      * @Serializer\Type("int")
      * @Serializer\SerializedName("Id")
      */
-    private $id = 0;
+    private int $id = 0;
 
     /**
      * @var int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("TypeId")
      */
-    private $typeId = 0;
+    private int $typeId = 0;
 
     /**
      * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("TypeName")
      */
-    private $typeName = '';
+    private ?string $typeName = '';
 
     /**
      * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("SubType")
      */
-    private $subType = '';
+    private ?string $subType = '';
 
     /**
      * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Value")
      */
-    private $value = '';
+    private ?string $value = '';
 
     public function getId(): int
     {

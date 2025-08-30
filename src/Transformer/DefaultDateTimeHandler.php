@@ -2,6 +2,7 @@
 
 namespace BillbeeDe\BillbeeAPI\Transformer;
 
+use DateTime;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
@@ -10,7 +11,6 @@ use JMS\Serializer\JsonSerializationVisitor;
 
 class DefaultDateTimeHandler implements SubscribingHandlerInterface
 {
-
     /**
      * @return array{direction: int, format: string, type: string, method: string}[]
      */
@@ -37,7 +37,7 @@ class DefaultDateTimeHandler implements SubscribingHandlerInterface
      */
     public function serializeDateTimeToJson(
         JsonSerializationVisitor $visitor,
-        \DateTime $date,
+        DateTime $date,
         array $type,
         Context $context
     ): string {
@@ -52,7 +52,7 @@ class DefaultDateTimeHandler implements SubscribingHandlerInterface
         string $dateAsString,
         array $type,
         Context $context
-    ): \DateTime {
-        return new \DateTime($dateAsString);
+    ): DateTime {
+        return new DateTime($dateAsString);
     }
 }

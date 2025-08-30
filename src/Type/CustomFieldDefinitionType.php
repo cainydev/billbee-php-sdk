@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -14,8 +15,8 @@ namespace BillbeeDe\BillbeeAPI\Type;
 
 class CustomFieldDefinitionType
 {
-    const TEXT_FIELD = 0;
-    const TEXT_AREA = 1;
-    const NUMBER = 2;
-    const DROP_DOWN = 3;
+    public const TEXT_FIELD = 0;
+    public const TEXT_AREA = 1;
+    public const NUMBER = 2;
+    public const DROP_DOWN = 3;
 }

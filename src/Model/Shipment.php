@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class Shipment
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shippingId;
+    public ?string $shippingId;
 
     /**
      * @var ?string
@@ -32,7 +33,7 @@ class Shipment
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $orderId;
+    public ?string $orderId;
 
     /**
      * @var ?string
@@ -41,7 +42,7 @@ class Shipment
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $comment;
+    public ?string $comment;
 
     /**
      * @var ?int
@@ -50,7 +51,7 @@ class Shipment
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shippingProviderId;
+    public ?int $shippingProviderId;
 
     /**
      * @var ?int
@@ -59,7 +60,7 @@ class Shipment
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shippingProductId;
+    public ?int $shippingProductId;
 
     /**
      * @var ?int
@@ -68,7 +69,7 @@ class Shipment
      *
      * @see \BillbeeDe\BillbeeAPI\Type\ShippingCarrier
      */
-    private $carrierId;
+    private ?int $carrierId;
 
     /**
      * @var ?int
@@ -77,7 +78,7 @@ class Shipment
      *
      * @see \BillbeeDe\BillbeeAPI\Type\ShipmentType
      */
-    private $type;
+    private ?int $type;
 
     /**
      * Creates a shipment based on models

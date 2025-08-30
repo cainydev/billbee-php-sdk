@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class BillOfMaterialProduct
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $articleId;
+    public int $articleId;
 
     /**
      * @var float
@@ -32,7 +33,7 @@ class BillOfMaterialProduct
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $amount;
+    public float $amount;
 
     /**
      * @var ?string
@@ -41,7 +42,7 @@ class BillOfMaterialProduct
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $sku;
+    public ?string $sku;
 
     public function getArticleId(): int
     {

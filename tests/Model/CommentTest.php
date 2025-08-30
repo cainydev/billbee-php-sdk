@@ -4,6 +4,7 @@ namespace BillbeeDe\Tests\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Model\Comment;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
+use DateTime;
 
 class CommentTest extends SerializerTestCase
 {
@@ -15,7 +16,7 @@ class CommentTest extends SerializerTestCase
             ->setFromCustomer(true)
             ->setName("customer")
             ->setText("test")
-            ->setCreated(new \DateTime("2022-08-16T09:05:01.787Z"));
+            ->setCreated(new DateTime("2022-08-16T09:05:01.787Z"));
         self::assertSerialize('Model/comment.json', $result);
     }
 
@@ -26,7 +27,7 @@ class CommentTest extends SerializerTestCase
             Comment::class,
             function (Comment $result) {
                 self::assertEquals(1, $result->getId());
-                self::assertEquals(true, $result->isFromCustomer());
+                self::assertTrue($result->isFromCustomer());
                 self::assertEquals("customer", $result->getName());
                 self::assertEquals("test", $result->getText());
                 self::assertEquals("2022-08-16T09:05:01+00:00", $result->getCreated()->format('c'));

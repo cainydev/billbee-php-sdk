@@ -11,6 +11,7 @@ use BillbeeDe\BillbeeAPI\Model\OrderItemAttribute;
 use BillbeeDe\BillbeeAPI\Model\OrderUser;
 use BillbeeDe\BillbeeAPI\Model\SoldProduct;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
+use DateTime;
 
 class OrderTest extends SerializerTestCase
 {
@@ -28,7 +29,7 @@ class OrderTest extends SerializerTestCase
             function (Order $result) {
                 self::assertEquals(15.18, $result->getRebateDifference());
                 self::assertEquals([], $result->getShipments());
-                self::assertEquals(false, $result->isAcceptLossOfReturnRight());
+                self::assertFalse($result->isAcceptLossOfReturnRight());
                 self::assertEquals(100000186018330, $result->getId());
                 self::assertEquals("Id", $result->getExternalId());
                 self::assertEquals("Test", $result->getOrderNumber());
@@ -105,22 +106,22 @@ class OrderTest extends SerializerTestCase
             ->setOrderNumber("Test")
             ->setState(1)
             ->setVatMode(0)
-            ->setCreatedAt(new \DateTime("2022-07-22T00:00:00"))
-            ->setShippedAt(new \DateTime("2022-08-17T00:00:00"))
-            ->setConfirmedAt(new \DateTime("2022-08-17T09:47:25+00:00"))
-            ->setPayedAt(new \DateTime("2022-08-10T00:00:00"))
+            ->setCreatedAt(new DateTime("2022-07-22T00:00:00"))
+            ->setShippedAt(new DateTime("2022-08-17T00:00:00"))
+            ->setConfirmedAt(new DateTime("2022-08-17T09:47:25+00:00"))
+            ->setPayedAt(new DateTime("2022-08-10T00:00:00"))
             ->setSellerComment("Eigene Notizen zu der Bestellung")
             ->setInvoiceNumberPrefix("RN-2022-00")
             ->setInvoiceNumberPostfix("-xx")
             ->setInvoiceNumber(83)
-            ->setInvoiceDate(new \DateTime("2022-07-22T09:54:25.31"))
+            ->setInvoiceDate(new DateTime("2022-07-22T09:54:25.31"))
             ->setPaymentMethod(22)
             ->setShippingCost(12)
             ->setTotalCost(170.76)
             ->setAdjustmentCost(0)
             ->setAdjustmentReason("test")
             ->setCurrency("EUR")
-            ->setUpdatedAt(new \DateTime("2022-08-17T09:47:25+00:00"))
+            ->setUpdatedAt(new DateTime("2022-08-17T09:47:25+00:00"))
             ->setTaxRate1(19)
             ->setTaxRate2(7)
             ->setId(100000186018330)
@@ -146,7 +147,7 @@ class OrderTest extends SerializerTestCase
             ->setPaymentReference("reference")
             ->setCustomer(CustomerTest::getCustomer())
             ->setPayments([PaymentTest::getPayment()])
-            ->setLastModifiedAt(new \DateTime("2022-08-17T09:47:25.03"))
+            ->setLastModifiedAt(new DateTime("2022-08-17T09:47:25.03"))
             ->setApiAccountId(92372)
             ->setApiAccountName("test")
             ->setMerchantVatId("1234")
@@ -157,7 +158,7 @@ class OrderTest extends SerializerTestCase
                     ->setFromCustomer(true)
                     ->setName("customer")
                     ->setText("test")
-                    ->setCreated(new \DateTime("2022-08-16T09:05:01.787Z"))
+                    ->setCreated(new DateTime("2022-08-16T09:05:01.787Z"))
             ])
             ->setInvoiceAddress(
                 (new Address())

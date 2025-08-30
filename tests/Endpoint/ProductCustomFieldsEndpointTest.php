@@ -22,10 +22,10 @@ use PHPUnit\Framework\TestCase;
 class ProductCustomFieldsEndpointTest extends TestCase
 {
     /** @var ProductCustomFieldsEndpoint */
-    private $endpoint;
+    private ProductCustomFieldsEndpoint $endpoint;
 
     /** @var TestClient */
-    private $client;
+    private TestClient $client;
 
     protected function setUp(): void
     {

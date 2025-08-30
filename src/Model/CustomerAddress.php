@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -16,8 +17,8 @@ use JMS\Serializer\Annotation as Serializer;
 
 class CustomerAddress
 {
-    const TYPE_INVOICE = 1;
-    const TYPE_DELIVERY = 2;
+    public const TYPE_INVOICE = 1;
+    public const TYPE_DELIVERY = 2;
 
     /**
      * @var ?int
@@ -26,7 +27,7 @@ class CustomerAddress
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public ?int $id;
 
     /**
      * @var int
@@ -35,7 +36,7 @@ class CustomerAddress
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $addressType = self::TYPE_INVOICE;
+    public int $addressType = self::TYPE_INVOICE;
 
     /**
      * @var int
@@ -44,7 +45,7 @@ class CustomerAddress
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $customerId;
+    public int $customerId;
 
     /**
      * @var ?string
@@ -53,7 +54,7 @@ class CustomerAddress
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $company;
+    public ?string $company;
 
     /**
      * @var ?string
@@ -62,7 +63,7 @@ class CustomerAddress
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $firstName;
+    public ?string $firstName;
 
     /**
      * @var ?string
@@ -71,7 +72,7 @@ class CustomerAddress
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $lastName;
+    public ?string $lastName;
 
     /**
      * @var ?string
@@ -80,7 +81,7 @@ class CustomerAddress
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $name2;
+    public ?string $name2;
 
     /**
      * @var ?string
@@ -89,7 +90,7 @@ class CustomerAddress
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $street;
+    public ?string $street;
 
     /**
      * @var ?string
@@ -98,7 +99,7 @@ class CustomerAddress
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $houseNumber;
+    public ?string $houseNumber;
 
     /**
      * @var ?string
@@ -107,7 +108,7 @@ class CustomerAddress
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $zip;
+    public ?string $zip;
 
     /**
      * @var ?string
@@ -116,7 +117,7 @@ class CustomerAddress
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $city;
+    public ?string $city;
 
     /**
      * @var ?string
@@ -125,7 +126,7 @@ class CustomerAddress
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $state;
+    public ?string $state;
 
     /**
      * @var ?string
@@ -134,7 +135,7 @@ class CustomerAddress
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $countryCode;
+    public ?string $countryCode;
 
     /**
      * @var ?string
@@ -143,7 +144,7 @@ class CustomerAddress
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $email;
+    public ?string $email;
 
     /**
      * @var ?string
@@ -152,7 +153,7 @@ class CustomerAddress
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $phone1;
+    public ?string $phone1;
 
     /**
      * @var ?string
@@ -161,7 +162,7 @@ class CustomerAddress
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $phone2;
+    public ?string $phone2;
 
     /**
      * @var ?string
@@ -170,7 +171,7 @@ class CustomerAddress
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $fax;
+    public ?string $fax;
 
     /**
      * @var ?string
@@ -179,7 +180,7 @@ class CustomerAddress
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $fullAddress;
+    public ?string $fullAddress;
 
     /**
      * @var ?string
@@ -188,7 +189,7 @@ class CustomerAddress
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $addressAddition;
+    public ?string $addressAddition;
 
     public function getId(): ?int
     {

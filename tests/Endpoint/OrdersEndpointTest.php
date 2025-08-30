@@ -37,16 +37,16 @@ use Psr\Log\LoggerInterface;
 class OrdersEndpointTest extends TestCase
 {
     /** @var OrdersEndpoint */
-    private $endpoint;
+    private OrdersEndpoint $endpoint;
 
     /** @var TestClient */
-    private $client;
+    private TestClient $client;
 
-    /** @var LoggerInterface */
-    private $loggerMock;
+    /** @var LoggerInterface|MockObject */
+    private LoggerInterface|MockObject $loggerMock;
 
-    /** @var SerializerInterface&MockObject */
-    private $mockSerializer;
+    /** @var MockObject|SerializerInterface */
+    private MockObject|SerializerInterface $mockSerializer;
 
     protected function setUp(): void
     {

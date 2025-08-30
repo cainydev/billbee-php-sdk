@@ -5,7 +5,7 @@
         "OrderReference": "ref",
         "ShippingId": "shipping id",
         "TrackingUrl": "tracking url",
-        "LabelDataPdf": "data",
+        "LabelDataPdf": "Data",
         "ExportDocsPdf": "export docs pdf",
         "Carrier": "carrier",
         "ShippingDate": "2022-08-10T00:00:00"

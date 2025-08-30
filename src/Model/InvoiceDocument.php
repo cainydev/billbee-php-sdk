@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -12,6 +13,7 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
+use DateTime;
 use JMS\Serializer\Annotation as Serializer;
 
 class InvoiceDocument
@@ -23,7 +25,7 @@ class InvoiceDocument
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $orderNumber;
+    public ?string $orderNumber;
 
     /**
      * @var ?string
@@ -32,7 +34,7 @@ class InvoiceDocument
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $invoiceNumber;
+    public ?string $invoiceNumber;
 
     /**
      * @var ?string
@@ -41,16 +43,16 @@ class InvoiceDocument
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $pdfData;
+    public ?string $pdfData;
 
     /**
-     * @var ?\DateTime
+     * @var ?DateTime
      * @Serializer\Type("DateTime<'Y-m-d\TH:i:s.v'>")
      * @Serializer\SerializedName("InvoiceDate")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $invoiceDate;
+    public ?DateTime $invoiceDate;
 
     /**
      * @var float
@@ -59,7 +61,7 @@ class InvoiceDocument
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $totalGross;
+    public float $totalGross;
 
     /**
      * @var float
@@ -68,7 +70,7 @@ class InvoiceDocument
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $totalNet;
+    public float $totalNet;
 
     /**
      * @var ?string
@@ -77,7 +79,7 @@ class InvoiceDocument
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $pdfDownloadUrl;
+    public ?string $pdfDownloadUrl;
 
     public function getOrderNumber(): ?string
     {
@@ -112,12 +114,12 @@ class InvoiceDocument
         return $this;
     }
 
-    public function getInvoiceDate(): ?\DateTime
+    public function getInvoiceDate(): ?DateTime
     {
         return $this->invoiceDate;
     }
 
-    public function setInvoiceDate(?\DateTime $invoiceDate): self
+    public function setInvoiceDate(?DateTime $invoiceDate): self
     {
         $this->invoiceDate = $invoiceDate;
         return $this;

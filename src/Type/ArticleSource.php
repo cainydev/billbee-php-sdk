@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -12,7 +13,7 @@ namespace BillbeeDe\BillbeeAPI\Type;
 
 class ArticleSource
 {
-    const ORDER_POSITION = 0;
-    const ARTICLE_TITLE = 1;
-    const ARTICLE_INVOICE_TEXT = 2;
+    public const ORDER_POSITION = 0;
+    public const ARTICLE_TITLE = 1;
+    public const ARTICLE_INVOICE_TEXT = 2;
 }

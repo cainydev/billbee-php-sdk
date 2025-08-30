@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -25,7 +26,7 @@ class StockCode
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $sku;
+    public ?string $sku;
 
     /**
      * The id of the stock
@@ -36,7 +37,7 @@ class StockCode
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $stockId = null;
+    public ?int $stockId = null;
 
     /**
      * The stock code
@@ -47,7 +48,7 @@ class StockCode
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $stockCode;
+    public ?string $stockCode;
 
     public static function fromProduct(Product $product): StockCode
     {

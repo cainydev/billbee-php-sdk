@@ -131,7 +131,7 @@ class StockTest extends SerializerTestCase
                 self::assertEquals(12.33, $result->getOldQuantity());
                 self::assertEquals(19.66, $result->getNewQuantity());
                 self::assertEquals(7.33, $result->getDeltaQuantity());
-                self::assertEquals(true, $result->getAutosubtractReservedAmount());
+                self::assertTrue($result->getAutosubtractReservedAmount());
             }
         );
     }

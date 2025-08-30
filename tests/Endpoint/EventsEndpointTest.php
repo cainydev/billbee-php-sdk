@@ -21,10 +21,10 @@ use PHPUnit\Framework\TestCase;
 class EventsEndpointTest extends TestCase
 {
     /** @var EventsEndpoint */
-    private $endpoint;
+    private EventsEndpoint $endpoint;
 
     /** @var TestClient */
-    private $client;
+    private TestClient $client;
 
     protected function setUp(): void
     {

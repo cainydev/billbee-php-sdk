@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -15,7 +16,10 @@ namespace BillbeeDe\BillbeeAPI\Endpoint;
 use BillbeeDe\BillbeeAPI\ClientInterface;
 use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Model as Model;
+use BillbeeDe\BillbeeAPI\Model\StockCode;
 use BillbeeDe\BillbeeAPI\Response as Response;
+use BillbeeDe\BillbeeAPI\Response\BaseResponse;
+use BillbeeDe\BillbeeAPI\Response\GetProductResponse;
 use BillbeeDe\BillbeeAPI\Type as Type;
 use DateTime;
 use Exception;
@@ -24,10 +28,10 @@ use JMS\Serializer\SerializerInterface;
 class ProductsEndpoint
 {
     /** @var ClientInterface */
-    private $client;
+    private ClientInterface $client;
 
     /** @var SerializerInterface */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     public function __construct(ClientInterface $client, SerializerInterface $serializer)
     {
@@ -46,14 +50,14 @@ class ProductsEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function getProducts($page = 1, $pageSize = 50, DateTime $minCreatedAt = null)
+    public function getProducts(int $page = 1, int $pageSize = 50, DateTime $minCreatedAt = null): Response\GetProductsResponse
     {
         $query = [
             'page' => max(1, $page),
             'pageSize' => max(1, $pageSize),
         ];
 
-        if ($minCreatedAt !== null && $minCreatedAt instanceof DateTime) {
+        if ($minCreatedAt instanceof DateTime) {
             $query['minCreatedAt'] = $minCreatedAt->format('c');
         }
 
@@ -65,9 +69,9 @@ class ProductsEndpoint
     }
 
     /**
-     * Get a single product by Id
+     * Get a single product by ID
      *
-     * @param int $productId The product id
+     * @param int|string $productId The product ID
      * @param string $lookupBy Either the value id, ean or the value sku to specify the meaning of the id parameter
      * @return Response\GetProductResponse The product response
      *
@@ -75,7 +79,7 @@ class ProductsEndpoint
      * @throws Exception If the response cannot be parsed
      * @see \BillbeeDe\BillbeeAPI\Type\ProductLookupBy
      */
-    public function getProduct($productId, $lookupBy = Type\ProductLookupBy::ID)
+    public function getProduct(int|string $productId, string $lookupBy = Type\ProductLookupBy::ID): Response\GetProductResponse
     {
         return $this->client->get(
             'products/' . $productId,
@@ -92,7 +96,7 @@ class ProductsEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function getCategories()
+    public function getCategories(): Response\GetCategoriesResponse
     {
         return $this->client->get(
             'products/category',
@@ -112,7 +116,7 @@ class ProductsEndpoint
      *
      * @see Client::patchProduct($productId, $model)
      */
-    public function getPatchableProductFields()
+    public function getPatchableProductFields(): Response\GetPatchableFieldsResponse
     {
         return $this->client->get(
             'products/PatchableFields',
@@ -120,10 +124,6 @@ class ProductsEndpoint
             Response\GetPatchableFieldsResponse::class
         );
     }
-
-    #endregion
-
-    #region POST
 
     /**
      * Updates the stock for a single product
@@ -134,7 +134,7 @@ class ProductsEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function updateStock(Model\Stock $stockModel)
+    public function updateStock(Model\Stock $stockModel): Response\UpdateStockResponse
     {
         return $this->client->post(
             'products/updatestock',
@@ -152,7 +152,7 @@ class ProductsEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function updateStockMultiple(array $stockModels)
+    public function updateStockMultiple(array $stockModels): array
     {
         return $this->client->post(
             'products/updatestockmultiple',
@@ -164,11 +164,10 @@ class ProductsEndpoint
     /**
      * Updates the stock code for a single  products
      *
-     * @param Model\StockCode $stockCodeModel The stock code model
-     * @return Response\BaseResponse<array{}> The Response
+     * @param StockCode $stockCodeModel The stock code model
+     * @return BaseResponse|null The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws Exception If the response cannot be parsed
      */
     public function updateStockCode(Model\StockCode $stockCodeModel): ?Response\BaseResponse
     {
@@ -180,6 +179,15 @@ class ProductsEndpoint
     }
 
     /**
+     * @param mixed $data
+     * @return string
+     */
+    private function serialize(mixed $data): string
+    {
+        return $this->serializer->serialize($data, 'json');
+    }
+
+    /**
      * Creates a new product
      *
      * @param Model\Product $product
@@ -188,7 +196,7 @@ class ProductsEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function createProduct(Model\Product $product)
+    public function createProduct(Model\Product $product): Response\GetProductResponse
     {
         return $this->client->post(
             'products',
@@ -197,21 +205,15 @@ class ProductsEndpoint
         );
     }
 
-    #endregion
-
-    #region PATCH
-
     /**
      * Updates one or more fields of a product
      *
      * @param int $productId The internal id of the product
      * @param array<string, mixed> $model The fields to patch
      *
-     * @return Response\GetProductResponse The order
+     * @return GetProductResponse|null The order
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws Exception If the response cannot be parsed
-     *
      * @see Client::getPatchableProductFields()
      */
     public function patchProduct(int $productId, array $model): ?Response\GetProductResponse
@@ -223,14 +225,10 @@ class ProductsEndpoint
         );
     }
 
-    #endregion
-
-    #region DELETE
-
     /**
      * Deletes a product by id
      *
-     * @param int $productId The Id of the product
+     * @param int $productId The ID of the product
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
@@ -242,11 +240,5 @@ class ProductsEndpoint
             [],
             Response\BaseResponse::class
         );
-    }
-
-    /** @param mixed $data */
-    private function serialize($data): string
-    {
-        return $this->serializer->serialize($data, 'json');
     }
 }

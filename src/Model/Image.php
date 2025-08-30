@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class Image
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public int $id;
 
     /**
      * @var ?string
@@ -32,7 +33,7 @@ class Image
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $url = '';
+    public ?string $url = '';
 
     /**
      * @var ?string
@@ -41,7 +42,7 @@ class Image
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $thumbPathExt = '';
+    public ?string $thumbPathExt = '';
 
     /**
      * @var ?string
@@ -50,7 +51,7 @@ class Image
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $thumbUrl = '';
+    public ?string $thumbUrl = '';
 
     /**
      * @var ?int
@@ -59,7 +60,7 @@ class Image
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $position;
+    public ?int $position;
 
     /**
      * @var bool
@@ -68,14 +69,14 @@ class Image
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $isDefault = true;
+    public bool $isDefault = true;
 
     /**
      * @var int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("ArticleId")
      */
-    private $articleId = 0;
+    private int $articleId = 0;
 
     public function getId(): int
     {

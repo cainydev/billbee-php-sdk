@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -20,8 +21,7 @@ use BillbeeDe\BillbeeAPI\Type as Type;
 class SearchEndpoint
 {
     /** @var ClientInterface */
-    private $client;
-
+    private ClientInterface $client;
 
     public function __construct(ClientInterface $client)
     {
@@ -30,7 +30,7 @@ class SearchEndpoint
 
     /**
      * Search for products, customers and orders. Type can be "order", "product" and / or "customer"
-     * Term can contains lucene query syntax
+     * Term can contain lucene query syntax
      *
      * @param string $term The search string
      * @param string[] $type The data types which should be searched for the search string
@@ -40,14 +40,15 @@ class SearchEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      */
     public function search(
-        $term,
-        $type = [
+        string $term,
+        array  $type = [
             Type\SearchType::PRODUCT,
             Type\SearchType::ORDER,
             Type\SearchType::CUSTOMER,
         ],
-        $searchMode = Type\SearchMode::_EXPERT
-    ) {
+        int    $searchMode = Type\SearchMode::_EXPERT
+    ): Response\SearchDataResponse
+    {
         return $this->client->post(
             'search',
             [

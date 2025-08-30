@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class CustomFieldDefinition
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public ?int $id;
 
     /**
      * @var ?string
@@ -32,7 +33,7 @@ class CustomFieldDefinition
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $name;
+    public ?string $name;
 
     /**
      * @var ?array<string, mixed>
@@ -41,7 +42,7 @@ class CustomFieldDefinition
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $configuration;
+    public ?array $configuration;
 
     /**
      * @var ?int
@@ -51,7 +52,7 @@ class CustomFieldDefinition
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $type;
+    public ?int $type;
 
     /**
      * @var bool
@@ -60,7 +61,7 @@ class CustomFieldDefinition
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $isNullable;
+    public bool $isNullable;
 
     public function getId(): ?int
     {

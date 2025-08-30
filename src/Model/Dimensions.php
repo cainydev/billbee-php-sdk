@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class Dimensions
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $width;
+    public float $width;
 
     /**
      * @var float
@@ -32,7 +33,7 @@ class Dimensions
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $height;
+    public float $height;
 
     /**
      * @var float
@@ -41,7 +42,7 @@ class Dimensions
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $length;
+    public float $length;
 
     /**
      * @param float $width The width

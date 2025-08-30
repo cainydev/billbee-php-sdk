@@ -4,6 +4,7 @@ namespace BillbeeDe\Tests\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Model\OrderHistoryEntry;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
+use DateTime;
 
 class OrderHistoryEntryTest extends SerializerTestCase
 {
@@ -31,7 +32,7 @@ class OrderHistoryEntryTest extends SerializerTestCase
     public static function getOrderHistoryEntry(): OrderHistoryEntry
     {
         return (new OrderHistoryEntry())
-            ->setCreated(new \DateTime("2022-07-22T09:54:00+00:00"))
+            ->setCreated(new DateTime("2022-07-22T09:54:00+00:00"))
             ->setEventTypeName("Auftrag eingelesen")
             ->setText("Der Auftrag wurde eingelesen")
             ->setEmployeeName("max")

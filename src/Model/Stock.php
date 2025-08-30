@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -24,7 +25,7 @@ class Stock
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    protected $sku;
+    protected ?string $sku;
 
     /**
      * @var ?int
@@ -34,7 +35,7 @@ class Stock
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    protected $stockId = null;
+    protected ?int $stockId = null;
 
     /**
      * @var ?string
@@ -44,7 +45,7 @@ class Stock
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    protected $reason;
+    protected ?string $reason;
 
     /**
      * @var ?float
@@ -54,7 +55,7 @@ class Stock
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    protected $oldQuantity = 0;
+    protected int|null|float $oldQuantity = 0;
 
     /**
      * @var ?float
@@ -64,7 +65,7 @@ class Stock
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    protected $newQuantity = 0;
+    protected int|null|float $newQuantity = 0;
 
     /**
      * @var float
@@ -74,7 +75,7 @@ class Stock
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    protected $deltaQuantity = 0;
+    protected int|float $deltaQuantity = 0;
 
     /**
      * @var bool
@@ -84,7 +85,7 @@ class Stock
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    protected $autosubtractReservedAmount = false;
+    protected bool $autosubtractReservedAmount = false;
 
     public static function fromProduct(Product $product): Stock
     {

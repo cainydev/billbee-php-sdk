@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -18,100 +19,100 @@ use JMS\Serializer\Annotation as Serializer;
 class Product
 {
     // Product Types
-    const TYPE_PRODUCT = 1;
-    const TYPE_BUNDLE = 2;
+    public const TYPE_PRODUCT = 1;
+    public const TYPE_BUNDLE = 2;
 
     // VAT Indexes
-    const VAT_INDEX_NORMAL = 1;
-    const VAT_INDEX_REDUCED = 2;
+    public const VAT_INDEX_NORMAL = 1;
+    public const VAT_INDEX_REDUCED = 2;
 
     // Units
-    const UNIT_PIECE = 1;
-    const UNIT_PAIR = 15;
-    const UNIT_GRAM = 16;
-    const UNIT_100_GRAM = 4;
-    const UNIT_KG = 2;
-    const UNIT_MILLILITER = 6;
-    const UNIT_LITER = 5;
-    const UNIT_METER = 3;
-    const UNIT_SQUARE_METER = 7;
-    const UNIT_CUBIC_METER = 8;
-    const UNIT_YARD = 9;
-    const UNIT_FAT_QUARTER = 10;
-    const UNIT_OUNCE = 11;
-    const UNIT_LBS = 12;
-    const UNIT_FLUID_OUNCE = 13;
-    const UNIT_GALLON = 14;
+    public const UNIT_PIECE = 1;
+    public const UNIT_PAIR = 15;
+    public const UNIT_GRAM = 16;
+    public const UNIT_100_GRAM = 4;
+    public const UNIT_KG = 2;
+    public const UNIT_MILLILITER = 6;
+    public const UNIT_LITER = 5;
+    public const UNIT_METER = 3;
+    public const UNIT_SQUARE_METER = 7;
+    public const UNIT_CUBIC_METER = 8;
+    public const UNIT_YARD = 9;
+    public const UNIT_FAT_QUARTER = 10;
+    public const UNIT_OUNCE = 11;
+    public const UNIT_LBS = 12;
+    public const UNIT_FLUID_OUNCE = 13;
+    public const UNIT_GALLON = 14;
 
     // Delivery Time
-    const DELIVERY_NA = null;
-    const DELIVERY_1_2_DAYS = 1;
-    const DELIVERY_3_5_DAYS = 2;
-    const DELIVERY_6_9_DAYS = 3;
-    const DELIVERY_10_14_DAYS = 4;
-    const DELIVERY_15_21_DAYS = 5;
-    const DELIVERY_4_WEEKS = 6;
-    const DELIVERY_5_WEEKS = 7;
-    const DELIVERY_6_WEEKS = 8;
-    const DELIVERY_7_WEEKS = 9;
-    const DELIVERY_8_WEEKS = 10;
-    const DELIVERY_9_WEEKS = 11;
-    const DELIVERY_10_WEEKS = 12;
+    public const DELIVERY_NA = null;
+    public const DELIVERY_1_2_DAYS = 1;
+    public const DELIVERY_3_5_DAYS = 2;
+    public const DELIVERY_6_9_DAYS = 3;
+    public const DELIVERY_10_14_DAYS = 4;
+    public const DELIVERY_15_21_DAYS = 5;
+    public const DELIVERY_4_WEEKS = 6;
+    public const DELIVERY_5_WEEKS = 7;
+    public const DELIVERY_6_WEEKS = 8;
+    public const DELIVERY_7_WEEKS = 9;
+    public const DELIVERY_8_WEEKS = 10;
+    public const DELIVERY_9_WEEKS = 11;
+    public const DELIVERY_10_WEEKS = 12;
 
     // Recipient
-    const RECIPIENT_NA = null;
-    const RECIPIENT_BABIES = 1;
-    const RECIPIENT_BABY_BOYS = 2;
-    const RECIPIENT_BABY_GIRLS = 3;
-    const RECIPIENT_WOMAN = 4;
-    const RECIPIENT_PETS = 5;
-    const RECIPIENT_DOGS = 6;
-    const RECIPIENT_TEENAGERS = 7;
-    const RECIPIENT_BOYS = 8;
-    const RECIPIENT_CATS = 9;
-    const RECIPIENT_CHILDREN = 10;
-    const RECIPIENT_GIRLS = 11;
-    const RECIPIENT_MEN = 12;
-    const RECIPIENT_TEEN_BOYS = 13;
-    const RECIPIENT_TEEN_GIRLS = 14;
-    const RECIPIENT_UNISEX = 15;
-    const RECIPIENT_BIRDS = 16;
+    public const RECIPIENT_NA = null;
+    public const RECIPIENT_BABIES = 1;
+    public const RECIPIENT_BABY_BOYS = 2;
+    public const RECIPIENT_BABY_GIRLS = 3;
+    public const RECIPIENT_WOMAN = 4;
+    public const RECIPIENT_PETS = 5;
+    public const RECIPIENT_DOGS = 6;
+    public const RECIPIENT_TEENAGERS = 7;
+    public const RECIPIENT_BOYS = 8;
+    public const RECIPIENT_CATS = 9;
+    public const RECIPIENT_CHILDREN = 10;
+    public const RECIPIENT_GIRLS = 11;
+    public const RECIPIENT_MEN = 12;
+    public const RECIPIENT_TEEN_BOYS = 13;
+    public const RECIPIENT_TEEN_GIRLS = 14;
+    public const RECIPIENT_UNISEX = 15;
+    public const RECIPIENT_BIRDS = 16;
 
     // Occasion
-    const OCCASION_NA = null;
-    const OCCASION_GRADUATION = 1;
-    const OCCASION_SYMPATHY = 2;
-    const OCCASION_BAR_OR_BAT_MITZVAH = 3;
-    const OCCASION_CANADA_DAY = 4;
-    const OCCASION_CHINESE_NEW_YEAR = 5;
-    const OCCASION_CINCO_DE_MAYO = 6;
-    const OCCASION_DAY_OF_THE_DEAD = 7;
-    const OCCASION_JULY_4TH = 8;
-    const OCCASION_EID = 9;
-    const OCCASION_BIRTHDAY = 10;
-    const OCCASION_GET_WELL = 11;
-    const OCCASION_HALLOWEEN = 12;
-    const OCCASION_HANUKKAH = 13;
-    const OCCASION_HOUSEWARMING = 14;
-    const OCCASION_WEDDING = 15;
-    const OCCASION_ANNIVERSARY = 16;
-    const OCCASION_CONFIRMATION = 17;
-    const OCCASION_KWANZAA = 18;
-    const OCCASION_MOTHERS_DAY = 19;
-    const OCCASION_NEW_BABY = 20;
-    const OCCASION_NEW_YEARS = 21;
-    const OCCASION_EASTER = 22;
-    const OCCASION_PROM = 23;
-    const OCCASION_QUINCEANERA = 24;
-    const OCCASION_RETIREMENT = 25;
-    const OCCASION_ST_PATRICKS_DAY = 26;
-    const OCCASION_SWEET_16 = 27;
-    const OCCASION_BAPTISM = 28;
-    const OCCASION_THANKSGIVING = 29;
-    const OCCASION_VALENTINES = 30;
-    const OCCASION_FATHERS_DAY = 31;
-    const OCCASION_ENGAGEMENT = 32;
-    const OCCASION_CHRISTMAS = 33;
+    public const OCCASION_NA = null;
+    public const OCCASION_GRADUATION = 1;
+    public const OCCASION_SYMPATHY = 2;
+    public const OCCASION_BAR_OR_BAT_MITZVAH = 3;
+    public const OCCASION_CANADA_DAY = 4;
+    public const OCCASION_CHINESE_NEW_YEAR = 5;
+    public const OCCASION_CINCO_DE_MAYO = 6;
+    public const OCCASION_DAY_OF_THE_DEAD = 7;
+    public const OCCASION_JULY_4TH = 8;
+    public const OCCASION_EID = 9;
+    public const OCCASION_BIRTHDAY = 10;
+    public const OCCASION_GET_WELL = 11;
+    public const OCCASION_HALLOWEEN = 12;
+    public const OCCASION_HANUKKAH = 13;
+    public const OCCASION_HOUSEWARMING = 14;
+    public const OCCASION_WEDDING = 15;
+    public const OCCASION_ANNIVERSARY = 16;
+    public const OCCASION_CONFIRMATION = 17;
+    public const OCCASION_KWANZAA = 18;
+    public const OCCASION_MOTHERS_DAY = 19;
+    public const OCCASION_NEW_BABY = 20;
+    public const OCCASION_NEW_YEARS = 21;
+    public const OCCASION_EASTER = 22;
+    public const OCCASION_PROM = 23;
+    public const OCCASION_QUINCEANERA = 24;
+    public const OCCASION_RETIREMENT = 25;
+    public const OCCASION_ST_PATRICKS_DAY = 26;
+    public const OCCASION_SWEET_16 = 27;
+    public const OCCASION_BAPTISM = 28;
+    public const OCCASION_THANKSGIVING = 29;
+    public const OCCASION_VALENTINES = 30;
+    public const OCCASION_FATHERS_DAY = 31;
+    public const OCCASION_ENGAGEMENT = 32;
+    public const OCCASION_CHRISTMAS = 33;
 
     /**
      * @var int
@@ -120,7 +121,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public int $id;
 
     /**
      * @var int
@@ -129,7 +130,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $type = Product::TYPE_PRODUCT;
+    public int $type = Product::TYPE_PRODUCT;
 
     /**
      * @var TranslatableText[]
@@ -138,7 +139,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $title = null;
+    public ?array $title = null;
 
     /**
      * @var TranslatableText[]
@@ -147,7 +148,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $invoiceText = [];
+    public array $invoiceText = [];
 
     /**
      * @var TranslatableText[]
@@ -156,7 +157,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shortDescription = [];
+    public array $shortDescription = [];
 
     /**
      * @var Image[]
@@ -165,7 +166,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $images = [];
+    public array $images = [];
 
     /**
      * @var TranslatableText[]
@@ -174,7 +175,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $description = [];
+    public array $description = [];
 
     /**
      * @var TranslatableText[]
@@ -183,7 +184,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $attributes = [];
+    public array $attributes = [];
 
     /**
      * @var ?string
@@ -192,7 +193,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $sku = null;
+    public ?string $sku = null;
 
     /**
      * @var ?string
@@ -201,7 +202,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $ean = null;
+    public ?string $ean = null;
 
     /**
      * @var ?Source[]
@@ -210,7 +211,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $sources = [];
+    public ?array $sources = [];
 
     /**
      * @var ?Category
@@ -219,7 +220,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $category1 = null;
+    public ?Category $category1 = null;
 
     /**
      * @var ?Category
@@ -228,7 +229,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $category2 = null;
+    public ?Category $category2 = null;
 
     /**
      * @var ?Category
@@ -237,7 +238,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $category3 = null;
+    public ?Category $category3 = null;
 
     /**
      * @var ?string
@@ -246,7 +247,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $manufacturer = null;
+    public ?string $manufacturer = null;
 
     /**
      * @var int
@@ -255,7 +256,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $vatIndex = Product::VAT_INDEX_NORMAL;
+    public int $vatIndex = Product::VAT_INDEX_NORMAL;
 
     /**
      * @var float
@@ -264,7 +265,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $price = 0.00;
+    public float $price = 0.00;
 
     /**
      * @var ?float
@@ -273,7 +274,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $costPrice = null;
+    public ?float $costPrice = null;
 
     /**
      * @var float
@@ -282,7 +283,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $vatRateNormal = 0.00;
+    public float $vatRateNormal = 0.00;
 
     /**
      * @var float
@@ -291,7 +292,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $vatRateReduced = 0.00;
+    public float $vatRateReduced = 0.00;
 
     /**
      * @var TranslatableText[]
@@ -300,7 +301,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $materials = [];
+    public array $materials = [];
 
     /**
      * @var TranslatableText[]
@@ -309,7 +310,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $tags = [];
+    public array $tags = [];
 
     /**
      * @var ?float
@@ -318,7 +319,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $stockDesired = null;
+    public ?float $stockDesired = null;
 
     /**
      * @var ?float
@@ -327,7 +328,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $stockCurrent = null;
+    public ?float $stockCurrent = null;
 
     /**
      * @var ?float
@@ -336,7 +337,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $stockWarning = null;
+    public ?float $stockWarning = null;
 
     /**
      * @var bool
@@ -345,7 +346,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $lowStock = false;
+    public bool $lowStock = false;
 
     /**
      * @var ?string
@@ -354,7 +355,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $stockCode = null;
+    public ?string $stockCode = null;
 
     /**
      * @var ?float
@@ -363,7 +364,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $stockReduceItemsPerSale = null;
+    public ?float $stockReduceItemsPerSale = null;
 
     /**
      * @var StockProduct[]
@@ -372,7 +373,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $stocks = [];
+    public array $stocks = [];
 
     /**
      * @var ?int
@@ -381,7 +382,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $weight = null;
+    public ?int $weight = null;
 
     /**
      * @var ?int
@@ -390,7 +391,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $weightNet = null;
+    public ?int $weightNet = null;
 
     /**
      * @var ?int
@@ -399,7 +400,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $unit = null;
+    public ?int $unit = null;
 
     /**
      * @var ?float
@@ -408,7 +409,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $unitsPerItem = null;
+    public ?float $unitsPerItem = null;
 
     /**
      * @var ?float
@@ -417,7 +418,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $soldAmount = null;
+    public ?float $soldAmount = null;
 
     /**
      * @var ?float
@@ -426,7 +427,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $soldSumGross = null;
+    public ?float $soldSumGross = null;
 
     /**
      * @var ?float
@@ -435,7 +436,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $soldSumNet = null;
+    public ?float $soldSumNet = null;
 
     /**
      * @var ?float
@@ -444,7 +445,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $soldSumNetLast30Days = null;
+    public ?float $soldSumNetLast30Days = null;
 
     /**
      * @var ?float
@@ -453,7 +454,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $soldSumGrossLast30Days = null;
+    public ?float $soldSumGrossLast30Days = null;
 
     /**
      * @var ?float
@@ -462,7 +463,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $soldAmountLast30Days = null;
+    public ?float $soldAmountLast30Days = null;
 
     /**
      * @var ?int
@@ -471,7 +472,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shippingProductId = null;
+    public ?int $shippingProductId = null;
 
     /**
      * @var bool
@@ -480,7 +481,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $isDigital = false;
+    public bool $isDigital = false;
 
     /**
      * @var bool
@@ -489,7 +490,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $isCustomizable = false;
+    public bool $isCustomizable = false;
 
     /**
      * @var ?int
@@ -498,7 +499,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $deliveryTime = null;
+    public ?int $deliveryTime = null;
 
     /**
      * @var ?int
@@ -507,7 +508,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $recipient = null;
+    public ?int $recipient = null;
 
     /**
      * @var ?int
@@ -516,7 +517,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $occasion = null;
+    public ?int $occasion = null;
 
     /**
      * @var ?string
@@ -525,7 +526,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $countryOfOrigin = null;
+    public ?string $countryOfOrigin = null;
 
     /**
      * @var ?string
@@ -534,17 +535,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $exportDescription = null;
-
-    /**
-     * @var TranslatableText[]
-     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
-     * @Serializer\SerializedName("ExportDescriptionMultiLanguage")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    private $exportDescriptionMultiLanguage = [];
-
+    public ?string $exportDescription = null;
     /**
      * @var ?string
      * @Serializer\Type("string")
@@ -552,8 +543,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $taricNumber = null;
-
+    public ?string $taricNumber = null;
     /**
      * @var ProductCustomField[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\ProductCustomField>")
@@ -561,8 +551,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $customFields = [];
-
+    public array $customFields = [];
     /**
      * @var ?int
      * @Serializer\Type("int")
@@ -572,8 +561,7 @@ class Product
      *
      * @see ProductCondition
      */
-    public $condition = null;
-
+    public ?int $condition = null;
     /**
      * @var ?float
      * @Serializer\Type("float")
@@ -581,8 +569,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $widthCm;
-
+    public ?float $widthCm;
     /**
      * @var ?float
      * @Serializer\Type("float")
@@ -590,8 +577,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $lengthCm;
-
+    public ?float $lengthCm;
     /**
      * @var ?float
      * @Serializer\Type("float")
@@ -599,8 +585,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $heightCm;
-
+    public ?float $heightCm;
     /**
      * @var ?BillOfMaterialProduct[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\BillOfMaterialProduct>")
@@ -608,8 +593,15 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $billOfMaterial = null;
-
+    public ?array $billOfMaterial = null;
+    /**
+     * @var TranslatableText[]
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
+     * @Serializer\SerializedName("ExportDescriptionMultiLanguage")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
+     */
+    private array $exportDescriptionMultiLanguage = [];
     /**
      * @var ?bool
      * @Serializer\Type("bool")
@@ -617,7 +609,7 @@ class Product
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    private $isDeactivated = null;
+    private ?bool $isDeactivated = null;
 
     public function getId(): int
     {

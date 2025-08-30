@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,18 +24,16 @@ use JMS\Serializer\SerializerInterface;
 class WebHooksEndpoint
 {
     /** @var ClientInterface */
-    private $client;
+    private ClientInterface $client;
 
     /** @var SerializerInterface */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     public function __construct(ClientInterface $client, SerializerInterface $serializer)
     {
         $this->client = $client;
         $this->serializer = $serializer;
     }
-
-    #region GET
 
     /**
      * Get a list of all registered web hooks
@@ -44,7 +43,7 @@ class WebHooksEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function getWebHooks()
+    public function getWebHooks(): array
     {
         return $this->client->get(
             'webhooks',
@@ -61,7 +60,7 @@ class WebHooksEndpoint
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      */
-    public function getWebHook($id)
+    public function getWebHook(string $id): Model\WebHook
     {
         return $this->client->get(
             'webhooks/' . $id,
@@ -73,10 +72,9 @@ class WebHooksEndpoint
     /**
      * Get a list of all available filters
      *
-     * @return Model\WebHookFilter[] The Response
+     * @return array|null The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws Exception If the response cannot be parsed
      */
     public function getWebHookFilters(): ?array
     {
@@ -87,10 +85,6 @@ class WebHooksEndpoint
         );
     }
 
-    #endregion
-
-    #region POST
-
     /**
      * Creates a new web hook
      *
@@ -100,7 +94,7 @@ class WebHooksEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function createWebHook(Model\WebHook $webHook)
+    public function createWebHook(Model\WebHook $webHook): Model\WebHook
     {
         return $this->client->post(
             'webhooks',
@@ -109,9 +103,14 @@ class WebHooksEndpoint
         );
     }
 
-    #endregion
-
-    #region PUT
+    /**
+     * @param mixed $data
+     * @return string
+     */
+    private function serialize(mixed $data): string
+    {
+        return $this->serializer->serialize($data, 'json');
+    }
 
     /**
      * Updates a web hook
@@ -123,7 +122,7 @@ class WebHooksEndpoint
      * @throws InvalidArgumentException If the web hook has no id
      * @throws Exception If the response cannot be parsed
      */
-    public function updateWebHook(Model\WebHook $webHook)
+    public function updateWebHook(Model\WebHook $webHook): bool
     {
         if ($webHook->id === null) {
             throw new InvalidArgumentException('The id of the webHook cannot be empty');
@@ -138,10 +137,6 @@ class WebHooksEndpoint
         return $res === null;
     }
 
-    #endregion
-
-    #region DELETE
-
     /**
      * Deletes all existing WebHook registrations.
      *
@@ -150,7 +145,7 @@ class WebHooksEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function deleteAllWebHooks()
+    public function deleteAllWebHooks(): bool
     {
         $res = $this->client->delete(
             'webhooks',
@@ -170,7 +165,7 @@ class WebHooksEndpoint
      * @throws InvalidArgumentException If the web hook has no id
      * @throws Exception If the response cannot be parsed
      */
-    public function deleteWebHookById($id)
+    public function deleteWebHookById(string $id): bool
     {
         $webHook = new Model\WebHook();
         $webHook->id = $id;
@@ -187,7 +182,7 @@ class WebHooksEndpoint
      * @throws InvalidArgumentException If the web hook has no id
      * @throws Exception If the response cannot be parsed
      */
-    public function deleteWebHook(Model\WebHook $webHook)
+    public function deleteWebHook(Model\WebHook $webHook): bool
     {
         if ($webHook->id === null) {
             throw new InvalidArgumentException('The id of the webHook cannot be empty');
@@ -199,13 +194,5 @@ class WebHooksEndpoint
             Response\BaseResponse::class
         );
         return $res === null;
-    }
-
-    #endregion
-
-    /** @param mixed $data */
-    private function serialize($data): string
-    {
-        return $this->serializer->serialize($data, 'json');
     }
 }

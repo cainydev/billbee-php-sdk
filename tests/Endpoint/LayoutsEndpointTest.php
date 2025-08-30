@@ -20,10 +20,10 @@ use PHPUnit\Framework\TestCase;
 class LayoutsEndpointTest extends TestCase
 {
     /** @var LayoutsEndpoint */
-    private $endpoint;
+    private LayoutsEndpoint $endpoint;
 
     /** @var TestClient */
-    private $client;
+    private TestClient $client;
 
     protected function setUp(): void
     {

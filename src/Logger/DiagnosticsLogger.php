@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -17,16 +18,17 @@ use Psr\Log\LoggerInterface;
 
 class DiagnosticsLogger implements LoggerInterface
 {
-    const EMERGENCY = 'EMERGENCY';
-    const ALERT = 'ALERT';
-    const CRITICAL = 'CRITICAL';
-    const ERROR = 'ERROR';
-    const WARNING = 'WARNING';
-    const NOTICE = 'NOTICE';
-    const INFO = 'INFO';
-    const DEBUG = 'DEBUG';
+    public const EMERGENCY = 'EMERGENCY';
+    public const ALERT = 'ALERT';
+    public const CRITICAL = 'CRITICAL';
+    public const ERROR = 'ERROR';
+    public const WARNING = 'WARNING';
+    public const NOTICE = 'NOTICE';
+    public const INFO = 'INFO';
+    public const DEBUG = 'DEBUG';
+
     /** @var string */
-    private $logFile;
+    private string $logFile;
 
     public function __construct(?string $logFile = null)
     {
@@ -41,61 +43,19 @@ class DiagnosticsLogger implements LoggerInterface
     /**
      * @return string The path to the log file
      */
-    public function getLogFile()
+    public function getLogFile(): string
     {
         return $this->logFile;
     }
 
     /** @inheritdoc */
-    public function emergency($message, array $context = array())
+    public function emergency($message, array $context = array()): void
     {
         $this->log(self::EMERGENCY, $message, $context);
     }
 
     /** @inheritdoc */
-    public function alert($message, array $context = array())
-    {
-        $this->log(self::ALERT, $message, $context);
-    }
-
-    /** @inheritdoc */
-    public function critical($message, array $context = array())
-    {
-        $this->log(self::CRITICAL, $message, $context);
-    }
-
-    /** @inheritdoc */
-    public function error($message, array $context = array())
-    {
-        $this->log(self::ERROR, $message, $context);
-    }
-
-    /** @inheritdoc */
-    public function warning($message, array $context = array())
-    {
-        $this->log(self::WARNING, $message, $context);
-    }
-
-    /** @inheritdoc */
-    public function notice($message, array $context = array())
-    {
-        $this->log(self::NOTICE, $message, $context);
-    }
-
-    /** @inheritdoc */
-    public function info($message, array $context = array())
-    {
-        $this->log(self::INFO, $message, $context);
-    }
-
-    /** @inheritdoc */
-    public function debug($message, array $context = array())
-    {
-        $this->log(self::DEBUG, $message, $context);
-    }
-
-    /** @inheritdoc */
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = array()): void
     {
         $level = str_pad($level . ':', 10, ' ', STR_PAD_RIGHT);
 
@@ -109,5 +69,47 @@ class DiagnosticsLogger implements LoggerInterface
         );
         $line = str_replace("\\u0000", "", $line);
         file_put_contents($this->logFile, $line, FILE_APPEND);
+    }
+
+    /** @inheritdoc */
+    public function alert($message, array $context = array()): void
+    {
+        $this->log(self::ALERT, $message, $context);
+    }
+
+    /** @inheritdoc */
+    public function critical($message, array $context = array()): void
+    {
+        $this->log(self::CRITICAL, $message, $context);
+    }
+
+    /** @inheritdoc */
+    public function error($message, array $context = array()): void
+    {
+        $this->log(self::ERROR, $message, $context);
+    }
+
+    /** @inheritdoc */
+    public function warning($message, array $context = array()): void
+    {
+        $this->log(self::WARNING, $message, $context);
+    }
+
+    /** @inheritdoc */
+    public function notice($message, array $context = array()): void
+    {
+        $this->log(self::NOTICE, $message, $context);
+    }
+
+    /** @inheritdoc */
+    public function info($message, array $context = array()): void
+    {
+        $this->log(self::INFO, $message, $context);
+    }
+
+    /** @inheritdoc */
+    public function debug($message, array $context = array()): void
+    {
+        $this->log(self::DEBUG, $message, $context);
     }
 }

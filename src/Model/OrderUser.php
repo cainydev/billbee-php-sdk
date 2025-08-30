@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class OrderUser
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $platform;
+    public ?string $platform;
 
     /**
      * @var ?string
@@ -32,7 +33,7 @@ class OrderUser
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shopName;
+    public ?string $shopName;
 
     /**
      * @var ?int
@@ -41,7 +42,7 @@ class OrderUser
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shopId;
+    public ?int $shopId;
 
     /**
      * @var ?string
@@ -50,7 +51,7 @@ class OrderUser
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public ?string $id;
 
     /**
      * @var ?string
@@ -59,7 +60,7 @@ class OrderUser
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $nick;
+    public ?string $nick;
 
     /**
      * @var ?string
@@ -68,7 +69,7 @@ class OrderUser
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $firstName;
+    public ?string $firstName;
 
     /**
      * @var ?string
@@ -77,7 +78,7 @@ class OrderUser
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $lastName;
+    public ?string $lastName;
 
     /**
      * @var ?string
@@ -86,7 +87,7 @@ class OrderUser
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $fullName;
+    public ?string $fullName;
 
     /**
      * @var ?string
@@ -95,7 +96,7 @@ class OrderUser
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $email;
+    public ?string $email;
 
     public function getPlatform(): ?string
     {

@@ -21,10 +21,10 @@ use PHPUnit\Framework\TestCase;
 class ProvisioningEndpointTest extends TestCase
 {
     /** @var ProvisioningEndpoint() */
-    private $endpoint;
+    private ProvisioningEndpoint $endpoint;
 
     /** @var TestClient */
-    private $client;
+    private TestClient $client;
 
     protected function setUp(): void
     {

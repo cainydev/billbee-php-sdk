@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class OrderItemAttribute
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public ?string $id;
 
     /**
      * @var ?string
@@ -32,7 +33,7 @@ class OrderItemAttribute
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $name;
+    public ?string $name;
 
     /**
      * @var ?string
@@ -41,7 +42,7 @@ class OrderItemAttribute
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $value;
+    public ?string $value;
 
     /**
      * @var float
@@ -50,7 +51,7 @@ class OrderItemAttribute
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $price;
+    public float $price;
 
     public function getId(): ?string
     {

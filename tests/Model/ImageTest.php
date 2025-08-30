@@ -33,7 +33,7 @@ class ImageTest extends SerializerTestCase
                     $result->getThumbUrl()
                 );
                 self::assertEquals(3, $result->getPosition());
-                self::assertEquals(true, $result->isDefault());
+                self::assertTrue($result->isDefault());
                 self::assertEquals(40986800, $result->getArticleId());
             }
         );

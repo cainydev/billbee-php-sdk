@@ -63,9 +63,9 @@ class OrderItemTest extends SerializerTestCase
                 self::assertEquals(25.348235294117647, $result->getTaxAmount());
                 self::assertEquals(1, $result->getTaxIndex());
                 self::assertEquals(2.0, $result->getDiscount());
-                self::assertEquals(true, $result->shouldGetPriceFromArticleIfAny());
-                self::assertEquals(false, $result->isCoupon());
-                self::assertEquals(true, $result->shouldAdjustStock());
+                self::assertTrue($result->shouldGetPriceFromArticleIfAny());
+                self::assertFalse($result->isCoupon());
+                self::assertTrue($result->shouldAdjustStock());
                 self::assertEquals(162.0, $result->getUnrebatedTotalPrice());
                 self::assertEquals("ycwegf", $result->getSerialNumber());
                 self::assertEquals("TESTBESTAND", $result->getInvoiceSku());

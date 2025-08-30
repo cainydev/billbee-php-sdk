@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -13,6 +14,7 @@
 namespace BillbeeDe\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Type\InvoiceType;
+use DateTime;
 use JMS\Serializer\Annotation as Serializer;
 
 class Invoice
@@ -24,7 +26,7 @@ class Invoice
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public int $id;
 
     /**
      * @var ?string
@@ -33,7 +35,7 @@ class Invoice
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $invoiceNumber = null;
+    public ?string $invoiceNumber = null;
 
     /**
      * @var ?string
@@ -44,7 +46,7 @@ class Invoice
      *
      * @see InvoiceType
      */
-    public $type = InvoiceType::INVOICE;
+    public ?string $type = InvoiceType::INVOICE;
 
     /**
      * @var ?string
@@ -53,7 +55,7 @@ class Invoice
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $lastName = null;
+    public ?string $lastName = null;
 
     /**
      * @var ?string
@@ -62,7 +64,7 @@ class Invoice
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $firstName = null;
+    public ?string $firstName = null;
 
     /**
      * @var ?string
@@ -71,7 +73,7 @@ class Invoice
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $company = null;
+    public ?string $company = null;
 
     /**
      * @var int
@@ -80,7 +82,7 @@ class Invoice
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $customerNumber;
+    public int $customerNumber;
 
     /**
      * @var int
@@ -89,16 +91,16 @@ class Invoice
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $debtorNumber;
+    public int $debtorNumber;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @Serializer\Type("DateTime<'Y-m-d\TH:i:s.v', 'UTC'>")
      * @Serializer\SerializedName("InvoiceDate")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $invoiceDate;
+    public DateTime $invoiceDate;
 
     /**
      * @var float
@@ -107,7 +109,7 @@ class Invoice
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $totalNet = 0.00;
+    public float $totalNet = 0.00;
 
     /**
      * @var float
@@ -116,7 +118,7 @@ class Invoice
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $totalGross = 0.00;
+    public float $totalGross = 0.00;
 
     /**
      * @var ?string
@@ -125,7 +127,7 @@ class Invoice
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $currency = 'EUR';
+    public ?string $currency = 'EUR';
 
     /**
      * @var ?int
@@ -134,7 +136,7 @@ class Invoice
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $paymentTypeId;
+    public ?int $paymentTypeId;
 
     /**
      * @var ?string
@@ -143,7 +145,7 @@ class Invoice
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $orderNumber = null;
+    public ?string $orderNumber = null;
 
     /**
      * @var ?string
@@ -152,7 +154,7 @@ class Invoice
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $transactionId = null;
+    public ?string $transactionId = null;
 
     /**
      * @var ?string
@@ -161,7 +163,7 @@ class Invoice
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $email = '';
+    public ?string $email = '';
 
     /**
      * @var ?string
@@ -170,7 +172,7 @@ class Invoice
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shopName = null;
+    public ?string $shopName = null;
 
     /**
      * @var ?InvoicePosition[]
@@ -179,16 +181,16 @@ class Invoice
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $positions = [];
+    public ?array $positions = [];
 
     /**
-     * @var ?\DateTime
+     * @var ?DateTime
      * @Serializer\Type("DateTime<'Y-m-d\TH:i:s.v', 'UTC'>")
      * @Serializer\SerializedName("PayDate")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $payDate = null;
+    public ?DateTime $payDate = null;
 
     /**
      * @var int
@@ -197,56 +199,56 @@ class Invoice
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $vatMode = Product::VAT_INDEX_NORMAL;
+    public int $vatMode = Product::VAT_INDEX_NORMAL;
 
     /**
      * @var VatFlags
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\VatFlags")
      * @Serializer\SerializedName("VatFlags")
      */
-    private $vatFlags = null;
+    private ?VatFlags $vatFlags = null;
 
     /**
      * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("ShippingCountry")
      */
-    private $shippingCountry = null;
+    private ?string $shippingCountry = null;
 
     /**
      * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Title")
      */
-    private $title = null;
+    private ?string $title = null;
 
     /**
      * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Salutation")
      */
-    private $salutation = null;
+    private ?string $salutation = null;
 
     /**
      * @var ?InvoiceAdditionalFee[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\InvoiceAdditionalFee>")
      * @Serializer\SerializedName("AdditionalFees")
      */
-    private $additionalFees = [];
+    private ?array $additionalFees = [];
 
     /**
      * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("MerchantVatId")
      */
-    private $merchantVatId = null;
+    private ?string $merchantVatId = null;
 
     /**
      * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("CustomerVatId")
      */
-    private $customerVatId = null;
+    private ?string $customerVatId = null;
 
     public function getId(): int
     {
@@ -336,12 +338,12 @@ class Invoice
         return $this;
     }
 
-    public function getInvoiceDate(): \DateTime
+    public function getInvoiceDate(): DateTime
     {
         return $this->invoiceDate;
     }
 
-    public function setInvoiceDate(\DateTime $invoiceDate): self
+    public function setInvoiceDate(DateTime $invoiceDate): self
     {
         $this->invoiceDate = $invoiceDate;
         return $this;
@@ -448,12 +450,12 @@ class Invoice
         return $this;
     }
 
-    public function getPayDate(): ?\DateTime
+    public function getPayDate(): ?DateTime
     {
         return $this->payDate;
     }
 
-    public function setPayDate(?\DateTime $payDate): self
+    public function setPayDate(?DateTime $payDate): self
     {
         $this->payDate = $payDate;
         return $this;

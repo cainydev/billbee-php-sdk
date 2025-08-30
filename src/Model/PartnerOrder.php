@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -13,6 +14,7 @@
 namespace BillbeeDe\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Type\OrderState;
+use DateTime;
 use JMS\Serializer\Annotation as Serializer;
 
 class PartnerOrder
@@ -24,7 +26,7 @@ class PartnerOrder
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public int $id;
 
     /**
      * @var ?string
@@ -33,7 +35,7 @@ class PartnerOrder
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $externalId;
+    public ?string $externalId;
 
     /**
      * @var ?string
@@ -42,52 +44,52 @@ class PartnerOrder
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $invoiceNumber;
+    public ?string $invoiceNumber;
 
     /**
-     * @var ?\DateTime
+     * @var ?DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\SerializedName("InvoiceCreatedAt")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $invoiceCreatedAt;
+    public ?DateTime $invoiceCreatedAt;
 
     /**
-     * @var ?\DateTime
+     * @var ?DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\SerializedName("InvoiceDate")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $invoiceDate;
+    public ?DateTime $invoiceDate;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\SerializedName("CreatedAt")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $createdAt;
+    public DateTime $createdAt;
 
     /**
-     * @var ?\DateTime
+     * @var ?DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\SerializedName("PaidAt")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $paidAt;
+    public ?DateTime $paidAt;
 
     /**
-     * @var ?\DateTime
+     * @var ?DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\SerializedName("ShippedAt")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shippedAt;
+    public ?DateTime $shippedAt;
 
     /**
      * @var bool
@@ -96,7 +98,7 @@ class PartnerOrder
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $hasInvoice = false;
+    public bool $hasInvoice = false;
 
     /**
      * @var int
@@ -106,7 +108,7 @@ class PartnerOrder
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      * @see OrderState
      */
-    public $orderStateId;
+    public int $orderStateId;
 
     /**
      * @var ?string
@@ -115,7 +117,7 @@ class PartnerOrder
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $orderStateText;
+    public ?string $orderStateText;
 
     /**
      * @var float
@@ -124,7 +126,7 @@ class PartnerOrder
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $totalGross;
+    public float $totalGross;
 
     /**
      * @var ?string
@@ -133,7 +135,7 @@ class PartnerOrder
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shopName;
+    public ?string $shopName;
 
     /**
      * @var bool
@@ -142,11 +144,11 @@ class PartnerOrder
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $canCreateAutoInvoice = false;
+    public bool $canCreateAutoInvoice = false;
 
     public function __construct()
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new DateTime();
     }
 
     public function getId(): int
@@ -182,56 +184,56 @@ class PartnerOrder
         return $this;
     }
 
-    public function getInvoiceCreatedAt(): ?\DateTime
+    public function getInvoiceCreatedAt(): ?DateTime
     {
         return $this->invoiceCreatedAt;
     }
 
-    public function setInvoiceCreatedAt(?\DateTime $invoiceCreatedAt): self
+    public function setInvoiceCreatedAt(?DateTime $invoiceCreatedAt): self
     {
         $this->invoiceCreatedAt = $invoiceCreatedAt;
         return $this;
     }
 
-    public function getInvoiceDate(): ?\DateTime
+    public function getInvoiceDate(): ?DateTime
     {
         return $this->invoiceDate;
     }
 
-    public function setInvoiceDate(?\DateTime $invoiceDate): self
+    public function setInvoiceDate(?DateTime $invoiceDate): self
     {
         $this->invoiceDate = $invoiceDate;
         return $this;
     }
 
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): self
+    public function setCreatedAt(DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    public function getPaidAt(): ?\DateTime
+    public function getPaidAt(): ?DateTime
     {
         return $this->paidAt;
     }
 
-    public function setPaidAt(?\DateTime $paidAt): self
+    public function setPaidAt(?DateTime $paidAt): self
     {
         $this->paidAt = $paidAt;
         return $this;
     }
 
-    public function getShippedAt(): ?\DateTime
+    public function getShippedAt(): ?DateTime
     {
         return $this->shippedAt;
     }
 
-    public function setShippedAt(?\DateTime $shippedAt): self
+    public function setShippedAt(?DateTime $shippedAt): self
     {
         $this->shippedAt = $shippedAt;
         return $this;

@@ -27,7 +27,7 @@ class CustomFieldDefinitionTest extends SerializerTestCase
                     'Multiple' => true,
                 ], $result->getConfiguration());
                 self::assertEquals(3, $result->getType());
-                self::assertEquals(true, $result->isNullable());
+                self::assertTrue($result->isNullable());
             }
         );
     }

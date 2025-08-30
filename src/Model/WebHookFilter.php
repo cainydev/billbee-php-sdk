@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class WebHookFilter
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $name;
+    public ?string $name;
 
     /**
      * @var ?string
@@ -32,7 +33,7 @@ class WebHookFilter
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $description;
+    public ?string $description;
 
     public function getName(): ?string
     {

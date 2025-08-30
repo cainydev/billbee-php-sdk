@@ -20,10 +20,10 @@ use PHPUnit\Framework\TestCase;
 class CloudStorageEndpointTest extends TestCase
 {
     /** @var CloudStorageEndpoint() */
-    private $endpoint;
+    private CloudStorageEndpoint $endpoint;
 
     /** @var TestClient */
-    private $client;
+    private TestClient $client;
 
     protected function setUp(): void
     {

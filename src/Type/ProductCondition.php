@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -14,11 +15,11 @@ namespace BillbeeDe\BillbeeAPI\Type;
 
 class ProductCondition
 {
-    const BRAND_NEW = 1;
-    const USED_LIKE_NEW = 2;
-    const USED_VERY_GOOD = 3;
-    const USED_GOOD = 4;
-    const USED_IN_ORDER = 5;
-    const USED_BAD = 6;
-    const BROKEN = 7;
+    public const BRAND_NEW = 1;
+    public const USED_LIKE_NEW = 2;
+    public const USED_VERY_GOOD = 3;
+    public const USED_GOOD = 4;
+    public const USED_IN_ORDER = 5;
+    public const USED_BAD = 6;
+    public const BROKEN = 7;
 }

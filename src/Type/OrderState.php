@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -14,19 +15,19 @@ namespace BillbeeDe\BillbeeAPI\Type;
 
 class OrderState
 {
-    const ORDERED = 1;
-    const CONFIRMED = 2;
-    const PAID = 3;
-    const SHIPPED = 4;
-    const RECLAMATION = 5;
-    const DELETED = 6;
-    const CLOSED = 7;
-    const CANCELED = 8;
-    const ARCHIVED = 9;
+    public const ORDERED = 1;
+    public const CONFIRMED = 2;
+    public const PAID = 3;
+    public const SHIPPED = 4;
+    public const RECLAMATION = 5;
+    public const DELETED = 6;
+    public const CLOSED = 7;
+    public const CANCELED = 8;
+    public const ARCHIVED = 9;
     # CONST NOT_USED = 10;
-    const DEMAND_NOTE = 11;
-    const DEMAND_NOTE2 = 12;
-    const PACKED = 13;
-    const OFFERED = 14;
-    const REMINDER = 15;
+    public const DEMAND_NOTE = 11;
+    public const DEMAND_NOTE2 = 12;
+    public const PACKED = 13;
+    public const OFFERED = 14;
+    public const REMINDER = 15;
 }

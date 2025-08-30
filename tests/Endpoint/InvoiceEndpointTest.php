@@ -22,10 +22,10 @@ use PHPUnit\Framework\TestCase;
 class InvoiceEndpointTest extends TestCase
 {
     /** @var InvoiceEndpoint() */
-    private $endpoint;
+    private InvoiceEndpoint $endpoint;
 
     /** @var TestClient */
-    private $client;
+    private TestClient $client;
 
     protected function setUp(): void
     {

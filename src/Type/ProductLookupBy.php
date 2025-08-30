@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -14,7 +15,7 @@ namespace BillbeeDe\BillbeeAPI\Type;
 
 class ProductLookupBy
 {
-    const ID = 'id';
-    const EAN = 'ean';
-    const SKU = 'sku';
+    public const ID = 'id';
+    public const EAN = 'ean';
+    public const SKU = 'sku';
 }

@@ -11,49 +11,49 @@ class StockProduct
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Name")
      */
-    private $name;
+    private ?string $name;
 
     /**
      * @var int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("StockId")
      */
-    private $stockId;
+    private int $stockId;
 
     /**
      * @var ?float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("StockCurrent")
      */
-    private $stockCurrent;
+    private ?float $stockCurrent;
 
     /**
      * @var ?float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("StockWarning")
      */
-    private $stockWarning;
+    private ?float $stockWarning;
 
     /**
      * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("StockCode")
      */
-    private $stockCode;
+    private ?string $stockCode;
 
     /**
      * @var ?float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("UnfulfilledAmount")
      */
-    private $unfulfilledAmount;
+    private ?float $unfulfilledAmount;
 
     /**
      * @var ?float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("StockDesired")
      */
-    private $stockDesired;
+    private ?float $stockDesired;
 
     public function getName(): ?string
     {

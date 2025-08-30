@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -14,10 +15,10 @@ namespace BillbeeDe\BillbeeAPI\Type;
 
 class LayoutType
 {
-    const INVOICE = 0;
-    const LABEL = 1;
-    const DELIVERY_NOTE = 2;
-    const ORDER_COMMIT = 3;
-    const OFFER = 4;
-    const CANCELLATION_INVOICE = 5;
+    public const INVOICE = 0;
+    public const LABEL = 1;
+    public const DELIVERY_NOTE = 2;
+    public const ORDER_COMMIT = 3;
+    public const OFFER = 4;
+    public const CANCELLATION_INVOICE = 5;
 }

@@ -4,6 +4,7 @@ namespace BillbeeDe\Tests\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Model\Event;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
+use DateTime;
 
 class EventTest extends SerializerTestCase
 {
@@ -33,7 +34,7 @@ class EventTest extends SerializerTestCase
     public static function getEvent(): Event
     {
         return (new Event())
-            ->setCreated(new \DateTime("2022-07-16T09:56:01.903"))
+            ->setCreated(new DateTime("2022-07-16T09:56:01.903"))
             ->setTypeId(55)
             ->setTypeText("Nutzung der API")
             ->setId(100002922949129)

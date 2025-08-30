@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,9 +24,9 @@ use JMS\Serializer\SerializerInterface;
 class ShipmentsEndpoint
 {
     /** @var ClientInterface */
-    private $client;
+    private ClientInterface $client;
     /** @var SerializerInterface */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     public function __construct(ClientInterface $client, SerializerInterface $serializer)
     {
@@ -43,7 +44,7 @@ class ShipmentsEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function getShippingProviders()
+    public function getShippingProviders(): ?Response\GetShippingProvidersResponse
     {
         $providers = $this->client->get(
             'shipment/shippingproviders',
@@ -73,7 +74,7 @@ class ShipmentsEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function shipWithLabel(Model\ShipmentWithLabel $shipment)
+    public function shipWithLabel(Model\ShipmentWithLabel $shipment): Response\ShipWithLabelResponse
     {
         return $this->client->post(
             'shipment/shipwithlabel',

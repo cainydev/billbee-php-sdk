@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -18,29 +19,29 @@ class SendMode
      * No message will be send
      * @var int
      */
-    const NONE = 0;
+    public const NONE = 0;
 
     /**
      * The message will be send via email to the customer email address
      * @var int
      */
-    const EMAIL = 1;
+    public const EMAIL = 1;
 
     /**
      * The message will be send via the shop or marketplace api (if supported)
      * @var int
      */
-    const API = 2;
+    public const API = 2;
 
     /**
      * The message will be send via email if the email address exists otherwise via the shop or marketplace api (if supported)
      * @var int
      */
-    const EMAIL_THEN_API = 3;
+    public const EMAIL_THEN_API = 3;
 
     /**
      * The message will be send via email to the alternative email address
      * @var int
      */
-    const EXTERNAL_EMAIL = 4;
+    public const EXTERNAL_EMAIL = 4;
 }

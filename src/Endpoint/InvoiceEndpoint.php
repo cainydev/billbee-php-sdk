@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -15,14 +16,14 @@ namespace BillbeeDe\BillbeeAPI\Endpoint;
 use BillbeeDe\BillbeeAPI\ClientInterface;
 use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Response as Response;
+use BillbeeDe\BillbeeAPI\Response\GetInvoicesResponse;
 use DateTimeInterface;
-use Exception;
 use InvalidArgumentException;
 
 class InvoiceEndpoint
 {
     /** @var ClientInterface */
-    private $client;
+    private ClientInterface $client;
 
     public function __construct(ClientInterface $client)
     {
@@ -43,23 +44,23 @@ class InvoiceEndpoint
      * @param ?DateTimeInterface $maxPayDate Specifies the newest pay date to include
      * @param bool $includePositions Specifies to include the positions
      *
-     * @return Response\GetInvoicesResponse The Invoices
+     * @return GetInvoicesResponse|null The Invoices
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws Exception If the response cannot be parsed
      */
     public function getInvoices(
-        int $page = 1,
-        int $pageSize = 50,
+        int                $page = 1,
+        int                $pageSize = 50,
         ?DateTimeInterface $minInvoiceDate = null,
         ?DateTimeInterface $maxInvoiceDate = null,
-        array $shopId = [],
-        array $orderStateId = [],
-        array $tag = [],
+        array              $shopId = [],
+        array              $orderStateId = [],
+        array              $tag = [],
         ?DateTimeInterface $minPayDate = null,
         ?DateTimeInterface $maxPayDate = null,
-        bool $includePositions = false
-    ): ?Response\GetInvoicesResponse {
+        bool               $includePositions = false
+    ): ?Response\GetInvoicesResponse
+    {
         $query = [
             'page' => max(1, $page),
             'pageSize' => max(1, $pageSize),

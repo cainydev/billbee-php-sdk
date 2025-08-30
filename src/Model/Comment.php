@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -12,6 +13,7 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
+use DateTime;
 use JMS\Serializer\Annotation as Serializer;
 
 class Comment
@@ -23,16 +25,16 @@ class Comment
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public int $id;
 
     /**
-     * @var ?\DateTime
+     * @var ?DateTime
      * @Serializer\Type("DateTime<'Y-m-d\TH:i:s.v\Z', 'UTC'>")
      * @Serializer\SerializedName("Created")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $created = null;
+    public ?DateTime $created = null;
 
     /**
      * @var bool
@@ -41,7 +43,7 @@ class Comment
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $fromCustomer;
+    public bool $fromCustomer;
 
     /**
      * @var ?string
@@ -50,7 +52,7 @@ class Comment
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $text;
+    public ?string $text;
 
     /**
      * @var ?string
@@ -59,7 +61,7 @@ class Comment
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $name;
+    public ?string $name;
 
     public function getId(): int
     {
@@ -72,12 +74,12 @@ class Comment
         return $this;
     }
 
-    public function getCreated(): \DateTime
+    public function getCreated(): DateTime
     {
         return $this->created;
     }
 
-    public function setCreated(\DateTime $created): self
+    public function setCreated(DateTime $created): self
     {
         $this->created = $created;
         return $this;

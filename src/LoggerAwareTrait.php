@@ -8,7 +8,7 @@ use Psr\Log\NullLogger;
 trait LoggerAwareTrait
 {
     /** @var LoggerInterface */
-    protected $logger;
+    protected LoggerInterface $logger;
 
     /**
      * Returns the current registered logger

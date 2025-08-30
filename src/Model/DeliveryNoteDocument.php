@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -12,6 +13,7 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
+use DateTime;
 use JMS\Serializer\Annotation as Serializer;
 
 class DeliveryNoteDocument
@@ -23,7 +25,7 @@ class DeliveryNoteDocument
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $orderNumber;
+    public ?string $orderNumber;
 
     /**
      * @var ?string
@@ -32,7 +34,7 @@ class DeliveryNoteDocument
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $deliveryNoteNumber;
+    public ?string $deliveryNoteNumber;
 
     /**
      * @var ?string
@@ -41,16 +43,16 @@ class DeliveryNoteDocument
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $pdfData;
+    public ?string $pdfData;
 
     /**
-     * @var ?\DateTime
+     * @var ?DateTime
      * @Serializer\Type("DateTime<'Y-m-d\TH:i:s'>")
      * @Serializer\SerializedName("DeliveryNoteDate")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $deliveryNoteDate;
+    public ?DateTime $deliveryNoteDate;
 
     /**
      * @var ?string
@@ -59,7 +61,7 @@ class DeliveryNoteDocument
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $pdfDownloadUrl;
+    public ?string $pdfDownloadUrl;
 
     public function getOrderNumber(): ?string
     {
@@ -94,12 +96,12 @@ class DeliveryNoteDocument
         return $this;
     }
 
-    public function getDeliveryNoteDate(): ?\DateTime
+    public function getDeliveryNoteDate(): ?DateTime
     {
         return $this->deliveryNoteDate;
     }
 
-    public function setDeliveryNoteDate(?\DateTime $deliveryNoteDate): self
+    public function setDeliveryNoteDate(?DateTime $deliveryNoteDate): self
     {
         $this->deliveryNoteDate = $deliveryNoteDate;
         return $this;

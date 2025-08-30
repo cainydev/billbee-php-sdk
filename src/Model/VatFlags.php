@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -21,84 +22,84 @@ class VatFlags
      * @Serializer\Type("bool")
      * @Serializer\SerializedName("ThirdPartyCountry")
      */
-    private $thirdPartyCountry = false;
+    private bool $thirdPartyCountry = false;
 
     /**
      * @var bool
      * @Serializer\Type("bool")
      * @Serializer\SerializedName("SrcCountryIsEqualToDstCountry")
      */
-    private $srcCountryIsEqualToDstCountry = false;
+    private bool $srcCountryIsEqualToDstCountry = false;
 
     /**
      * @var bool
      * @Serializer\Type("bool")
      * @Serializer\SerializedName("CustomerHasVatId")
      */
-    private $customerHasVatId = false;
+    private bool $customerHasVatId = false;
 
     /**
      * @var bool
      * @Serializer\Type("bool")
      * @Serializer\SerializedName("EuDeliveryThresholdExceeded")
      */
-    private $euDeliveryThresholdExceeded = false;
+    private bool $euDeliveryThresholdExceeded = false;
 
     /**
      * @var bool
      * @Serializer\Type("bool")
      * @Serializer\SerializedName("OssEnabled")
      */
-    private $ossEnabled = false;
+    private bool $ossEnabled = false;
 
     /**
      * @var bool
      * @Serializer\Type("bool")
      * @Serializer\SerializedName("SellerIsRegisteredInDstCountry")
      */
-    private $sellerIsRegisteredInDstCountry = false;
+    private bool $sellerIsRegisteredInDstCountry = false;
 
     /**
      * @var bool
      * @Serializer\Type("bool")
      * @Serializer\SerializedName("OrderDistributionCountryIsEmpty")
      */
-    private $orderDistributionCountryIsEmpty = false;
+    private bool $orderDistributionCountryIsEmpty = false;
 
     /**
      * @var bool
      * @Serializer\Type("bool")
      * @Serializer\SerializedName("UserProfileCountryIsEmpty")
      */
-    private $userProfileCountryIsEmpty = false;
+    private bool $userProfileCountryIsEmpty = false;
 
     /**
      * @var bool
      * @Serializer\Type("bool")
      * @Serializer\SerializedName("SetIglWhenVatIdIsAvailableEnabled")
      */
-    private $setIglWhenVatIdIsAvailableEnabled = false;
+    private bool $setIglWhenVatIdIsAvailableEnabled = false;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("RatesFrom")
      */
-    private $ratesFrom = "";
+    private string $ratesFrom = "";
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("VatIdFrom")
      */
-    private $vatIdFrom = "";
+    private string $vatIdFrom = "";
 
     /**
      * @var bool
      * @Serializer\Type("bool")
      * @Serializer\SerializedName("IsDistanceSale")
      */
-    private $isDistanceSale = false;
+    private bool $isDistanceSale = false;
 
     public function isThirdPartyCountry(): bool
     {

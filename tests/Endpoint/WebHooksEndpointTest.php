@@ -26,13 +26,13 @@ use PHPUnit\Framework\TestCase;
 class WebHooksEndpointTest extends TestCase
 {
     /** @var WebHooksEndpoint */
-    private $endpoint;
+    private WebHooksEndpoint $endpoint;
 
     /** @var TestClient */
-    private $client;
+    private TestClient $client;
 
-    /** @var SerializerInterface&MockObject */
-    private $mockSerializer;
+    /** @var MockObject|SerializerInterface */
+    private MockObject|SerializerInterface $mockSerializer;
 
     protected function setUp(): void
     {

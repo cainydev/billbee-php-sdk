@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,14 +24,14 @@ class SoldProduct
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public ?string $id;
 
     /**
      * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("OldId")
      */
-    private $oldId;
+    private ?string $oldId;
 
     /**
      * @var int|null
@@ -39,7 +40,7 @@ class SoldProduct
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $billbeeId;
+    public ?int $billbeeId;
 
     /**
      * @var string
@@ -48,7 +49,7 @@ class SoldProduct
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $title;
+    public string $title;
 
     /**
      * Weight of one item in gram
@@ -59,7 +60,7 @@ class SoldProduct
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $weight;
+    public ?int $weight;
 
     /**
      * @var ?string
@@ -68,14 +69,14 @@ class SoldProduct
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $sku;
+    public ?string $sku;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("SkuOrId")
      */
-    private $skuOrId;
+    private string $skuOrId;
 
     /**
      * @var ?bool
@@ -84,7 +85,7 @@ class SoldProduct
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $isDigital;
+    public ?bool $isDigital;
 
     /**
      * @var string
@@ -93,7 +94,7 @@ class SoldProduct
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $ean;
+    public string $ean;
 
     /**
      * @var ?string
@@ -102,7 +103,7 @@ class SoldProduct
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $taric;
+    public ?string $taric;
 
     /**
      * @var ?string
@@ -111,7 +112,7 @@ class SoldProduct
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $countryOfOrigin;
+    public ?string $countryOfOrigin;
 
     public function getId(): ?string
     {

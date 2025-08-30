@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -14,6 +15,6 @@ namespace BillbeeDe\BillbeeAPI\Type;
 
 class InvoiceType
 {
-    const INVOICE = 'invoice';
-    const CREDIT = 'creditnote';
+    public const INVOICE = 'invoice';
+    public const CREDIT = 'creditnote';
 }

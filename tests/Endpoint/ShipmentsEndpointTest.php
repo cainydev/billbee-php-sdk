@@ -25,13 +25,13 @@ use PHPUnit\Framework\TestCase;
 class ShipmentsEndpointTest extends TestCase
 {
     /** @var ShipmentsEndpoint */
-    private $endpoint;
+    private ShipmentsEndpoint $endpoint;
 
     /** @var TestClient */
-    private $client;
+    private TestClient $client;
 
-    /** @var SerializerInterface&MockObject */
-    private $mockSerializer;
+    /** @var MockObject|SerializerInterface */
+    private MockObject|SerializerInterface $mockSerializer;
 
     protected function setUp(): void
     {

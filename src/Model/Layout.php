@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -24,7 +25,7 @@ class Layout
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public int $id;
 
     /**
      * @var ?string
@@ -33,7 +34,7 @@ class Layout
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $name = '';
+    public ?string $name = '';
 
     /**
      * @var int
@@ -44,7 +45,7 @@ class Layout
      *
      * @see LayoutType
      */
-    public $type = LayoutType::INVOICE;
+    public int $type = LayoutType::INVOICE;
 
     public function getId(): int
     {

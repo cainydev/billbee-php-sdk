@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -25,7 +26,7 @@ class DefinitionConfigTransformer implements SubscribingHandlerInterface
      * @param array<string, mixed> $type
      * @return array<string, mixed>
      */
-    public static function serialize(JsonSerializationVisitor $visitor, array $data, array $type, Context $context)
+    public static function serialize(JsonSerializationVisitor $visitor, array $data, array $type, Context $context): array
     {
         if (isset($data['Choices']) && is_array($data['Choices'])) {
             $data['Choices'] = implode("\n", $data['Choices']);
@@ -38,7 +39,7 @@ class DefinitionConfigTransformer implements SubscribingHandlerInterface
      * @param array<string, mixed> $type
      * @return array<string, mixed>
      */
-    public static function deserialize(JsonDeserializationVisitor $visitor, $data, array $type, Context $context)
+    public static function deserialize(JsonDeserializationVisitor $visitor, mixed $data, array $type, Context $context): array
     {
         if (isset($data['Choices']) && !is_array($data['Choices'])) {
             $data['Choices'] = explode("\n", $data['Choices']);

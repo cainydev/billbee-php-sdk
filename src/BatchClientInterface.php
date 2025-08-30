@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -18,7 +19,7 @@ interface BatchClientInterface
      * Returns the batch pool size
      * @return int
      */
-    public function getPoolSize();
+    public function getPoolSize(): int;
 
     public function enableBatchMode(): void;
 
@@ -27,5 +28,5 @@ interface BatchClientInterface
     /**
      * @return bool True if the client use batching, otherwise false
      */
-    public function isBatchModeEnabled();
+    public function isBatchModeEnabled(): bool;
 }

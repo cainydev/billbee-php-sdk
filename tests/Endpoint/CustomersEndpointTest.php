@@ -31,13 +31,13 @@ class CustomersEndpointTest extends TestCase
 {
 
     /** @var CustomersEndpoint) */
-    private $endpoint;
+    private CustomersEndpoint $endpoint;
 
     /** @var TestClient */
-    private $client;
+    private TestClient $client;
 
-    /** @var SerializerInterface&MockObject */
-    private $mockSerializer;
+    /** @var MockObject|SerializerInterface */
+    private MockObject|SerializerInterface $mockSerializer;
 
     protected function setUp(): void
     {
@@ -290,7 +290,6 @@ class CustomersEndpointTest extends TestCase
         list($method, $node, $data, $class) = $requests[0];
         $this->assertSame('PUT', $method);
         $this->assertSame('customers/123', $node);
-        ;
         $this->assertSame(GetCustomerResponse::class, $class);
     }
 

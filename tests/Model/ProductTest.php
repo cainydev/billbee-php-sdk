@@ -30,7 +30,7 @@ class ProductTest extends SerializerTestCase
                 self::assertEquals(19, $result->getVatRateNormal());
                 self::assertEquals(7, $result->getVatRateReduced());
                 self::assertEquals(1.0, $result->getStockReduceItemsPerSale());
-                self::assertEquals(false, $result->getIsDeactivated());
+                self::assertFalse($result->getIsDeactivated());
                 self::assertCount(1, $result->getTitle());
                 self::assertInstanceOf(TranslatableText::class, $result->getTitle()[0]);
                 self::assertCount(1, $result->getDescription());
@@ -83,7 +83,7 @@ class ProductTest extends SerializerTestCase
                 self::assertEquals('EAN', $result->getEan());
                 self::assertEquals(100, $result->getWeight());
                 self::assertEquals(50, $result->getWeightNet());
-                self::assertEquals(false, $result->isLowStock());
+                self::assertFalse($result->isLowStock());
                 self::assertEquals('StockCode', $result->getStockCode());
                 self::assertEquals(1.0, $result->getStockReduceItemsPerSale());
                 self::assertEquals(1, $result->getType());
@@ -96,8 +96,8 @@ class ProductTest extends SerializerTestCase
                 self::assertEquals(20.0, $result->getSoldSumGrossLast30Days());
                 self::assertEquals(20.0, $result->getSoldSumNetLast30Days());
                 self::assertEquals(100000000288650, $result->getShippingProductId());
-                self::assertEquals(true, $result->isDigital());
-                self::assertEquals(true, $result->isCustomizable());
+                self::assertTrue($result->isDigital());
+                self::assertTrue($result->isCustomizable());
                 self::assertEquals(4, $result->getDeliveryTime());
                 self::assertEquals(4, $result->getRecipient());
                 self::assertEquals(1, $result->getOccasion());
@@ -108,7 +108,7 @@ class ProductTest extends SerializerTestCase
                 self::assertEquals(30, $result->getWidthCm());
                 self::assertEquals(20, $result->getLengthCm());
                 self::assertEquals(40, $result->getHeightCm());
-                self::assertEquals(true, $result->getIsDeactivated());
+                self::assertTrue($result->getIsDeactivated());
 
                 self::assertInstanceOf(Category::class, $result->getCategory1());
                 self::assertInstanceOf(Category::class, $result->getCategory2());

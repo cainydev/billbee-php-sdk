@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -20,7 +21,7 @@ use Exception;
 class CloudStorageEndpoint
 {
     /** @var ClientInterface */
-    private $client;
+    private ClientInterface $client;
 
     public function __construct(ClientInterface $client)
     {
@@ -35,7 +36,7 @@ class CloudStorageEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function getCloudStorages()
+    public function getCloudStorages(): Response\GetCloudStoragesResponse
     {
         return $this->client->get(
             'cloudstorages',

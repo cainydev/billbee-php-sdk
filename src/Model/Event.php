@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -13,6 +14,7 @@
 namespace BillbeeDe\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Type\EventType;
+use DateTime;
 use JMS\Serializer\Annotation as Serializer;
 
 class Event
@@ -24,16 +26,16 @@ class Event
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public int $id;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @Serializer\Type("DateTime<'Y-m-d\TH:i:s.v'>")
      * @Serializer\SerializedName("Created")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $created;
+    public DateTime $created;
 
     /**
      * @var int
@@ -44,7 +46,7 @@ class Event
      *
      * @see EventType
      */
-    public $typeId = EventType::ACCOUNT_CREATED;
+    public int $typeId = EventType::ACCOUNT_CREATED;
 
     /**
      * @var ?string
@@ -53,7 +55,7 @@ class Event
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $typeText = '';
+    public ?string $typeText = '';
 
     /**
      * @var ?string
@@ -62,7 +64,7 @@ class Event
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $employeeId = null;
+    public ?string $employeeId = null;
 
     /**
      * @var ?string
@@ -71,7 +73,7 @@ class Event
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $employeeName = '';
+    public ?string $employeeName = '';
 
     /**
      * @var int|null
@@ -80,7 +82,7 @@ class Event
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $orderId = null;
+    public ?int $orderId = null;
 
     public function getId(): int
     {
@@ -93,12 +95,12 @@ class Event
         return $this;
     }
 
-    public function getCreated(): \DateTime
+    public function getCreated(): DateTime
     {
         return $this->created;
     }
 
-    public function setCreated(\DateTime $created): self
+    public function setCreated(DateTime $created): self
     {
         $this->created = $created;
         return $this;

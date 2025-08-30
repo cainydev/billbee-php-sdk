@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -29,7 +30,7 @@ interface ClientInterface
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function get($node, $query, $responseClass);
+    public function get(string $node, array $query, string $responseClass): mixed;
 
     /**
      * Starts an POST request
@@ -43,7 +44,7 @@ interface ClientInterface
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function post($node, $data, $responseClass);
+    public function post(string $node, mixed $data, string $responseClass): mixed;
 
     /**
      * Starts an PUT request
@@ -57,7 +58,7 @@ interface ClientInterface
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function put($node, $data, $responseClass);
+    public function put(string $node, mixed $data, string $responseClass): mixed;
 
     /**
      * Starts an PATCH request
@@ -71,7 +72,7 @@ interface ClientInterface
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function patch($node, $data, $responseClass);
+    public function patch(string $node, mixed $data, string $responseClass): mixed;
 
     /**
      * Starts an DELETE request
@@ -85,5 +86,5 @@ interface ClientInterface
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function delete($node, $query, $responseClass);
+    public function delete(string $node, array $query, string $responseClass): mixed;
 }

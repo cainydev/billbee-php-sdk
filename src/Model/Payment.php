@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by Florian Kunz <florian@fkunz.de>
  */
@@ -6,6 +7,7 @@
 namespace BillbeeDe\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Type\PaymentType;
+use DateTime;
 use JMS\Serializer\Annotation as Serializer;
 
 class Payment
@@ -17,7 +19,7 @@ class Payment
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $id;
+    public int $id;
 
     /**
      * @var ?string
@@ -26,16 +28,16 @@ class Payment
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $transactionId;
+    public ?string $transactionId;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\SerializedName("PayDate")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $payDate;
+    public DateTime $payDate;
 
     /**
      * @var ?int
@@ -46,7 +48,7 @@ class Payment
      *
      * @see PaymentType
      */
-    public $paymentMethod;
+    public ?int $paymentMethod;
 
     /**
      * @var ?string
@@ -55,7 +57,7 @@ class Payment
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $sourceTechnology;
+    public ?string $sourceTechnology;
 
     /**
      * @var ?string
@@ -64,7 +66,7 @@ class Payment
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $sourceText;
+    public ?string $sourceText;
 
     /**
      * @var float
@@ -73,7 +75,7 @@ class Payment
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $payValue;
+    public float $payValue;
 
     /**
      * @var ?string
@@ -82,7 +84,7 @@ class Payment
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $purpose;
+    public ?string $purpose;
 
     /**
      * @var ?string
@@ -91,7 +93,7 @@ class Payment
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $name;
+    public ?string $name;
 
     public function getId(): int
     {
@@ -115,12 +117,12 @@ class Payment
         return $this;
     }
 
-    public function getPayDate(): \DateTime
+    public function getPayDate(): DateTime
     {
         return $this->payDate;
     }
 
-    public function setPayDate(\DateTime $payDate): self
+    public function setPayDate(DateTime $payDate): self
     {
         $this->payDate = $payDate;
         return $this;

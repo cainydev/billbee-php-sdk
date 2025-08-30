@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -26,7 +27,7 @@ class MessageForCustomer
      *
      * @see SendMode
      */
-    public $sendMode;
+    public int $sendMode;
 
     /**
      * @var TranslatableText[]
@@ -35,9 +36,9 @@ class MessageForCustomer
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      *
-     * @see \BillbeeDe\BillbeeAPI\Model\TranslatableText;
+     * @see TranslatableText;
      */
-    public $subject;
+    public array $subject;
 
     /**
      * @var TranslatableText[]
@@ -46,7 +47,7 @@ class MessageForCustomer
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $body;
+    public array $body;
 
     /**
      * @var ?string
@@ -55,7 +56,7 @@ class MessageForCustomer
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $alternativeEmailAddress;
+    public ?string $alternativeEmailAddress;
 
     /**
      * @param TranslatableText[] $subject

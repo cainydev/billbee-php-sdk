@@ -2,50 +2,51 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
+use DateTime;
 use JMS\Serializer\Annotation as Serializer;
 
 class OrderHistoryEntry
 {
     /**
-     * @var \DateTime
+     * @var DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\SerializedName("Created")
      */
-    private $created;
+    private DateTime $created;
 
     /**
      * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("EventTypeName")
      */
-    private $eventTypeName;
+    private ?string $eventTypeName;
     /**
      * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Text")
      */
-    private $text;
+    private ?string $text;
 
     /**
      * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("EmployeeName")
      */
-    private $employeeName;
+    private ?string $employeeName;
 
     /**
      * @var ?int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("TypeId")
      */
-    private $typeId;
+    private ?int $typeId;
 
-    public function getCreated(): \DateTime
+    public function getCreated(): DateTime
     {
         return $this->created;
     }
 
-    public function setCreated(\DateTime $created): self
+    public function setCreated(DateTime $created): self
     {
         $this->created = $created;
         return $this;

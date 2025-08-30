@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -23,7 +24,7 @@ class OrderItem
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $billbeeId;
+    public ?int $billbeeId;
 
     /**
      * @var ?string
@@ -32,7 +33,7 @@ class OrderItem
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $transactionId;
+    public ?string $transactionId;
 
     /**
      * @var ?SoldProduct
@@ -41,7 +42,7 @@ class OrderItem
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $product;
+    public ?SoldProduct $product;
 
     /**
      * @var float
@@ -50,7 +51,7 @@ class OrderItem
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $quantity;
+    public float $quantity;
 
     /**
      * @var float
@@ -59,7 +60,7 @@ class OrderItem
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $totalPrice;
+    public float $totalPrice;
 
     /**
      * @var float
@@ -68,7 +69,7 @@ class OrderItem
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $unrebatedTotalPrice;
+    public float $unrebatedTotalPrice;
 
     /**
      * @var float
@@ -77,7 +78,7 @@ class OrderItem
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $taxAmount;
+    public float $taxAmount;
 
     /**
      * @var ?int
@@ -86,7 +87,7 @@ class OrderItem
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $taxIndex;
+    public ?int $taxIndex;
 
     /**
      * @var float
@@ -95,7 +96,7 @@ class OrderItem
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $discount;
+    public float $discount;
 
     /**
      * @var ?OrderItemAttribute[]
@@ -104,7 +105,7 @@ class OrderItem
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $attributes;
+    public ?array $attributes;
 
     /**
      * @var bool
@@ -113,7 +114,7 @@ class OrderItem
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $getPriceFromArticleIfAny = false;
+    public bool $getPriceFromArticleIfAny = false;
 
     /**
      * @var bool
@@ -122,13 +123,13 @@ class OrderItem
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $isCoupon = false;
+    public bool $isCoupon = false;
 
     /**
      * @var mixed
      * @deprecated Removed in the next major version.
      */
-    public $shippingProfileId;
+    public mixed $shippingProfileId;
 
     /**
      * @var bool
@@ -137,7 +138,7 @@ class OrderItem
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $dontAdjustStock;
+    public bool $dontAdjustStock;
 
     /**
      * Contains the used serial number
@@ -148,14 +149,14 @@ class OrderItem
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $serialNumber;
+    public ?string $serialNumber;
 
     /**
      * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("InvoiceSKU")
      */
-    private $invoiceSku;
+    private ?string $invoiceSku;
 
     public function getBillbeeId(): ?int
     {

@@ -32,18 +32,18 @@ class VatFlagsTest extends SerializerTestCase
             'Model/vat_flags.json',
             VatFlags::class,
             function (VatFlags $result) {
-                self::assertEquals(false, $result->isThirdPartyCountry());
-                self::assertEquals(true, $result->isSrcCountryIsEqualToDstCountry());
-                self::assertEquals(false, $result->isCustomerHasVatId());
-                self::assertEquals(true, $result->isEuDeliveryThresholdExceeded());
-                self::assertEquals(true, $result->isOssEnabled());
-                self::assertEquals(false, $result->isSellerIsRegisteredInDstCountry());
-                self::assertEquals(true, $result->isOrderDistributionCountryIsEmpty());
-                self::assertEquals(false, $result->isUserProfileCountryIsEmpty());
-                self::assertEquals(true, $result->isSetIglWhenVatIdIsAvailableEnabled());
+                self::assertFalse($result->isThirdPartyCountry());
+                self::assertTrue($result->isSrcCountryIsEqualToDstCountry());
+                self::assertFalse($result->isCustomerHasVatId());
+                self::assertTrue($result->isEuDeliveryThresholdExceeded());
+                self::assertTrue($result->isOssEnabled());
+                self::assertFalse($result->isSellerIsRegisteredInDstCountry());
+                self::assertTrue($result->isOrderDistributionCountryIsEmpty());
+                self::assertFalse($result->isUserProfileCountryIsEmpty());
+                self::assertTrue($result->isSetIglWhenVatIdIsAvailableEnabled());
                 self::assertEquals("destination_country", $result->getRatesFrom());
                 self::assertEquals("destination_country", $result->getVatIdFrom());
-                self::assertEquals(false, $result->isDistanceSale());
+                self::assertFalse($result->isDistanceSale());
             }
         );
     }

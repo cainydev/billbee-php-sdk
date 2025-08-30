@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Billbee API package.
  *
@@ -14,45 +15,45 @@ namespace BillbeeDe\BillbeeAPI\Type;
 
 class Partner
 {
-    const SEOSHOP_LIGHTSPEED = 'seoshop';
-    const PLENTYMARKETS = 'plentymarkets';
-    const ETOS = 'etos';
-    const AFTERBUY = 'afterbuy';
-    const AMAZON = 'amazon';
-    const PAYPAL = 'paypal';
-    const DAWANDA = 'dawanda';
-    const EBAY = 'ebay';
-    const EPAGES = 'epages';
-    const EPAGES_NEW = 'epagesrest';
-    const ETSY = 'etsy';
-    const WISH = 'wish';
-    const IDEALO = 'idealo';
-    const INTERAKTIV = 'interaktiv';
-    const MAGENTO = 'magento';
-    const MAGENTO2 = 'magento2';
-    const NOTHS = 'noths';
-    const OPENCART = 'opencart';
-    const OXID = 'oxid';
-    const PRESTASHOP = 'presta';
-    const RAKUTEN = 'rakuten';
-    const SHOPIFY = 'shopify';
-    const VERSACOMMERCE = 'versacommerce';
-    const SHOPWARE = 'shopware';
-    const XT_COMMERCE = 'xtcommercev3db';
-    const COMMERCESEO_V3 = 'commerceseov3';
-    const GAMBIO = 'gambiorest';
-    const YATEGO = 'yatego';
-    const WOOCOMMERCE = 'woocommerce';
-    const WOOCOMMERCE_NEW = 'woocommercerest';
-    const MANUAL = 'manual';
-    const JIMDO = 'jimdo';
-    const WIX = 'wix';
-    const CUSTOM = 'custom';
-    const CUSTOMSHOP = 'customshop';
-    const SERVERSPOT = 'serverspot';
-    const BIGCARTEL = 'bigcartel';
-    const ECWID = 'ecwid';
-    const INVENTORUM = 'inventorum';
-    const PIXI = 'pixi';
-    const HOOD = 'hood';
+    public const SEOSHOP_LIGHTSPEED = 'seoshop';
+    public const PLENTYMARKETS = 'plentymarkets';
+    public const ETOS = 'etos';
+    public const AFTERBUY = 'afterbuy';
+    public const AMAZON = 'amazon';
+    public const PAYPAL = 'paypal';
+    public const DAWANDA = 'dawanda';
+    public const EBAY = 'ebay';
+    public const EPAGES = 'epages';
+    public const EPAGES_NEW = 'epagesrest';
+    public const ETSY = 'etsy';
+    public const WISH = 'wish';
+    public const IDEALO = 'idealo';
+    public const INTERAKTIV = 'interaktiv';
+    public const MAGENTO = 'magento';
+    public const MAGENTO2 = 'magento2';
+    public const NOTHS = 'noths';
+    public const OPENCART = 'opencart';
+    public const OXID = 'oxid';
+    public const PRESTASHOP = 'presta';
+    public const RAKUTEN = 'rakuten';
+    public const SHOPIFY = 'shopify';
+    public const VERSACOMMERCE = 'versacommerce';
+    public const SHOPWARE = 'shopware';
+    public const XT_COMMERCE = 'xtcommercev3db';
+    public const COMMERCESEO_V3 = 'commerceseov3';
+    public const GAMBIO = 'gambiorest';
+    public const YATEGO = 'yatego';
+    public const WOOCOMMERCE = 'woocommerce';
+    public const WOOCOMMERCE_NEW = 'woocommercerest';
+    public const MANUAL = 'manual';
+    public const JIMDO = 'jimdo';
+    public const WIX = 'wix';
+    public const CUSTOM = 'custom';
+    public const CUSTOMSHOP = 'customshop';
+    public const SERVERSPOT = 'serverspot';
+    public const BIGCARTEL = 'bigcartel';
+    public const ECWID = 'ecwid';
+    public const INVENTORUM = 'inventorum';
+    public const PIXI = 'pixi';
+    public const HOOD = 'hood';
 }
