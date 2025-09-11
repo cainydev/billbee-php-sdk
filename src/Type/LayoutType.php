@@ -1,23 +1,15 @@
 <?php
-/**
- * This file is part of the Billbee API package.
- *
- * Copyright 2017 - now by Billbee GmbH
- *
- * For the full copyright and license information, please read the LICENSE
- * file that was distributed with this source code.
- *
- * Created by Julian Finkler <julian@billbee.io>
- */
+
+declare(strict_types=1);
 
 namespace BillbeeDe\BillbeeAPI\Type;
 
-class LayoutType
+enum LayoutType: int
 {
-    const INVOICE = 0;
-    const LABEL = 1;
-    const DELIVERY_NOTE = 2;
-    const ORDER_COMMIT = 3;
-    const OFFER = 4;
-    const CANCELLATION_INVOICE = 5;
+    case INVOICE = 0;
+    case LABEL = 1;
+    case DELIVERY_NOTE = 2;
+    case ORDER_COMMIT = 3;
+    case OFFER = 4;
+    case CANCELLATION_INVOICE = 5;
 }

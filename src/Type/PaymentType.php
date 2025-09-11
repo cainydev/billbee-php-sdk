@@ -1,101 +1,93 @@
 <?php
-/**
- * This file is part of the Billbee API package.
- *
- * Copyright 2017 - now by Billbee GmbH
- *
- * For the full copyright and license information, please read the LICENSE
- * file that was distributed with this source code.
- *
- * Created by Julian Finkler <julian@mintware.de>
- */
+
+declare(strict_types=1);
 
 namespace BillbeeDe\BillbeeAPI\Type;
 
-class PaymentType
+enum PaymentType: int
 {
-    const BANK_TRANSFER = 1;
-    const CASH_ON_DELIVERY = 2;
-    const PAYPAL = 3;
-    const CASH = 4;
-    const VOUCHER = 6;
-    const SOFORTUEBERWEISUNG = 19;
-    const MONEY_ORDER = 20; // Etsy Specific
-    const CHECK = 21;
-    const OTHER = 22;
-    const DEBIT = 23;
-    const MONEYBOOKERS = 24;
-    const KLARNA = 25;
-    const INVOICE = 26;
-    const MONEYBOOKERS_CREDIT_CARD = 27;
-    const MONEYBOOKERS_DEBIT = 28;
-    const BILLPAY_INVOICE = 29;
-    const BILLPAY_DEBIT = 30;
-    const CREDIT_CARD = 31;
-    const MAESTRO = 32;
-    const IDEAL = 33;
-    const EPS = 34;
-    const P24 = 35;
-    const CLICK_AND_BUY = 36;
-    const GIROPAY = 37;
-    const NOVALNET_DEBIT = 38;
-    const KLARNA_PARTPAYMENT = 39;
-    const IPAYMENT_CC = 40;
-    const BILLSAFE = 41;
-    const TEST_ORDER = 42;
-    const WIRECARD_CREDIT_CARD = 43;
-    const AMAZON_PAYMENTS = 44;
-    const SECUPAY_CREDIT_CARD = 45;
-    const SECUPAY_DEBIT = 46;
-    const WIRECARD_DEBIT = 47;
-    const EC = 48;
-    const PAYMILL_CREDIT_CARD = 49;
-    const NOVALNET_CREDIT_CARD = 50;
-    const NOVALNET_INVOICE = 51;
-    const NOVALNET_PAYPAL = 52;
-    const PAYMILL = 53;
-    const INVOICE_PAYPAL = 54;
-    const SELEKKT = 55;
-    const AVOCADOSTORE = 56;
-    const DIRECT_CHECKOUT = 57;
-    const RAKUTEN = 58;
-    const PRE_PAYMENT = 59;
-    const COMMISSION_SETTLEMENT = 60;
-    const AMAZON_MARKETPLACE = 61;
-    const AMAZON_PAYMENTS_ADVANCED = 62;
-    const STRIPE = 63;
-    const BILLPAY_PAYLATER = 64;
-    const POSTFINANCE = 65;
-    const IZETTLE = 66;
-    const SUMUP = 67;
-    const PAYLEVEN = 68;
-    const ATALANDA = 69;
-    const SAFERPAY_CREDIT_CARD = 70;
-    const WIRECARD_PAYPAL = 71;
-    const MICROPAYMENT = 72;
-    const HIRE_PURCHASE = 73;
-    const WAYFAIR = 74;
-    const MANGOPAY_PAYPAL = 75;
-    const MANGOPAY_SOFORTUEBERWEISUNG = 76;
-    const MANGOPAY_CREDIT_CARD = 77;
-    const MANGOPAY_IDEAL = 78;
-    const PAYPAL_EXPRESS = 79;
-    const PAYPAL_DEBIT = 80;
-    const PAYPAL_CREDIT_CARD = 81;
-    const WISH = 82;
-    const BANCONTACT_MISTER_CASH = 83;
-    const BELFIUS_DIRECT_NET = 84;
-    const KBC_CBC_BETAALKNOP = 85;
-    const NOVALNET_PRZELEWY24 = 86;
-    const NOVALNET_VORKASSE = 87;
-    const NOVALNET_INSTANTBANK = 88;
-    const NOVALNET_IDEAL = 89;
-    const NOVALNET_EPS = 90;
-    const NOVALNET_GIROPAY = 91;
-    const NOVALNET_BARZAHLEN = 92;
-    const REAL_DE = 93;
-    const FRUUGO = 94;
-    const CDISCOUNT = 95;
-    const PAY_DIREKT = 96;
-    const ETSY_PAYMENTS = 97;
+    case BANK_TRANSFER = 1;
+    case CASH_ON_DELIVERY = 2;
+    case PAYPAL = 3;
+    case CASH = 4;
+    case VOUCHER = 6;
+    case SOFORTUEBERWEISUNG = 19;
+    case MONEY_ORDER = 20; // Etsy Specific
+    case CHECK = 21;
+    case OTHER = 22;
+    case DEBIT = 23;
+    case MONEYBOOKERS = 24;
+    case KLARNA = 25;
+    case INVOICE = 26;
+    case MONEYBOOKERS_CREDIT_CARD = 27;
+    case MONEYBOOKERS_DEBIT = 28;
+    case BILLPAY_INVOICE = 29;
+    case BILLPAY_DEBIT = 30;
+    case CREDIT_CARD = 31;
+    case MAESTRO = 32;
+    case IDEAL = 33;
+    case EPS = 34;
+    case P24 = 35;
+    case CLICK_AND_BUY = 36;
+    case GIROPAY = 37;
+    case NOVALNET_DEBIT = 38;
+    case KLARNA_PARTPAYMENT = 39;
+    case IPAYMENT_CC = 40;
+    case BILLSAFE = 41;
+    case TEST_ORDER = 42;
+    case WIRECARD_CREDIT_CARD = 43;
+    case AMAZON_PAYMENTS = 44;
+    case SECUPAY_CREDIT_CARD = 45;
+    case SECUPAY_DEBIT = 46;
+    case WIRECARD_DEBIT = 47;
+    case EC = 48;
+    case PAYMILL_CREDIT_CARD = 49;
+    case NOVALNET_CREDIT_CARD = 50;
+    case NOVALNET_INVOICE = 51;
+    case NOVALNET_PAYPAL = 52;
+    case PAYMILL = 53;
+    case INVOICE_PAYPAL = 54;
+    case SELEKKT = 55;
+    case AVOCADOSTORE = 56;
+    case DIRECT_CHECKOUT = 57;
+    case RAKUTEN = 58;
+    case PRE_PAYMENT = 59;
+    case COMMISSION_SETTLEMENT = 60;
+    case AMAZON_MARKETPLACE = 61;
+    case AMAZON_PAYMENTS_ADVANCED = 62;
+    case STRIPE = 63;
+    case BILLPAY_PAYLATER = 64;
+    case POSTFINANCE = 65;
+    case IZETTLE = 66;
+    case SUMUP = 67;
+    case PAYLEVEN = 68;
+    case ATALANDA = 69;
+    case SAFERPAY_CREDIT_CARD = 70;
+    case WIRECARD_PAYPAL = 71;
+    case MICROPAYMENT = 72;
+    case HIRE_PURCHASE = 73;
+    case WAYFAIR = 74;
+    case MANGOPAY_PAYPAL = 75;
+    case MANGOPAY_SOFORTUEBERWEISUNG = 76;
+    case MANGOPAY_CREDIT_CARD = 77;
+    case MANGOPAY_IDEAL = 78;
+    case PAYPAL_EXPRESS = 79;
+    case PAYPAL_DEBIT = 80;
+    case PAYPAL_CREDIT_CARD = 81;
+    case WISH = 82;
+    case BANCONTACT_MISTER_CASH = 83;
+    case BELFIUS_DIRECT_NET = 84;
+    case KBC_CBC_BETAALKNOP = 85;
+    case NOVALNET_PRZELEWY24 = 86;
+    case NOVALNET_VORKASSE = 87;
+    case NOVALNET_INSTANTBANK = 88;
+    case NOVALNET_IDEAL = 89;
+    case NOVALNET_EPS = 90;
+    case NOVALNET_GIROPAY = 91;
+    case NOVALNET_BARZAHLEN = 92;
+    case REAL_DE = 93;
+    case FRUUGO = 94;
+    case CDISCOUNT = 95;
+    case PAY_DIREKT = 96;
+    case ETSY_PAYMENTS = 97;
 }

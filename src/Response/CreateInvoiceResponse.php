@@ -1,29 +1,25 @@
 <?php
-/**
- * This file is part of the Billbee API package.
- *
- * Copyright 2017 - now by Billbee GmbH
- *
- * For the full copyright and license information, please read the LICENSE
- * file that was distributed with this source code.
- *
- * Created by Julian Finkler <julian@mintware.de>
- */
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
 use BillbeeDe\BillbeeAPI\Model\InvoiceDocument;
-use JMS\Serializer\Annotation as Serializer;
+use BillbeeDe\BillbeeAPI\Model\PagingInformation;
+use JMS\Serializer\Annotation;
 
-/** @extends BaseResponse<InvoiceDocument> */
-class CreateInvoiceResponse extends BaseResponse
+class CreateInvoiceResponse
 {
-    /**
-     * @var InvoiceDocument
-     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\InvoiceDocument")
-     * @Serializer\SerializedName("Data")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    public $data = null;
+    public function __construct(
+        #[Annotation\Type("string")]
+        #[Annotation\SerializedName("ErrorMessage")]
+        public ?string $errorMessage = null,
+
+        #[Annotation\Type("int")]
+        #[Annotation\SerializedName("ErrorCode")]
+        public int $errorCode = 0,
+
+        #[Annotation\Type("BillbeeDe\BillbeeAPI\Model\InvoiceDocument")]
+        #[Annotation\SerializedName("Data")]
+        public ?InvoiceDocument $data = null,
+    ) {
+    }
 }

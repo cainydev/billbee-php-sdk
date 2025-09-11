@@ -2,33 +2,21 @@
 
 namespace BillbeeDe\Tests\BillbeeAPI\Response;
 
-use BillbeeDe\BillbeeAPI\Model\Product;
 use BillbeeDe\BillbeeAPI\Response\GetProductResponse;
-use BillbeeDe\Tests\BillbeeAPI\Model\ProductTest;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
+use BillbeeDe\Tests\BillbeeAPI\Model\ProductTest;
 
 class GetProductResponseTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getGetProductResponse();
-        self::assertSerialize('Response/get_product_response.json', $result);
+        return 'Response/get_product_response.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): GetProductResponse
     {
-        self::assertDeserialize(
-            'Response/get_product_response.json',
-            GetProductResponse::class,
-            function (GetProductResponse $result) {
-                self::assertInstanceOf(Product::class, $result->getData());
-            }
+        return new GetProductResponse(
+            data: ProductTest::getExpectedObject()
         );
-    }
-
-    public static function getGetProductResponse(): GetProductResponse
-    {
-        return (new GetProductResponse())
-            ->setData(ProductTest::getProduct());
     }
 }

@@ -2,33 +2,21 @@
 
 namespace BillbeeDe\Tests\BillbeeAPI\Response;
 
-use BillbeeDe\BillbeeAPI\Model\ShippingProvider;
 use BillbeeDe\BillbeeAPI\Response\GetShippingProvidersResponse;
-use BillbeeDe\Tests\BillbeeAPI\Model\ShippingProviderTest;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
+use BillbeeDe\Tests\BillbeeAPI\Model\ShippingProviderTest;
 
 class GetShippingProvidersResponseTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getGetShippingProvidersResponse();
-        self::assertSerialize('Response/get_shipping_providers_response.json', $result);
+        return 'Response/get_shipping_providers_response.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): GetShippingProvidersResponse
     {
-        self::assertDeserialize(
-            'Response/get_shipping_providers_response.json',
-            GetShippingProvidersResponse::class,
-            function (GetShippingProvidersResponse $result) {
-                self::assertInstanceOf(ShippingProvider::class, $result->getData()[0]);
-            }
+        return new GetShippingProvidersResponse(
+            data: [ShippingProviderTest::getExpectedObject()]
         );
-    }
-
-    public static function getGetShippingProvidersResponse(): GetShippingProvidersResponse
-    {
-        return (new GetShippingProvidersResponse())
-            ->setData([ShippingProviderTest::getShippingProvider()]);
     }
 }

@@ -1,46 +1,33 @@
 <?php
-/**
- * This file is part of the Billbee API package.
- *
- * Copyright 2017 - now by Billbee GmbH
- *
- * For the full copyright and license information, please read the LICENSE
- * file that was distributed with this source code.
- *
- * Created by Julian Finkler <julian@mintware.de>
- */
+
+declare(strict_types=1);
 
 namespace BillbeeDe\BillbeeAPI\Type;
 
-class SendMode
+enum SendMode: int
 {
     /**
-     * No message will be send
-     * @var int
+     * No message will be sent
      */
-    const NONE = 0;
+    case NONE = 0;
 
     /**
-     * The message will be send via email to the customer email address
-     * @var int
+     * The message will be sent via email to the customer email address
      */
-    const EMAIL = 1;
+    case EMAIL = 1;
 
     /**
-     * The message will be send via the shop or marketplace api (if supported)
-     * @var int
+     * The message will be sent via the shop or marketplace api (if supported)
      */
-    const API = 2;
+    case API = 2;
 
     /**
-     * The message will be send via email if the email address exists otherwise via the shop or marketplace api (if supported)
-     * @var int
+     * The message will be sent via email if the email address exists otherwise via the shop or marketplace api (if supported)
      */
-    const EMAIL_THEN_API = 3;
+    case EMAIL_THEN_API = 3;
 
     /**
-     * The message will be send via email to the alternative email address
-     * @var int
+     * The message will be sent via email to the alternative email address
      */
-    const EXTERNAL_EMAIL = 4;
+    case EXTERNAL_EMAIL = 4;
 }

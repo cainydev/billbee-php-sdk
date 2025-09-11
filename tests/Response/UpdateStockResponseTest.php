@@ -3,42 +3,20 @@
 namespace BillbeeDe\Tests\BillbeeAPI\Response;
 
 use BillbeeDe\BillbeeAPI\Response\UpdateStockResponse;
+use BillbeeDe\Tests\BillbeeAPI\Model\StockUpdateResultTest;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
 
 class UpdateStockResponseTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getUpdateStockResponse();
-        self::assertSerialize('Response/update_stock_response.json', $result);
+        return 'Response/update_stock_response.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): UpdateStockResponse
     {
-        self::assertDeserialize(
-            'Response/update_stock_response.json',
-            UpdateStockResponse::class,
-            function (UpdateStockResponse $result) {
-                self::assertEquals([
-                    "SKU" => "asd",
-                    "OldStock" => 0,
-                    "CurrentStock" => 123,
-                    "UnfulfilledAmount" => 0.0,
-                    "Message" => "The qty was successfully updated from 0 to 123"
-                ], $result->getData());
-            }
+        return new UpdateStockResponse(
+            data: StockUpdateResultTest::getExpectedObject()
         );
-    }
-
-    public static function getUpdateStockResponse(): UpdateStockResponse
-    {
-        return (new UpdateStockResponse())
-            ->setData([
-                "SKU" => "asd",
-                "OldStock" => 0,
-                "CurrentStock" => 123,
-                "UnfulfilledAmount" => 0.0,
-                "Message" => "The qty was successfully updated from 0 to 123"
-            ]);
     }
 }

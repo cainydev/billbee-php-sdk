@@ -7,32 +7,18 @@ use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
 
 class CustomerResultTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getCustomerResult();
-        self::assertSerialize('Model/Search/customer_result.json', $result);
+        return 'Model/Search/customer_result.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): CustomerResult
     {
-        self::assertDeserialize(
-            'Model/Search/customer_result.json',
-            CustomerResult::class,
-            function (CustomerResult $result) {
-                self::assertEquals(1, $result->getId());
-                self::assertEquals('Max', $result->getName());
-                self::assertEquals('Test', $result->getAddresses());
-                self::assertEquals('1234', $result->getNumber());
-            }
+        return new CustomerResult(
+            id: 1,
+            name: 'Max',
+            addresses: 'Test',
+            number: '1234'
         );
-    }
-
-    public static function getCustomerResult(): CustomerResult
-    {
-        return (new CustomerResult())
-            ->setId(1)
-            ->setName('Max')
-            ->setAddresses('Test')
-            ->setNumber('1234');
     }
 }

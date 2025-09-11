@@ -6,120 +6,87 @@ use BillbeeDe\BillbeeAPI\Model\Invoice;
 use BillbeeDe\BillbeeAPI\Model\InvoiceAdditionalFee;
 use BillbeeDe\BillbeeAPI\Model\InvoicePosition;
 use BillbeeDe\BillbeeAPI\Model\VatFlags;
+use BillbeeDe\BillbeeAPI\Type\InvoiceType;
+use BillbeeDe\BillbeeAPI\Type\VatMode;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
+use DateTime;
 
 class InvoiceTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getInvoice();
-        self::assertSerialize('Model/invoice.json', $result);
+        return 'Model/invoice.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): Invoice
     {
-        self::assertDeserialize(
-            'Model/invoice.json',
-            Invoice::class,
-            function (Invoice $result) {
-                self::assertEquals("RN-2022-0083", $result->getInvoiceNumber());
-                self::assertEquals("invoice", $result->getType());
-                self::assertEquals("", $result->getTitle());
-                self::assertEquals("Sir", $result->getSalutation());
-                self::assertEquals("Max", $result->getLastName());
-                self::assertEquals("Muster", $result->getFirstName());
-                self::assertEquals("Firma", $result->getCompany());
-                self::assertEquals(1, $result->getCustomerNumber());
-                self::assertEquals(1, $result->getDebtorNumber());
-                self::assertEquals("2022-07-22T09:54:25+00:00", $result->getInvoiceDate()->format('c'));
-                self::assertEquals(133.41, $result->getTotalNet());
-                self::assertEquals("EUR", $result->getCurrency());
-                self::assertEquals(158.76, $result->getTotalGross());
-                self::assertEquals(22, $result->getPaymentTypeId());
-                self::assertEquals("Test", $result->getOrderNumber());
-                self::assertEquals("txid", $result->getTransactionId());
-                self::assertEquals("max@mustermann.tld", $result->getEmail());
-                self::assertEquals("test", $result->getShopName());
-                self::assertEquals("2022-08-10T00:00:00+00:00", $result->getPayDate()->format('c'));
-                self::assertEquals(0, $result->getVatMode());
-                self::assertEquals(100000186018330, $result->getId());
-                self::assertEquals("DE", $result->getShippingCountry());
-                self::assertEquals("1234", $result->getMerchantVatId());
-                self::assertEquals("1234", $result->getCustomerVatId());
-                self::assertCount(1, $result->getAdditionalFees());
-                self::assertInstanceOf(InvoiceAdditionalFee::class, $result->getAdditionalFees()[0]);
-                self::assertInstanceOf(VatFlags::class, $result->getVatFlags());
-                self::assertCount(1, $result->getPositions());
-                self::assertInstanceOf(InvoicePosition::class, $result->getPositions()[0]);
-            }
+        $additionalFee = new InvoiceAdditionalFee(
+            type: "ShipCost",
+            gross: 11.996,
+            net: 10.08,
+            vatAmount: 1.916,
+            vatRate: 19
         );
-    }
 
-    public static function getInvoice()
-    {
-        return (new Invoice())
-            ->setInvoiceNumber("RN-2022-0083")
-            ->setType("invoice")
-            ->setTitle("")
-            ->setSalutation("Sir")
-            ->setLastName("Max")
-            ->setFirstName("Muster")
-            ->setCompany("Firma")
-            ->setCustomerNumber(1)
-            ->setDebtorNumber(1)
-            ->setInvoiceDate(new \DateTime("2022-07-22T09:54:25.31"))
-            ->setTotalNet(133.41)
-            ->setCurrency("EUR")
-            ->setTotalGross(158.76)
-            ->setPaymentTypeId(22)
-            ->setOrderNumber("Test")
-            ->setTransactionId("txid")
-            ->setEmail("max@mustermann.tld")
-            ->setShopName("test")
-            ->setPayDate(new \DateTime("2022-08-10T00:00:00"))
-            ->setVatMode(0)
-            ->setId(100000186018330)
-            ->setShippingCountry("DE")
-            ->setMerchantVatId("1234")
-            ->setCustomerVatId("1234")
-            ->setAdditionalFees([
-                (new InvoiceAdditionalFee())
-                    ->setType("ShipCost")
-                    ->setGross(11.996)
-                    ->setNet(10.08)
-                    ->setVatAmount(1.916)
-                    ->setVatRate(19)
-            ])
-            ->setPositions([
-                (new InvoicePosition())
-                    ->setPosition(1)
-                    ->setAmount(12)
-                    ->setNetValue(11.1176)
-                    ->setTotalNetValue(133.4118)
-                    ->setGrossValue(13.23)
-                    ->setTotalGrossValue(158.76)
-                    ->setVatRate(19)
-                    ->setArticleId(58592683)
-                    ->setSku("TESTBESTAND")
-                    ->setTitle("Test Bestandsabgleich")
-                    ->setId(100000317105650)
-                    ->setTotalVatAmount(25.3482)
-                    ->setRebatePercent(2)
-            ])
-            ->setVatFlags(
-                (new VatFlags())
-                    ->setThirdPartyCountry(false)
-                    ->setSrcCountryIsEqualToDstCountry(true)
-                    ->setCustomerHasVatId(false)
-                    ->setEuDeliveryThresholdExceeded(true)
-                    ->setOssEnabled(true)
-                    ->setSellerIsRegisteredInDstCountry(false)
-                    ->setOrderDistributionCountryIsEmpty(true)
-                    ->setUserProfileCountryIsEmpty(false)
-                    ->setSetIglWhenVatIdIsAvailableEnabled(true)
-                    ->setRatesFrom("destination_country")
-                    ->setVatIdFrom("destination_country")
-                    ->setIsDistanceSale(false)
-            );
+        $position = new InvoicePosition(
+            id: 100000317105650,
+            position: 1,
+            amount: 12,
+            netValue: 11.1176,
+            totalNetValue: 133.4118,
+            grossValue: 13.23,
+            totalGrossValue: 158.76,
+            vatRate: 19,
+            articleId: 58592683,
+            sku: "TESTBESTAND",
+            title: "Test Bestandsabgleich",
+            totalVatAmount: 25.3482,
+            rebatePercent: 2
+        );
+
+        $vatFlags = new VatFlags(
+            thirdPartyCountry: false,
+            srcCountryIsEqualToDstCountry: true,
+            customerHasVatId: false,
+            euDeliveryThresholdExceeded: true,
+            ossEnabled: true,
+            sellerIsRegisteredInDstCountry: false,
+            orderDistributionCountryIsEmpty: true,
+            userProfileCountryIsEmpty: false,
+            setIglWhenVatIdIsAvailableEnabled: true,
+            ratesFrom: "destination_country",
+            vatIdFrom: "destination_country",
+            isDistanceSale: false
+        );
+
+        return new Invoice(
+            id: 100000186018330,
+            invoiceNumber: "RN-2022-0083",
+            type: InvoiceType::INVOICE,
+            lastName: "Max",
+            firstName: "Muster",
+            company: "Firma",
+            customerNumber: 1,
+            debtorNumber: 1,
+            invoiceDate: new DateTime("2022-07-22T09:54:25.31"),
+            totalNet: 133.41,
+            totalGross: 158.76,
+            currency: "EUR",
+            paymentTypeId: 22,
+            orderNumber: "Test",
+            transactionId: "txid",
+            email: "max@mustermann.tld",
+            shopName: "test",
+            positions: [$position],
+            payDate: new DateTime("2022-08-10T00:00:00"),
+            vatMode: VatMode::DEFAULT,
+            vatFlags: $vatFlags,
+            shippingCountry: "DE",
+            title: "",
+            salutation: "Sir",
+            additionalFees: [$additionalFee],
+            merchantVatId: "1234",
+            customerVatId: "1234"
+        );
     }
 }

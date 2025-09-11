@@ -7,28 +7,16 @@ use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
 
 class CategoryTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getCategory();
-        self::assertSerialize('Model/category.json', $result);
+        return 'Model/category.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): Category
     {
-        self::assertDeserialize(
-            'Model/category.json',
-            Category::class,
-            function (Category $result) {
-                self::assertEquals("Schuhe", $result->getName());
-                self::assertEquals(8733, $result->getId());
-            }
+        return new Category(
+            id: 8733,
+            name: "Schuhe"
         );
-    }
-
-    public static function getCategory(): Category
-    {
-        return (new Category())
-            ->setName("Schuhe")
-            ->setId(8733);
     }
 }

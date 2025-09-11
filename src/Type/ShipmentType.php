@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BillbeeDe\BillbeeAPI\Type;
 
-class ShipmentType
+enum ShipmentType: int
 {
-    public const SHIPMENT = 0;
-    public const RETURN = 1;
+    case SHIPMENT = 0;
+    case RETURN = 1;
 }

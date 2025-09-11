@@ -1,19 +1,11 @@
 <?php
-/**
- * This file is part of the Billbee API package.
- *
- * Copyright 2017 - now by Billbee GmbH
- *
- * For the full copyright and license information, please read the LICENSE
- * file that was distributed with this source code.
- *
- * Created by Julian Finkler <julian@mintware.de>
- */
+
+declare(strict_types=1);
 
 namespace BillbeeDe\BillbeeAPI\Type;
 
-class InvoiceType
+enum InvoiceType: string
 {
-    const INVOICE = 'invoice';
-    const CREDIT = 'creditnote';
+    case INVOICE = 'invoice';
+    case CREDIT = 'creditnote';
 }

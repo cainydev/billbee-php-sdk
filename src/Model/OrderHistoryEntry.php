@@ -1,97 +1,34 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BillbeeDe\BillbeeAPI\Model;
 
+use DateTimeInterface;
 use JMS\Serializer\Annotation as Serializer;
 
-class OrderHistoryEntry
+final class OrderHistoryEntry
 {
-    /**
-     * @var \DateTime
-     * @Serializer\Type("DateTime")
-     * @Serializer\SerializedName("Created")
-     */
-    private $created;
+    public function __construct(
+        #[Serializer\Type("DateTimeInterface")]
+        #[Serializer\SerializedName("Created")]
+        public ?DateTimeInterface $created = null,
 
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("EventTypeName")
-     */
-    private $eventTypeName;
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("Text")
-     */
-    private $text;
+        #[Serializer\Type("string")]
+        #[Serializer\SerializedName("EventTypeName")]
+        public ?string $eventTypeName = null,
 
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("EmployeeName")
-     */
-    private $employeeName;
+        #[Serializer\Type("string")]
+        #[Serializer\SerializedName("Text")]
+        public ?string $text = null,
 
-    /**
-     * @var ?int
-     * @Serializer\Type("int")
-     * @Serializer\SerializedName("TypeId")
-     */
-    private $typeId;
+        #[Serializer\Type("string")]
+        #[Serializer\SerializedName("EmployeeName")]
+        public ?string $employeeName = null,
 
-    public function getCreated(): \DateTime
-    {
-        return $this->created;
-    }
-
-    public function setCreated(\DateTime $created): self
-    {
-        $this->created = $created;
-        return $this;
-    }
-
-    public function getEventTypeName(): ?string
-    {
-        return $this->eventTypeName;
-    }
-
-    public function setEventTypeName(?string $eventTypeName): self
-    {
-        $this->eventTypeName = $eventTypeName;
-        return $this;
-    }
-
-    public function getText(): ?string
-    {
-        return $this->text;
-    }
-
-    public function setText(?string $text): self
-    {
-        $this->text = $text;
-        return $this;
-    }
-
-    public function getEmployeeName(): ?string
-    {
-        return $this->employeeName;
-    }
-
-    public function setEmployeeName(?string $employeeName): self
-    {
-        $this->employeeName = $employeeName;
-        return $this;
-    }
-
-    public function getTypeId(): ?int
-    {
-        return $this->typeId;
-    }
-
-    public function setTypeId(?int $typeId): self
-    {
-        $this->typeId = $typeId;
-        return $this;
+        #[Serializer\Type("int")]
+        #[Serializer\SerializedName("TypeId")]
+        public ?int $typeId = null,
+    ) {
     }
 }

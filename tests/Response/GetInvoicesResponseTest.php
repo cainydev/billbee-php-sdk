@@ -2,33 +2,21 @@
 
 namespace BillbeeDe\Tests\BillbeeAPI\Response;
 
-use BillbeeDe\BillbeeAPI\Model\Invoice;
 use BillbeeDe\BillbeeAPI\Response\GetInvoicesResponse;
-use BillbeeDe\Tests\BillbeeAPI\Model\InvoiceTest;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
+use BillbeeDe\Tests\BillbeeAPI\Model\InvoiceTest;
 
 class GetInvoicesResponseTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getGetInvoicesResponse();
-        self::assertSerialize('Response/get_invoices_response.json', $result);
+        return 'Response/get_invoices_response.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): GetInvoicesResponse
     {
-        self::assertDeserialize(
-            'Response/get_invoices_response.json',
-            GetInvoicesResponse::class,
-            function (GetInvoicesResponse $result) {
-                self::assertInstanceOf(Invoice::class, $result->getData()[0]);
-            }
+        return new GetInvoicesResponse(
+            data: [InvoiceTest::getExpectedObject()]
         );
-    }
-
-    public static function getGetInvoicesResponse(): GetInvoicesResponse
-    {
-        return (new GetInvoicesResponse())
-            ->setData([InvoiceTest::getInvoice()]);
     }
 }

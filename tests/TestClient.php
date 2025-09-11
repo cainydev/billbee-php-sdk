@@ -1,68 +1,101 @@
 <?php
-/**
- * This file is part of the Billbee API package.
- *
- * Copyright 2017 - now by Billbee GmbH
- *
- * For the full copyright and license information, please read the LICENSE
- * file that was distributed with this source code.
- *
- * Created by Julian Finkler <julian@mintware.de>
- */
 
 namespace BillbeeDe\Tests\BillbeeAPI;
 
+use BillbeeDe\BillbeeAPI\BatchClient;
 use BillbeeDe\BillbeeAPI\ClientInterface;
+use BillbeeDe\BillbeeAPI\Configuration\ClientConfiguration;
+use BillbeeDe\BillbeeAPI\Response\AcknowledgeResponse;
+use BillbeeDe\BillbeeAPI\SerializerFactory;
+use BillbeeDe\BillbeeAPI\Transformer\AsIsTransformer;
+use BillbeeDe\BillbeeAPI\Transformer\DefinitionConfigTransformer;
+use BillbeeDe\BillbeeAPI\Transformer\NativeDateTimeHandler;
+use Exception;
+use JMS\Serializer\Handler\EnumHandler;
+use JMS\Serializer\Handler\HandlerRegistry;
+use JMS\Serializer\SerializerBuilder;
+use JMS\Serializer\SerializerInterface;
+use JMS\Serializer\Visitor\Factory\JsonSerializationVisitorFactory;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
+use function str_starts_with;
 
-class TestClient implements ClientInterface
+final class TestClient implements ClientInterface
 {
-    private $requests = [];
-    private $handlers = [];
+    private array $requests;
 
-    public function get($node, $query, $responseClass)
-    {
-        return $this->handle('GET', $node, $query, $responseClass);
+    private ?SerializerInterface $serializer = null;
+
+    public function __construct(
+    ) {
     }
 
-    public function post($node, $data, $responseClass)
+    public function get(string $endpoint, array $query = [], ?string $responseClass = null): mixed
     {
-        return $this->handle('POST', $node, $data, $responseClass);
+        $this->requests[] = ['GET', $endpoint, $query, $responseClass];
+        return $this->dummyResponse($responseClass);
     }
 
-    public function put($node, $data, $responseClass)
+    public function post(string $endpoint, mixed $data = null, ?string $responseClass = null): mixed
     {
-        return $this->handle('PUT', $node, $data, $responseClass);
+        $this->requests[] = ['POST', $endpoint, $data, $responseClass];
+        return $this->dummyResponse($responseClass);
     }
 
-    public function patch($node, $data, $responseClass)
+    public function put(string $endpoint, mixed $data = null, ?string $responseClass = null): mixed
     {
-        return $this->handle('PATCH', $node, $data, $responseClass);
+        $this->requests[] = ['PUT', $endpoint, $data, $responseClass];
+        return $this->dummyResponse($responseClass);
     }
 
-    public function delete($node, $query, $responseClass)
+    public function patch(string $endpoint, mixed $data = null, ?string $responseClass = null): mixed
     {
-        return $this->handle('DELETE', $node, $query, $responseClass);
+        $this->requests[] = ['PATCH', $endpoint, $data, $responseClass];
+        return $this->dummyResponse($responseClass);
     }
 
-    public function getRequests()
+    public function delete(string $endpoint, array $query = [], ?string $responseClass = null): mixed
+    {
+        $this->requests[] = ['DELETE', $endpoint, $query, $responseClass];
+        return $this->dummyResponse($responseClass);
+    }
+
+    /** @return array<array<string, mixed>> */
+    public function getRequests(): array
     {
         return $this->requests;
     }
 
-    public function clearRequests()
+    public function clearRequests(): void
     {
         $this->requests = [];
     }
 
-    private function handle($method, $node, $query, $responseClass)
+    private function dummyResponse(?string $responseClass): mixed
     {
-        array_push($this->requests, [
-            $method,
-            $node,
-            $query,
-            $responseClass,
-        ]);
+        if ($responseClass === null || $responseClass === AcknowledgeResponse::class) {
+            return new AcknowledgeResponse;
+        }
+
+        if (class_exists($responseClass)) {
+            return new $responseClass();
+        }
+
+        if (str_starts_with($responseClass, 'array')) {
+            return [];
+        }
 
         return null;
+    }
+
+    public function getSerializer(): SerializerInterface
+    {
+        return $this->serializer ??= SerializerFactory::create();
+    }
+
+    public function getLogger(): LoggerInterface
+    {
+        return new NullLogger();
     }
 }

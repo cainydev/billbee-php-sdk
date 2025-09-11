@@ -1,20 +1,12 @@
 <?php
-/**
- * This file is part of the Billbee API package.
- *
- * Copyright 2017 - now by Billbee GmbH
- *
- * For the full copyright and license information, please read the LICENSE
- * file that was distributed with this source code.
- *
- * Created by Julian Finkler <julian@billbee.io>
- */
+
+declare(strict_types=1);
 
 namespace BillbeeDe\BillbeeAPI\Type;
 
-class SearchType
+enum SearchType: string
 {
-    const PRODUCT = "product";
-    const ORDER = "order";
-    const CUSTOMER = "customer";
+    case PRODUCT = "product";
+    case ORDER = "order";
+    case CUSTOMER = "customer";
 }

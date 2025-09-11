@@ -7,26 +7,15 @@ use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
 
 class GetPatchableFieldsResponseTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getGetPatchableFieldsResponse();
-        self::assertSerialize('Response/get_patchable_fields_response.json', $result);
+        return 'Response/get_patchable_fields_response.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): GetPatchableFieldsResponse
     {
-        self::assertDeserialize(
-            'Response/get_patchable_fields_response.json',
-            GetPatchableFieldsResponse::class,
-            function (GetPatchableFieldsResponse $result) {
-                self::assertEquals(["field1", "field2"], $result->getData());
-            }
+        return new GetPatchableFieldsResponse(
+            data: ["field1", "field2"]
         );
-    }
-
-    public static function getGetPatchableFieldsResponse(): GetPatchableFieldsResponse
-    {
-        return (new GetPatchableFieldsResponse())
-            ->setData(["field1", "field2"]);
     }
 }

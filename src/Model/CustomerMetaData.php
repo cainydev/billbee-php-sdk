@@ -1,111 +1,37 @@
 <?php
-/**
- * This file is part of the Billbee API package.
- *
- * Copyright 2017 - 2022 by Billbee GmbH
- *
- * For the full copyright and license information, please read the LICENSE
- * file that was distributed with this source code.
- *
- * Created by Julian Finkler <julian@billbee.io>
- */
+
+declare(strict_types=1);
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
+use BillbeeDe\BillbeeAPI\Type\CustomerMetaDataType;
 use JMS\Serializer\Annotation as Serializer;
 
-class CustomerMetaData
+/**
+ * Represents customer metadata in the Billbee API
+ */
+final class CustomerMetaData
 {
-    public const TYPE_MAIL = 1;
-    public const TYPE_PHONE = 2;
+    public function __construct(
+        #[Serializer\Type("int")]
+        #[Serializer\SerializedName("Id")]
+        public int $id = 0,
 
-    /**
-     * @var int
-     * @Serializer\Type("int")
-     * @Serializer\SerializedName("Id")
-     */
-    private $id = 0;
+        #[Serializer\Type("enum<BillbeeDe\BillbeeAPI\Type\CustomerMetaDataType>")]
+        #[Serializer\SerializedName("TypeId")]
+        public CustomerMetaDataType $type = CustomerMetaDataType::MAIL,
 
-    /**
-     * @var int
-     * @Serializer\Type("int")
-     * @Serializer\SerializedName("TypeId")
-     */
-    private $typeId = 0;
+        #[Serializer\Type("string")]
+        #[Serializer\SerializedName("TypeName")]
+        public ?string $typeName = '',
 
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("TypeName")
-     */
-    private $typeName = '';
+        #[Serializer\Type("string")]
+        #[Serializer\SerializedName("SubType")]
+        public ?string $subType = '',
 
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("SubType")
-     */
-    private $subType = '';
-
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("Value")
-     */
-    private $value = '';
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function getTypeId(): int
-    {
-        return $this->typeId;
-    }
-
-    public function setTypeId(int $typeId): self
-    {
-        $this->typeId = $typeId;
-        return $this;
-    }
-
-    public function getTypeName(): ?string
-    {
-        return $this->typeName;
-    }
-
-    public function setTypeName(?string $typeName): self
-    {
-        $this->typeName = $typeName;
-        return $this;
-    }
-
-    public function getSubType(): ?string
-    {
-        return $this->subType;
-    }
-
-    public function setSubType(?string $subType): self
-    {
-        $this->subType = $subType;
-        return $this;
-    }
-
-    public function getValue(): ?string
-    {
-        return $this->value;
-    }
-
-    public function setValue(?string $value): self
-    {
-        $this->value = $value;
-        return $this;
+        #[Serializer\Type("string")]
+        #[Serializer\SerializedName("Value")]
+        public ?string $value = '',
+    ) {
     }
 }

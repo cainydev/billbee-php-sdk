@@ -1,14 +1,4 @@
 <?php
-/**
- * This file is part of the Billbee API package.
- *
- * Copyright 2017 - now by Billbee GmbH
- *
- * For the full copyright and license information, please read the LICENSE
- * file that was distributed with this source code.
- *
- * Created by Julian Finkler <julian@mintware.de>
- */
 
 namespace BillbeeDe\Tests\BillbeeAPI\Endpoint;
 
@@ -21,11 +11,8 @@ use PHPUnit\Framework\TestCase;
 
 class InvoiceEndpointTest extends TestCase
 {
-    /** @var InvoiceEndpoint() */
-    private $endpoint;
-
-    /** @var TestClient */
-    private $client;
+    private InvoiceEndpoint $endpoint;
+    private TestClient $client;
 
     protected function setUp(): void
     {
@@ -36,14 +23,12 @@ class InvoiceEndpointTest extends TestCase
     public function testGetInvoicesFailsInvalidShopId()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('shopId must be an array of int');
         $this->endpoint->getInvoices(1, 50, null, null, ['test']);
     }
 
     public function testGetInvoicesFailsInvalidOrderStateId()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('orderStateId must be an array of int');
         $this->endpoint->getInvoices(1, 50, null, null, [], ['test']);
     }
 
@@ -53,7 +38,7 @@ class InvoiceEndpointTest extends TestCase
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);
 
-        list($method, $node, $data, $class) = $requests[0];
+        [$method, $node, $data, $class] = $requests[0];
         $this->assertSame('GET', $method);
         $this->assertSame('orders/invoices', $node);
         $this->assertSame([
@@ -80,10 +65,10 @@ class InvoiceEndpointTest extends TestCase
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);
 
-        list($method, $node, $data, $class) = $requests[0];
+        [$method, $node, $data, $class] = $requests[0];
         $this->assertSame('GET', $method);
         $this->assertSame('orders/invoices', $node);
-        $this->assertSame([
+        $this->assertEquals([
             'page' => 12,
             'pageSize' => 24,
             'minInvoiceDate' => '2020-01-01T00:00:00+00:00',

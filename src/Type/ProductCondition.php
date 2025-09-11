@@ -1,24 +1,16 @@
 <?php
-/**
- * This file is part of the Billbee API package.
- *
- * Copyright 2017 - now by Billbee GmbH
- *
- * For the full copyright and license information, please read the LICENSE
- * file that was distributed with this source code.
- *
- * Created by Julian Finkler <julian@billbee.io>
- */
+
+declare(strict_types=1);
 
 namespace BillbeeDe\BillbeeAPI\Type;
 
-class ProductCondition
+enum ProductCondition: int
 {
-    const BRAND_NEW = 1;
-    const USED_LIKE_NEW = 2;
-    const USED_VERY_GOOD = 3;
-    const USED_GOOD = 4;
-    const USED_IN_ORDER = 5;
-    const USED_BAD = 6;
-    const BROKEN = 7;
+    case BRAND_NEW = 1;
+    case USED_LIKE_NEW = 2;
+    case USED_VERY_GOOD = 3;
+    case USED_GOOD = 4;
+    case USED_IN_ORDER = 5;
+    case USED_BAD = 6;
+    case BROKEN = 7;
 }

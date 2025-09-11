@@ -1,44 +1,24 @@
 <?php
-/**
- * This file is part of the Billbee API package.
- *
- * Copyright 2017 - now by Billbee GmbH
- *
- * For the full copyright and license information, please read the LICENSE
- * file that was distributed with this source code.
- *
- * Created by Julian Finkler <julian@mintware.de>
- */
 
 namespace BillbeeDe\Tests\BillbeeAPI\Endpoint;
 
 use BillbeeDe\BillbeeAPI\Endpoint\WebHooksEndpoint;
 use BillbeeDe\BillbeeAPI\Model\WebHook;
 use BillbeeDe\BillbeeAPI\Model\WebHookFilter;
-use BillbeeDe\BillbeeAPI\Response\BaseResponse;
-use BillbeeDe\Tests\BillbeeAPI\FakeSerializer;
+use BillbeeDe\BillbeeAPI\Response\AcknowledgeResponse;
 use BillbeeDe\Tests\BillbeeAPI\TestClient;
 use InvalidArgumentException;
-use JMS\Serializer\SerializerInterface;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class WebHooksEndpointTest extends TestCase
 {
-    /** @var WebHooksEndpoint */
-    private $endpoint;
-
-    /** @var TestClient */
-    private $client;
-
-    /** @var SerializerInterface&MockObject */
-    private $mockSerializer;
+    private WebHooksEndpoint $endpoint;
+    private TestClient $client;
 
     protected function setUp(): void
     {
         $this->client = new TestClient();
-        $this->mockSerializer = self::createMock(SerializerInterface::class);
-        $this->endpoint = new WebHooksEndpoint($this->client, $this->mockSerializer);
+        $this->endpoint = new WebHooksEndpoint($this->client);
     }
 
     public function testGetWebHooks()
@@ -48,7 +28,7 @@ class WebHooksEndpointTest extends TestCase
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);
 
-        list($method, $node, $query, $class) = $requests[0];
+        [$method, $node, $query, $class] = $requests[0];
         $this->assertSame('GET', $method);
         $this->assertSame('webhooks', $node);
         $this->assertSame([], $query);
@@ -62,7 +42,7 @@ class WebHooksEndpointTest extends TestCase
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);
 
-        list($method, $node, $query, $class) = $requests[0];
+        [$method, $node, $query, $class] = $requests[0];
         $this->assertSame('GET', $method);
         $this->assertSame('webhooks/abasd', $node);
         $this->assertSame([], $query);
@@ -76,7 +56,7 @@ class WebHooksEndpointTest extends TestCase
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);
 
-        list($method, $node, $query, $class) = $requests[0];
+        [$method, $node, $query, $class] = $requests[0];
         $this->assertSame('GET', $method);
         $this->assertSame('webhooks/filters', $node);
         $this->assertSame([], $query);
@@ -86,17 +66,12 @@ class WebHooksEndpointTest extends TestCase
     public function testCreateWebHook()
     {
         $webHook = new WebHook();
-
-        $this->mockSerializer->expects(self::once())
-            ->method('serialize')
-            ->with($webHook, 'json');
-
         $this->endpoint->createWebHook($webHook);
 
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);
 
-        list($method, $node, $query, $class) = $requests[0];
+        [$method, $node, $query, $class] = $requests[0];
         $this->assertSame('POST', $method);
         $this->assertSame('webhooks', $node);
         $this->assertSame(WebHook::class, $class);
@@ -116,16 +91,12 @@ class WebHooksEndpointTest extends TestCase
         $webHook = new WebHook();
         $webHook->id = 'HelloWorld';
 
-        $this->mockSerializer->expects(self::once())
-            ->method('serialize')
-            ->with($webHook, 'json');
-
         $this->endpoint->updateWebHook($webHook);
 
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);
 
-        list($method, $node, $query, $class) = $requests[0];
+        [$method, $node, $query, $class] = $requests[0];
         $this->assertSame('PUT', $method);
         $this->assertSame('webhooks/HelloWorld', $node);
         $this->assertSame(WebHook::class, $class);
@@ -138,11 +109,11 @@ class WebHooksEndpointTest extends TestCase
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);
 
-        list($method, $node, $query, $class) = $requests[0];
+        [$method, $node, $query, $class] = $requests[0];
         $this->assertSame('DELETE', $method);
         $this->assertSame('webhooks', $node);
         $this->assertSame([], $query);
-        $this->assertSame(BaseResponse::class, $class);
+        $this->assertSame(AcknowledgeResponse::class, $class);
     }
 
     public function testDeleteWebHookById()
@@ -152,11 +123,11 @@ class WebHooksEndpointTest extends TestCase
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);
 
-        list($method, $node, $query, $class) = $requests[0];
+        [$method, $node, $query, $class] = $requests[0];
         $this->assertSame('DELETE', $method);
         $this->assertSame('webhooks/HelloWorld', $node);
         $this->assertSame([], $query);
-        $this->assertSame(BaseResponse::class, $class);
+        $this->assertSame(AcknowledgeResponse::class, $class);
     }
 
     public function testDeleteWebHookFailsMissingId()
@@ -177,10 +148,10 @@ class WebHooksEndpointTest extends TestCase
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);
 
-        list($method, $node, $query, $class) = $requests[0];
+        [$method, $node, $query, $class] = $requests[0];
         $this->assertSame('DELETE', $method);
         $this->assertSame('webhooks/HelloWorld', $node);
         $this->assertSame([], $query);
-        $this->assertSame(BaseResponse::class, $class);
+        $this->assertSame(AcknowledgeResponse::class, $class);
     }
 }

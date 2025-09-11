@@ -2,33 +2,21 @@
 
 namespace BillbeeDe\Tests\BillbeeAPI\Response;
 
-use BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition;
 use BillbeeDe\BillbeeAPI\Response\GetCustomFieldDefinitionsResponse;
-use BillbeeDe\Tests\BillbeeAPI\Model\CustomFieldDefinitionTest;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
+use BillbeeDe\Tests\BillbeeAPI\Model\CustomFieldDefinitionTest;
 
 class GetCustomFieldDefinitionsResponseTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getGetCustomFieldDefinitionsResponse();
-        self::assertSerialize('Response/get_custom_field_definitions_response.json', $result);
+        return 'Response/get_custom_field_definitions_response.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): GetCustomFieldDefinitionsResponse
     {
-        self::assertDeserialize(
-            'Response/get_custom_field_definitions_response.json',
-            GetCustomFieldDefinitionsResponse::class,
-            function (GetCustomFieldDefinitionsResponse $result) {
-                self::assertInstanceOf(CustomFieldDefinition::class, $result->getData()[0]);
-            }
+        return new GetCustomFieldDefinitionsResponse(
+            data: [CustomFieldDefinitionTest::getExpectedObject()]
         );
-    }
-
-    public static function getGetCustomFieldDefinitionsResponse(): GetCustomFieldDefinitionsResponse
-    {
-        return (new GetCustomFieldDefinitionsResponse())
-            ->setData([CustomFieldDefinitionTest::getCustomFieldDefinition()]);
     }
 }

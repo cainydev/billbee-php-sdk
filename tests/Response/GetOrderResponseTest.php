@@ -2,33 +2,21 @@
 
 namespace BillbeeDe\Tests\BillbeeAPI\Response;
 
-use BillbeeDe\BillbeeAPI\Model\Order;
 use BillbeeDe\BillbeeAPI\Response\GetOrderResponse;
-use BillbeeDe\Tests\BillbeeAPI\Model\OrderTest;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
+use BillbeeDe\Tests\BillbeeAPI\Model\OrderTest;
 
 class GetOrderResponseTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getGetOrderResponse();
-        self::assertSerialize('Response/get_order_response.json', $result);
+        return 'Response/get_order_response.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): GetOrderResponse
     {
-        self::assertDeserialize(
-            'Response/get_order_response.json',
-            GetOrderResponse::class,
-            function (GetOrderResponse $result) {
-                self::assertInstanceOf(Order::class, $result->getData());
-            }
+        return new GetOrderResponse(
+            data: OrderTest::getExpectedObject()
         );
-    }
-
-    public static function getGetOrderResponse(): GetOrderResponse
-    {
-        return (new GetOrderResponse())
-            ->setData(OrderTest::getOrder());
     }
 }

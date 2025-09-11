@@ -3,39 +3,51 @@
 namespace BillbeeDe\Tests\BillbeeAPI;
 
 use BillbeeDe\BillbeeAPI\Transformer\AsIsTransformer;
-use BillbeeDe\BillbeeAPI\Transformer\DefaultDateTimeHandler;
 use BillbeeDe\BillbeeAPI\Transformer\DefinitionConfigTransformer;
+use BillbeeDe\BillbeeAPI\Transformer\NativeDateTimeHandler;
+use JMS\Serializer\Handler\EnumHandler;
 use JMS\Serializer\Handler\HandlerRegistry;
+use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\Visitor\Factory\JsonSerializationVisitorFactory;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
 
 abstract class SerializerTestCase extends TestCase
 {
-    protected static function assertSerialize(string $fixtureFile, $obj): void
+    abstract public static function getFixturePath(): string;
+    abstract public static function getExpectedObject(): mixed;
+
+    public static function getTargetType(): string
     {
-        $serialized = self::getSerializer()->serialize($obj, 'json');
-        $fullPath = __DIR__ . '/fixtures/' . $fixtureFile;
-        if (!is_file($fullPath)) {
-            touch($fullPath);
-        }
-        $expected = trim(file_get_contents($fullPath));
+        $method = new ReflectionMethod(static::class, 'getExpectedObject');
+        $type = $method->getReturnType();
 
-        if ($serialized != $expected) {
-            echo($serialized);
+        if ($type && !$type->isBuiltin()) {
+            return $type->getName();
         }
 
-        self::assertEquals($expected, $serialized);
+        throw new \RuntimeException("Cannot infer target type: please override getTargetType in " . static::class);
     }
 
-    protected static function assertDeserialize(string $fixtureFile, string $targetType, callable $matcher): void
+    public function testSerializeFixture(): void
     {
-        $json = trim(file_get_contents(__DIR__ . '/fixtures/' . $fixtureFile));
-        $deserialized = self::getSerializer()->deserialize($json, $targetType, 'json');
-        $matcher($deserialized);
+        $expectedFixture = trim(file_get_contents(__DIR__ . '/fixtures/' . static::getFixturePath()));
+        $serialized = static::getSerializer()->serialize(static::getExpectedObject(), 'json');
+        if ($serialized !== $expectedFixture) {
+            echo $serialized;
+        }
+        self::assertEquals($expectedFixture, $serialized);
     }
 
-    private static function getSerializer()
+    public function testDeserializeFixture(): void
+    {
+        $json = trim(file_get_contents(__DIR__ . '/fixtures/' . static::getFixturePath()));
+        $deserialized = static::getSerializer()->deserialize($json, static::getTargetType(), 'json');
+        self::assertEquals(static::getExpectedObject(), $deserialized);
+    }
+
+    private static function getSerializer(): Serializer
     {
         return SerializerBuilder::create()
             ->addDefaultDeserializationVisitors()
@@ -44,13 +56,14 @@ abstract class SerializerTestCase extends TestCase
             ->addDefaultListeners()
             ->setSerializationVisitor(
                 'json',
-                (new JsonSerializationVisitorFactory())->setOptions(JSON_PRESERVE_ZERO_FRACTION + JSON_PRETTY_PRINT)
+                (new JsonSerializationVisitorFactory())->setOptions(JSON_PRESERVE_ZERO_FRACTION | JSON_PRETTY_PRINT)
             )
             ->configureHandlers(
-                function (HandlerRegistry $registry) {
+                function (HandlerRegistry $registry): void {
                     $registry->registerSubscribingHandler(new DefinitionConfigTransformer());
                     $registry->registerSubscribingHandler(new AsIsTransformer());
-                    $registry->registerSubscribingHandler(new DefaultDateTimeHandler());
+                    $registry->registerSubscribingHandler(new NativeDateTimeHandler());
+                    $registry->registerSubscribingHandler(new EnumHandler());
                 }
             )->build();
     }

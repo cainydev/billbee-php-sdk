@@ -1,26 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BillbeeDe\BillbeeAPI\Type;
 
-class ShippingCarrier
+enum ShippingCarrier: int
 {
-    public const OTHER = 0;
-    public const DHLEXPRESS = 1;
-    public const DHL = 2;
-    public const HERMES = 3;
-    public const DPD = 4;
-    public const UPS = 5;
-    public const GLS = 6;
-    public const DPAG = 7;
-    public const OEPOST = 8;
-    public const FEDEX = 9;
-    public const GENERALOVERNIGHT = 10;
-    public const TNT = 11;
-    public const LIEFERY = 12;
-    public const ILOXX = 13;
-    public const PARCEL_ONE = 14;
-    public const CARGO_INTERNATIONAL = 15;
-    public const PIN_MAIL = 16;
-    public const USPOSTALSERVICE = 17;
-    public const AMAZON_LOGISTICS = 18;
+    case OTHER = 0;
+    case DHLEXPRESS = 1;
+    case DHL = 2;
+    case HERMES = 3;
+    case DPD = 4;
+    case UPS = 5;
+    case GLS = 6;
+    case DPAG = 7;
+    case OEPOST = 8;
+    case FEDEX = 9;
+    case GENERALOVERNIGHT = 10;
+    case TNT = 11;
+    case LIEFERY = 12;
+    case ILOXX = 13;
+    case PARCEL_ONE = 14;
+    case CARGO_INTERNATIONAL = 15;
+    case PIN_MAIL = 16;
+    case USPOSTALSERVICE = 17;
+    case AMAZON_LOGISTICS = 18;
 }

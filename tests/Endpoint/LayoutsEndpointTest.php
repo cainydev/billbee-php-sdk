@@ -1,14 +1,4 @@
 <?php
-/**
- * This file is part of the Billbee API package.
- *
- * Copyright 2017 - now by Billbee GmbH
- *
- * For the full copyright and license information, please read the LICENSE
- * file that was distributed with this source code.
- *
- * Created by Julian Finkler <julian@mintware.de>
- */
 
 namespace BillbeeDe\Tests\BillbeeAPI\Endpoint;
 
@@ -19,11 +9,8 @@ use PHPUnit\Framework\TestCase;
 
 class LayoutsEndpointTest extends TestCase
 {
-    /** @var LayoutsEndpoint */
-    private $endpoint;
-
-    /** @var TestClient */
-    private $client;
+    private LayoutsEndpoint $endpoint;
+    private TestClient $client;
 
     protected function setUp(): void
     {
@@ -38,7 +25,7 @@ class LayoutsEndpointTest extends TestCase
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);
 
-        list($method, $node, $query, $class) = $requests[0];
+        [$method, $node, $query, $class] = $requests[0];
         $this->assertSame('GET', $method);
         $this->assertSame('layouts', $node);
         $this->assertSame([], $query);

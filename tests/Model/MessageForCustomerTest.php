@@ -4,34 +4,23 @@ namespace BillbeeDe\Tests\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Model\MessageForCustomer;
 use BillbeeDe\BillbeeAPI\Model\TranslatableText;
+use BillbeeDe\BillbeeAPI\Type\SendMode;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
 
 class MessageForCustomerTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = new MessageForCustomer();
-        $result
-            ->setSendMode(1)
-            ->setSubject([new TranslatableText("Hallo", "DE")])
-            ->setBody([new TranslatableText("Welt", "DE")])
-            ->setAlternativeMailAddress("foo@bar.tld");
-        self::assertSerialize('Model/message_for_customer.json', $result);
+        return 'Model/message_for_customer.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): MessageForCustomer
     {
-        self::assertDeserialize(
-            'Model/message_for_customer.json',
-            MessageForCustomer::class,
-            function (MessageForCustomer $result) {
-                self::assertEquals(1, $result->getSendMode());
-                self::assertEquals("foo@bar.tld", $result->getAlternativeMailAddress());
-                self::assertCount(1, $result->getSubject());
-                self::assertInstanceOf(TranslatableText::class, $result->getSubject()[0]);
-                self::assertCount(1, $result->getBody());
-                self::assertInstanceOf(TranslatableText::class, $result->getBody()[0]);
-            }
+        return new MessageForCustomer(
+            sendMode: SendMode::EMAIL,
+            subject: [new TranslatableText(text: "Hallo", languageCode: "DE")],
+            body: [new TranslatableText(text: "Welt", languageCode: "DE")],
+            alternativeEmailAddress: "foo@bar.tld"
         );
     }
 }

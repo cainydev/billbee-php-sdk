@@ -2,33 +2,21 @@
 
 namespace BillbeeDe\Tests\BillbeeAPI\Response;
 
-use BillbeeDe\BillbeeAPI\Model\Layout;
 use BillbeeDe\BillbeeAPI\Response\GetLayoutsResponse;
-use BillbeeDe\Tests\BillbeeAPI\Model\LayoutTest;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
+use BillbeeDe\Tests\BillbeeAPI\Model\LayoutTest;
 
 class GetLayoutsResponseTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getGetLayoutsResponse();
-        self::assertSerialize('Response/get_layouts_response.json', $result);
+        return 'Response/get_layouts_response.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): GetLayoutsResponse
     {
-        self::assertDeserialize(
-            'Response/get_layouts_response.json',
-            GetLayoutsResponse::class,
-            function (GetLayoutsResponse $result) {
-                self::assertInstanceOf(Layout::class, $result->getData()[0]);
-            }
+        return new GetLayoutsResponse(
+            data: [LayoutTest::getExpectedObject()]
         );
-    }
-
-    public static function getGetLayoutsResponse(): GetLayoutsResponse
-    {
-        return (new GetLayoutsResponse())
-            ->setData([LayoutTest::getLayout()]);
     }
 }

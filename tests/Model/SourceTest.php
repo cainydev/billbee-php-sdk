@@ -7,44 +7,25 @@ use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
 
 class SourceTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getSource();
-        self::assertSerialize('Model/source.json', $result);
+        return 'Model/source.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): Source
     {
-        self::assertDeserialize(
-            'Model/source.json',
-            Source::class,
-            function (Source $result) {
-                self::assertEquals(36174052, $result->getId());
-                self::assertEquals("manual", $result->getSource());
-                self::assertEquals("test", $result->getSourceId());
-                self::assertEquals("test", $result->getApiAccountName());
-                self::assertEquals(70815, $result->getApiAccountId());
-                self::assertEquals(1.0, $result->getExportFactor());
-                self::assertEquals(false, $result->getStockSyncInactive());
-                self::assertEquals(2.0, $result->getStockSyncMin());
-                self::assertEquals(3.0, $result->getStockSyncMax());
-                self::assertEquals(1.0, $result->getUnitsPerItem());
-            }
+        return new Source(
+            id: 36174052,
+            source: "manual",
+            sourceId: "test",
+            apiAccountName: "test",
+            apiAccountId: 70815,
+            exportFactor: 1.0,
+            stockSyncInactive: false,
+            stockSyncMin: 2.0,
+            stockSyncMax: 3.0,
+            unitsPerItem: 1.0,
+            custom: null
         );
-    }
-
-    public static function getSource(): Source
-    {
-        return (new Source())
-            ->setId(36174052)
-            ->setSource("manual")
-            ->setSourceId("test")
-            ->setApiAccountName("test")
-            ->setApiAccountId(70815)
-            ->setExportFactor(1.0)
-            ->setStockSyncInactive(false)
-            ->setStockSyncMin(2.0)
-            ->setStockSyncMax(3.0)
-            ->setUnitsPerItem(1.0);
     }
 }

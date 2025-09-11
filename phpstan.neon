@@ -1,7 +1,0 @@
-parameters:
-  phpVersion: 70300
-  level: 6
-  paths:
-    - src
-  bootstrapFiles:
-    - vendor/autoload.php

@@ -2,33 +2,20 @@
 
 namespace BillbeeDe\Tests\BillbeeAPI\Response;
 
-use BillbeeDe\BillbeeAPI\Model\Category;
 use BillbeeDe\BillbeeAPI\Response\GetCategoriesResponse;
+use BillbeeDe\BillbeeAPI\Model\Category;
 use BillbeeDe\Tests\BillbeeAPI\Model\CategoryTest;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
 
 class GetCategoriesResponseTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getGetCategoriesResponse();
-        self::assertSerialize('Response/get_categories_response.json', $result);
+        return 'Response/get_categories_response.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): GetCategoriesResponse
     {
-        self::assertDeserialize(
-            'Response/get_categories_response.json',
-            GetCategoriesResponse::class,
-            function (GetCategoriesResponse $result) {
-                self::assertInstanceOf(Category::class, $result->getData()[0]);
-            }
-        );
-    }
-
-    public static function getGetCategoriesResponse(): GetCategoriesResponse
-    {
-        return (new GetCategoriesResponse())
-            ->setData([CategoryTest::getCategory()]);
+        return new GetCategoriesResponse(data: [CategoryTest::getExpectedObject()]);
     }
 }

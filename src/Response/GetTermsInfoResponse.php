@@ -1,29 +1,25 @@
 <?php
-/**
- * This file is part of the Billbee API package.
- *
- * Copyright 2017 - now by Billbee GmbH
- *
- * For the full copyright and license information, please read the LICENSE
- * file that was distributed with this source code.
- *
- * Created by Julian Finkler <julian@mintware.de>
- */
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
 use BillbeeDe\BillbeeAPI\Model\TermsInfo;
-use JMS\Serializer\Annotation as Serializer;
+use BillbeeDe\BillbeeAPI\Model\PagingInformation;
+use JMS\Serializer\Annotation;
 
-/** @extends BaseResponse<TermsInfo> */
-class GetTermsInfoResponse extends BaseResponse
+class GetTermsInfoResponse
 {
-    /**
-     * @var TermsInfo
-     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\TermsInfo")
-     * @Serializer\SerializedName("Data")
-     *
-     * @deprecated Use getter/setter instead. Will be protected in the next major version.
-     */
-    public $data = null;
+    public function __construct(
+        #[Annotation\Type("string")]
+        #[Annotation\SerializedName("ErrorMessage")]
+        public ?string $errorMessage = null,
+
+        #[Annotation\Type("int")]
+        #[Annotation\SerializedName("ErrorCode")]
+        public int $errorCode = 0,
+
+        #[Annotation\Type("BillbeeDe\BillbeeAPI\Model\TermsInfo")]
+        #[Annotation\SerializedName("Data")]
+        public ?TermsInfo $data = null,
+    ) {
+    }
 }

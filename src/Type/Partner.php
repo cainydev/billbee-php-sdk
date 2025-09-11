@@ -1,58 +1,50 @@
 <?php
-/**
- * This file is part of the Billbee API package.
- *
- * Copyright 2017 - now by Billbee GmbH
- *
- * For the full copyright and license information, please read the LICENSE
- * file that was distributed with this source code.
- *
- * Created by Julian Finkler <julian@mintware.de>
- */
+
+declare(strict_types=1);
 
 namespace BillbeeDe\BillbeeAPI\Type;
 
-class Partner
+enum Partner: string
 {
-    const SEOSHOP_LIGHTSPEED = 'seoshop';
-    const PLENTYMARKETS = 'plentymarkets';
-    const ETOS = 'etos';
-    const AFTERBUY = 'afterbuy';
-    const AMAZON = 'amazon';
-    const PAYPAL = 'paypal';
-    const DAWANDA = 'dawanda';
-    const EBAY = 'ebay';
-    const EPAGES = 'epages';
-    const EPAGES_NEW = 'epagesrest';
-    const ETSY = 'etsy';
-    const WISH = 'wish';
-    const IDEALO = 'idealo';
-    const INTERAKTIV = 'interaktiv';
-    const MAGENTO = 'magento';
-    const MAGENTO2 = 'magento2';
-    const NOTHS = 'noths';
-    const OPENCART = 'opencart';
-    const OXID = 'oxid';
-    const PRESTASHOP = 'presta';
-    const RAKUTEN = 'rakuten';
-    const SHOPIFY = 'shopify';
-    const VERSACOMMERCE = 'versacommerce';
-    const SHOPWARE = 'shopware';
-    const XT_COMMERCE = 'xtcommercev3db';
-    const COMMERCESEO_V3 = 'commerceseov3';
-    const GAMBIO = 'gambiorest';
-    const YATEGO = 'yatego';
-    const WOOCOMMERCE = 'woocommerce';
-    const WOOCOMMERCE_NEW = 'woocommercerest';
-    const MANUAL = 'manual';
-    const JIMDO = 'jimdo';
-    const WIX = 'wix';
-    const CUSTOM = 'custom';
-    const CUSTOMSHOP = 'customshop';
-    const SERVERSPOT = 'serverspot';
-    const BIGCARTEL = 'bigcartel';
-    const ECWID = 'ecwid';
-    const INVENTORUM = 'inventorum';
-    const PIXI = 'pixi';
-    const HOOD = 'hood';
+    case SEOSHOP_LIGHTSPEED = 'seoshop';
+    case PLENTYMARKETS = 'plentymarkets';
+    case ETOS = 'etos';
+    case AFTERBUY = 'afterbuy';
+    case AMAZON = 'amazon';
+    case PAYPAL = 'paypal';
+    case DAWANDA = 'dawanda';
+    case EBAY = 'ebay';
+    case EPAGES = 'epages';
+    case EPAGES_NEW = 'epagesrest';
+    case ETSY = 'etsy';
+    case WISH = 'wish';
+    case IDEALO = 'idealo';
+    case INTERAKTIV = 'interaktiv';
+    case MAGENTO = 'magento';
+    case MAGENTO2 = 'magento2';
+    case NOTHS = 'noths';
+    case OPENCART = 'opencart';
+    case OXID = 'oxid';
+    case PRESTASHOP = 'presta';
+    case RAKUTEN = 'rakuten';
+    case SHOPIFY = 'shopify';
+    case VERSACOMMERCE = 'versacommerce';
+    case SHOPWARE = 'shopware';
+    case XT_COMMERCE = 'xtcommercev3db';
+    case COMMERCESEO_V3 = 'commerceseov3';
+    case GAMBIO = 'gambiorest';
+    case YATEGO = 'yatego';
+    case WOOCOMMERCE = 'woocommerce';
+    case WOOCOMMERCE_NEW = 'woocommercerest';
+    case MANUAL = 'manual';
+    case JIMDO = 'jimdo';
+    case WIX = 'wix';
+    case CUSTOM = 'custom';
+    case CUSTOMSHOP = 'customshop';
+    case SERVERSPOT = 'serverspot';
+    case BIGCARTEL = 'bigcartel';
+    case ECWID = 'ecwid';
+    case INVENTORUM = 'inventorum';
+    case PIXI = 'pixi';
+    case HOOD = 'hood';
 }

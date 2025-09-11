@@ -2,8 +2,10 @@
 /vendor
 /test_config.yml
 /composer.lock
-program.php
-output.log
 /doc/*
 /.php_cs.cache
 /.phpunit.result.cache
+
+program.php
+output.log
+phpstan.neon

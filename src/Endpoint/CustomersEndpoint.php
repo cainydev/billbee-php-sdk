@@ -1,240 +1,83 @@
 <?php
-/**
- * This file is part of the Billbee API package.
- *
- * Copyright 2017 - now by Billbee GmbH
- *
- * For the full copyright and license information, please read the LICENSE
- * file that was distributed with this source code.
- *
- * Created by Julian Finkler <julian@mintware.de>
- */
 
 namespace BillbeeDe\BillbeeAPI\Endpoint;
 
 use BillbeeDe\BillbeeAPI\ClientInterface;
 use BillbeeDe\BillbeeAPI\Exception\InvalidIdException;
-use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
-use BillbeeDe\BillbeeAPI\Model as Model;
-use BillbeeDe\BillbeeAPI\Response as Response;
-use Exception;
-use JMS\Serializer\SerializerInterface;
+use BillbeeDe\BillbeeAPI\Model\CreateCustomerRequest;
+use BillbeeDe\BillbeeAPI\Model\Customer;
+use BillbeeDe\BillbeeAPI\Response\GetCustomerAddressesResponse;
+use BillbeeDe\BillbeeAPI\Response\GetCustomerAddressResponse;
+use BillbeeDe\BillbeeAPI\Response\GetCustomerResponse;
+use BillbeeDe\BillbeeAPI\Response\GetCustomersResponse;
+use BillbeeDe\BillbeeAPI\Response\GetOrdersResponse;
 
-class CustomersEndpoint
+readonly class CustomersEndpoint
 {
-    /** @var ClientInterface */
-    private $client;
-
-    /** @var SerializerInterface */
-    private $serializer;
-
-    public function __construct(ClientInterface $client, SerializerInterface $serializer)
+    public function __construct(private ClientInterface $client)
     {
-        $this->client = $client;
-        $this->serializer = $serializer;
     }
 
-    #region GET
-
-    /**
-     * Get a list of all customers
-     *
-     * @return Response\GetCustomersResponse The Response
-     *
-     * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws Exception If the response cannot be parsed
-     */
-    public function getCustomers()
+    public function getCustomers(): GetCustomersResponse
     {
-        return $this->client->get(
-            'customers',
-            [],
-            Response\GetCustomersResponse::class
-        );
+        return $this->client->get('customers', [], GetCustomersResponse::class);
     }
 
-    /**
-     * Get a single customers
-     *
-     * @param int|null $id The id of the customer
-     * @return Response\GetCustomerResponse The Response
-     *
-     * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidIdException If the id is not an integer or negative
-     * @throws Exception If the response cannot be parsed
-     */
-    public function getCustomer($id)
+    public function getCustomer(int $id): GetCustomerResponse
     {
-        if ($id === null || !is_integer($id) || $id < 1) {
+        if ($id < 1) {
             throw new InvalidIdException();
         }
-        return $this->client->get(
-            'customers/' . $id,
-            [],
-            Response\GetCustomerResponse::class
-        );
+        return $this->client->get("customers/$id", [], GetCustomerResponse::class);
     }
 
-    /**
-     * Get the addresses for a single customers
-     *
-     * @param int|null $id The id of the customer
-     * @param int $page The start page
-     * @param int $pageSize The page size
-     *
-     * @return Response\GetCustomerAddressesResponse The Response
-     *
-     * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidIdException If the id is not an integer or negative
-     * @throws Exception If the response cannot be parsed
-     */
-    public function getCustomerAddresses($id, $page = 1, $pageSize = 50)
+    public function getCustomerAddresses(int $id, int $page = 1, int $pageSize = 50): GetCustomerAddressesResponse
     {
-        if ($id === null || !is_integer($id) || $id < 1) {
+        if ($id < 1) {
             throw new InvalidIdException();
         }
-
         $query = [
             'page' => max(1, $page),
             'pageSize' => max(1, $pageSize),
         ];
-
-        return $this->client->get(
-            'customers/' . $id . '/addresses',
-            $query,
-            Response\GetCustomerAddressesResponse::class
-        );
+        return $this->client->get("customers/$id/addresses", $query, GetCustomerAddressesResponse::class);
     }
 
-    /**
-     * Queries a single address from a customer
-     *
-     * @param int|null $id The id of the address
-     *
-     * @return Response\GetCustomerAddressResponse The Response
-     *
-     * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidIdException If the id is not an integer or negative
-     * @throws Exception If the response cannot be parsed
-     */
-    public function getCustomerAddress($id)
+    public function getCustomerAddress(int $id): GetCustomerAddressResponse
     {
-        if ($id === null || !is_integer($id) || $id < 1) {
+        if ($id < 1) {
             throw new InvalidIdException();
         }
-
-        return $this->client->get(
-            'customers/addresses/' . $id,
-            [],
-            Response\GetCustomerAddressResponse::class
-        );
+        return $this->client->get("customers/addresses/$id", [], GetCustomerAddressResponse::class);
     }
 
-    /**
-     * Get the orders for a single customers
-     *
-     * @param int|null $id The id of the customer
-     * @param int $page The start page
-     * @param int $pageSize The page size
-     *
-     * @return Response\GetOrdersResponse The Response
-     *
-     * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidIdException If the id is not an integer or negative
-     * @throws Exception If the response cannot be parsed
-     */
-    public function getCustomerOrders($id, $page = 1, $pageSize = 50)
+    public function getCustomerOrders(int $id, int $page = 1, int $pageSize = 50): GetOrdersResponse
     {
-        if ($id === null || !is_integer($id) || $id < 1) {
+        if ($id < 1) {
             throw new InvalidIdException();
         }
-
         $query = [
             'page' => max(1, $page),
             'pageSize' => max(1, $pageSize),
         ];
-
-        return $this->client->get(
-            'customers/' . $id . '/orders',
-            $query,
-            Response\GetOrdersResponse::class
-        );
+        return $this->client->get("customers/$id/orders", $query, GetOrdersResponse::class);
     }
 
-    #endregion
-
-    #region POST
-
-    /**
-     * Creates a new customers
-     *
-     * @param Model\CreateCustomerRequest $request The customer
-     * @return Response\GetCustomerResponse The created customer
-     *
-     * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws Exception If the response cannot be parsed
-     */
-    public function createCustomer(Model\CreateCustomerRequest $request)
+    public function createCustomer(CreateCustomerRequest $request): GetCustomerResponse
     {
-        return $this->client->post(
-            'customers',
-            json_encode($request),
-            Response\GetCustomerResponse::class
-        );
+        return $this->client->post('customers', json_encode($request), GetCustomerResponse::class);
     }
 
-    #endregion
-
-    #region PUT
-
-    /**
-     * Updates a customer
-     *
-     * @param Model\Customer $customer The customer
-     * @return Response\GetCustomersResponse The customer
-     *
-     * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidIdException If the customers id is invalid
-     * @throws Exception If the response cannot be parsed
-     */
-    public function updateCustomer(Model\Customer $customer)
+    public function updateCustomer(Customer $customer): GetCustomerResponse
     {
-        if (!is_integer($customer->id) || $customer->id < 1) {
+        if ($customer->id < 1) {
             throw new InvalidIdException();
         }
-
-        return $this->client->put(
-            'customers/' . $customer->id,
-            $this->serializer->serialize($customer, 'json'),
-            Response\GetCustomerResponse::class
-        );
+        return $this->client->put("customers/$customer->id", $customer, GetCustomerResponse::class);
     }
 
-    #endregion
-
-
-    #region PATCH
-
-    /**
-     * Updates one or more fields of an address
-     *
-     * @param int $addressId The internal id of the address
-     * @param array<string, mixed> $model The fields to patch
-     *
-     * @return ?Response\GetCustomerAddressResponse The address
-     *
-     * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws Exception If the response cannot be parsed
-     *
-     */
-    public function patchAddress(int $addressId, array $model): ?Response\GetCustomerAddressResponse
+    public function patchAddress(int $addressId, array $fields): ?GetCustomerAddressResponse
     {
-        return $this->client->patch(
-            'customers/addresses/' . $addressId,
-            $model,
-            Response\GetCustomerAddressResponse::class
-        );
+        return $this->client->patch("customers/addresses/$addressId", $fields, GetCustomerAddressResponse::class);
     }
-
-    #endregion
 }

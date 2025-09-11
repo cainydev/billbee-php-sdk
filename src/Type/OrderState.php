@@ -1,32 +1,24 @@
 <?php
-/**
- * This file is part of the Billbee API package.
- *
- * Copyright 2017 - now by Billbee GmbH
- *
- * For the full copyright and license information, please read the LICENSE
- * file that was distributed with this source code.
- *
- * Created by Julian Finkler <julian@mintware.de>
- */
+
+declare(strict_types=1);
 
 namespace BillbeeDe\BillbeeAPI\Type;
 
-class OrderState
+enum OrderState: int
 {
-    const ORDERED = 1;
-    const CONFIRMED = 2;
-    const PAID = 3;
-    const SHIPPED = 4;
-    const RECLAMATION = 5;
-    const DELETED = 6;
-    const CLOSED = 7;
-    const CANCELED = 8;
-    const ARCHIVED = 9;
-    # CONST NOT_USED = 10;
-    const DEMAND_NOTE = 11;
-    const DEMAND_NOTE2 = 12;
-    const PACKED = 13;
-    const OFFERED = 14;
-    const REMINDER = 15;
+    case ORDERED = 1;
+    case CONFIRMED = 2;
+    case PAID = 3;
+    case SHIPPED = 4;
+    case RECLAMATION = 5;
+    case DELETED = 6;
+    case CLOSED = 7;
+    case CANCELED = 8;
+    case ARCHIVED = 9;
+    // CONST NOT_USED = 10;
+    case DEMAND_NOTE = 11;
+    case DEMAND_NOTE2 = 12;
+    case PACKED = 13;
+    case OFFERED = 14;
+    case REMINDER = 15;
 }

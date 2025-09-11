@@ -3,45 +3,27 @@
 namespace BillbeeDe\Tests\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition;
-use BillbeeDe\BillbeeAPI\Model\CustomFieldDefinitionMetaData;
+use BillbeeDe\BillbeeAPI\Type\CustomFieldDefinitionType;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
 
 class CustomFieldDefinitionTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getCustomFieldDefinition();
-        self::assertSerialize('Model/custom_field_definition.json', $result);
+        return 'Model/custom_field_definition.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): CustomFieldDefinition
     {
-        self::assertDeserialize(
-            'Model/custom_field_definition.json',
-            CustomFieldDefinition::class,
-            function (CustomFieldDefinition $result) {
-                self::assertEquals(100000000002236, $result->getId());
-                self::assertEquals("Multi Dropdown", $result->getName());
-                self::assertEquals([
-                    'Choices' => ['Test1', 'Test2', 'Test3'],
-                    'Multiple' => true,
-                ], $result->getConfiguration());
-                self::assertEquals(3, $result->getType());
-                self::assertEquals(true, $result->isNullable());
-            }
-        );
-    }
-
-    public static function getCustomFieldDefinition(): CustomFieldDefinition
-    {
-        return (new CustomFieldDefinition())
-            ->setId(100000000002236)
-            ->setName('Multi Dropdown')
-            ->setConfiguration([
+        return new CustomFieldDefinition(
+            id: 100000000002236,
+            name: 'Multi Dropdown',
+            configuration: [
                 'Choices' => ['Test1', 'Test2', 'Test3'],
                 'Multiple' => true,
-            ])
-            ->setType(3)
-            ->setIsNullable(true);
+            ],
+            type: CustomFieldDefinitionType::DROP_DOWN,
+            isNullable: true
+        );
     }
 }

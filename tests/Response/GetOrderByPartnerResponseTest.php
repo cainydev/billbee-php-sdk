@@ -2,33 +2,21 @@
 
 namespace BillbeeDe\Tests\BillbeeAPI\Response;
 
-use BillbeeDe\BillbeeAPI\Model\PartnerOrder;
 use BillbeeDe\BillbeeAPI\Response\GetOrderByPartnerResponse;
-use BillbeeDe\Tests\BillbeeAPI\Model\PartnerOrderTest;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
+use BillbeeDe\Tests\BillbeeAPI\Model\PartnerOrderTest;
 
 class GetOrderByPartnerResponseTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getGetOrderByPartnerResponse();
-        self::assertSerialize('Response/get_order_by_partner_response.json', $result);
+        return 'Response/get_order_by_partner_response.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): GetOrderByPartnerResponse
     {
-        self::assertDeserialize(
-            'Response/get_order_by_partner_response.json',
-            GetOrderByPartnerResponse::class,
-            function (GetOrderByPartnerResponse $result) {
-                self::assertInstanceOf(PartnerOrder::class, $result->getData());
-            }
+        return new GetOrderByPartnerResponse(
+            data: PartnerOrderTest::getExpectedObject()
         );
-    }
-
-    public static function getGetOrderByPartnerResponse(): GetOrderByPartnerResponse
-    {
-        return (new GetOrderByPartnerResponse())
-            ->setData(PartnerOrderTest::getPartnerOrder());
     }
 }

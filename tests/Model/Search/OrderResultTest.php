@@ -7,36 +7,20 @@ use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
 
 class OrderResultTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getOrderResult();
-        self::assertSerialize('Model/Search/order_result.json', $result);
+        return 'Model/Search/order_result.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): OrderResult
     {
-        self::assertDeserialize(
-            'Model/Search/order_result.json',
-            OrderResult::class,
-            function (OrderResult $result) {
-                self::assertEquals(122989702, $result->getId());
-                self::assertEquals('test', $result->getExternalReference());
-                self::assertEquals('Max Mustermann', $result->getBuyerName());
-                self::assertEquals('IN1234', $result->getInvoiceNumber());
-                self::assertEquals('Max Mustermann2', $result->getCustomerName());
-                self::assertEquals('4711', $result->getArticleTexts());
-            }
+        return new OrderResult(
+            id: 122989702,
+            externalReference: 'test',
+            buyerName: 'Max Mustermann',
+            invoiceNumber: 'IN1234',
+            customerName: 'Max Mustermann2',
+            articleTexts: '4711'
         );
-    }
-
-    public static function getOrderResult(): OrderResult
-    {
-        return (new OrderResult())
-            ->setId(122989702)
-            ->setExternalReference('test')
-            ->setBuyerName('Max Mustermann')
-            ->setInvoiceNumber('IN1234')
-            ->setCustomerName('Max Mustermann2')
-            ->setArticleTexts('4711');
     }
 }

@@ -7,30 +7,17 @@ use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
 
 class BillOfMaterialProductTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getBillOfMaterialProduct();
-        self::assertSerialize('Model/bill_of_material_product.json', $result);
+        return 'Model/bill_of_material_product.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): BillOfMaterialProduct
     {
-        self::assertDeserialize(
-            'Model/bill_of_material_product.json',
-            BillOfMaterialProduct::class,
-            function (BillOfMaterialProduct $result) {
-                self::assertEquals(1, $result->getAmount());
-                self::assertEquals(1234, $result->getArticleId());
-                self::assertEquals("PROD1234", $result->getSku());
-            }
+        return new BillOfMaterialProduct(
+            articleId: 1234,
+            amount: 1.0,
+            sku: "PROD1234"
         );
-    }
-
-    public static function getBillOfMaterialProduct(): BillOfMaterialProduct
-    {
-        return (new BillOfMaterialProduct())
-            ->setAmount(1)
-            ->setArticleId(1234)
-            ->setSku("PROD1234");
     }
 }

@@ -1,14 +1,4 @@
 <?php
-/**
- * This file is part of the Billbee API package.
- *
- * Copyright 2017 - now by Billbee GmbH
- *
- * For the full copyright and license information, please read the LICENSE
- * file that was distributed with this source code.
- *
- * Created by Julian Finkler <julian@mintware.de>
- */
 
 namespace BillbeeDe\BillbeeAPI\Transformer;
 
@@ -25,11 +15,12 @@ class DefinitionConfigTransformer implements SubscribingHandlerInterface
      * @param array<string, mixed> $type
      * @return array<string, mixed>
      */
-    public static function serialize(JsonSerializationVisitor $visitor, array $data, array $type, Context $context)
+    public static function serialize(JsonSerializationVisitor $visitor, array $data, array $type, Context $context): array
     {
         if (isset($data['Choices']) && is_array($data['Choices'])) {
             $data['Choices'] = implode("\n", $data['Choices']);
         }
+
         return $data;
     }
 
@@ -38,11 +29,12 @@ class DefinitionConfigTransformer implements SubscribingHandlerInterface
      * @param array<string, mixed> $type
      * @return array<string, mixed>
      */
-    public static function deserialize(JsonDeserializationVisitor $visitor, $data, array $type, Context $context)
+    public static function deserialize(JsonDeserializationVisitor $visitor, $data, array $type, Context $context): array
     {
         if (isset($data['Choices']) && !is_array($data['Choices'])) {
             $data['Choices'] = explode("\n", $data['Choices']);
         }
+
         return $data;
     }
 

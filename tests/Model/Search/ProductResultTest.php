@@ -7,32 +7,18 @@ use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
 
 class ProductResultTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getProductResult();
-        self::assertSerialize('Model/Search/product_result.json', $result);
+        return 'Model/Search/product_result.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): ProductResult
     {
-        self::assertDeserialize(
-            'Model/Search/product_result.json',
-            ProductResult::class,
-            function (ProductResult $result) {
-                self::assertEquals(100000060342904, $result->getId());
-                self::assertEquals('test', $result->getShortText());
-                self::assertEquals('PROD1234', $result->getSku());
-                self::assertEquals('tag1,tag2', $result->getTags());
-            }
+        return new ProductResult(
+            id: 100000060342904,
+            shortText: 'test',
+            sku: 'PROD1234',
+            tags: 'tag1,tag2'
         );
-    }
-
-    public static function getProductResult(): ProductResult
-    {
-        return (new ProductResult())
-            ->setId(100000060342904)
-            ->setShortText('test')
-            ->setSku('PROD1234')
-            ->setTags('tag1,tag2');
     }
 }

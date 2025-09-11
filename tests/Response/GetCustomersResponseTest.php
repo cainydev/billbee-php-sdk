@@ -2,33 +2,21 @@
 
 namespace BillbeeDe\Tests\BillbeeAPI\Response;
 
-use BillbeeDe\BillbeeAPI\Model\Customer;
 use BillbeeDe\BillbeeAPI\Response\GetCustomersResponse;
-use BillbeeDe\Tests\BillbeeAPI\Model\CustomerTest;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
+use BillbeeDe\Tests\BillbeeAPI\Model\CustomerTest;
 
 class GetCustomersResponseTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getGetCustomersResponse();
-        self::assertSerialize('Response/get_customers_response.json', $result);
+        return 'Response/get_customers_response.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): GetCustomersResponse
     {
-        self::assertDeserialize(
-            'Response/get_customers_response.json',
-            GetCustomersResponse::class,
-            function (GetCustomersResponse $result) {
-                self::assertInstanceOf(Customer::class, $result->getData()[0]);
-            }
+        return new GetCustomersResponse(
+            data: [CustomerTest::getExpectedObject()]
         );
-    }
-
-    public static function getGetCustomersResponse(): GetCustomersResponse
-    {
-        return (new GetCustomersResponse())
-            ->setData([CustomerTest::getCustomer()]);
     }
 }

@@ -4,33 +4,23 @@ namespace BillbeeDe\Tests\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Model\Comment;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
+use DateTime;
 
 class CommentTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = new Comment();
-        $result
-            ->setId(1)
-            ->setFromCustomer(true)
-            ->setName("customer")
-            ->setText("test")
-            ->setCreated(new \DateTime("2022-08-16T09:05:01.787Z"));
-        self::assertSerialize('Model/comment.json', $result);
+        return 'Model/comment.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): Comment
     {
-        self::assertDeserialize(
-            'Model/comment.json',
-            Comment::class,
-            function (Comment $result) {
-                self::assertEquals(1, $result->getId());
-                self::assertEquals(true, $result->isFromCustomer());
-                self::assertEquals("customer", $result->getName());
-                self::assertEquals("test", $result->getText());
-                self::assertEquals("2022-08-16T09:05:01+00:00", $result->getCreated()->format('c'));
-            }
+        return new Comment(
+            id: 1,
+            created: new DateTime("2022-08-16T09:05:01.787Z"),
+            fromCustomer: true,
+            text: "test",
+            name: "customer"
         );
     }
 }

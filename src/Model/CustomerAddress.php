@@ -1,401 +1,93 @@
 <?php
-/**
- * This file is part of the Billbee API package.
- *
- * Copyright 2017 - now by Billbee GmbH
- *
- * For the full copyright and license information, please read the LICENSE
- * file that was distributed with this source code.
- *
- * Created by Julian Finkler <julian@mintware.de>
- */
+
+declare(strict_types=1);
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
+use BillbeeDe\BillbeeAPI\Type\AddressType;
 use JMS\Serializer\Annotation as Serializer;
 
-class CustomerAddress
+/**
+ * Represents a customer address in the Billbee API
+ */
+final class CustomerAddress
 {
-    const TYPE_INVOICE = 1;
-    const TYPE_DELIVERY = 2;
+    public function __construct(
+        #[Serializer\Type('int')]
+        #[Serializer\SerializedName('Id')]
+        public ?int $id = null,
 
-    /**
-     * @var ?int
-     * @Serializer\Type("int")
-     * @Serializer\SerializedName("Id")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    public $id;
+        #[Serializer\Type('enum<BillbeeDe\BillbeeAPI\Type\AddressType>')]
+        #[Serializer\SerializedName('AddressType')]
+        public AddressType $addressType = AddressType::INVOICE,
 
-    /**
-     * @var int
-     * @Serializer\Type("int|string")
-     * @Serializer\SerializedName("AddressType")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    public $addressType = self::TYPE_INVOICE;
+        #[Serializer\Type('int')]
+        #[Serializer\SerializedName('CustomerId')]
+        public ?int $customerId = null,
 
-    /**
-     * @var int
-     * @Serializer\Type("int")
-     * @Serializer\SerializedName("CustomerId")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    public $customerId;
+        #[Serializer\Type('string')]
+        #[Serializer\SerializedName('Company')]
+        public ?string $company = null,
 
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("Company")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    public $company;
+        #[Serializer\Type('string')]
+        #[Serializer\SerializedName('FirstName')]
+        public ?string $firstName = null,
 
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("FirstName")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    public $firstName;
+        #[Serializer\Type('string')]
+        #[Serializer\SerializedName('LastName')]
+        public ?string $lastName = null,
 
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("LastName")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    public $lastName;
+        #[Serializer\Type('string')]
+        #[Serializer\SerializedName('Name2')]
+        public ?string $name2 = null,
 
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("Name2")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    public $name2;
+        #[Serializer\Type('string')]
+        #[Serializer\SerializedName('Street')]
+        public ?string $street = null,
 
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("Street")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    public $street;
+        #[Serializer\Type('string')]
+        #[Serializer\SerializedName('Housenumber')]
+        public ?string $houseNumber = null,
 
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("Housenumber")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    public $houseNumber;
+        #[Serializer\Type('string')]
+        #[Serializer\SerializedName('Zip')]
+        public ?string $zip = null,
 
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("Zip")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    public $zip;
+        #[Serializer\Type('string')]
+        #[Serializer\SerializedName('City')]
+        public ?string $city = null,
 
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("City")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    public $city;
+        #[Serializer\Type('string')]
+        #[Serializer\SerializedName('State')]
+        public ?string $state = null,
 
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("State")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    public $state;
+        #[Serializer\Type('string')]
+        #[Serializer\SerializedName('CountryCode')]
+        public ?string $countryCode = null,
 
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("CountryCode")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    public $countryCode;
+        #[Serializer\Type('string')]
+        #[Serializer\SerializedName('Email')]
+        public ?string $email = null,
 
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("Email")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    public $email;
+        #[Serializer\Type('string')]
+        #[Serializer\SerializedName('Tel1')]
+        public ?string $phone1 = null,
 
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("Tel1")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    public $phone1;
+        #[Serializer\Type('string')]
+        #[Serializer\SerializedName('Tel2')]
+        public ?string $phone2 = null,
 
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("Tel2")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    public $phone2;
+        #[Serializer\Type('string')]
+        #[Serializer\SerializedName('Fax')]
+        public ?string $fax = null,
 
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("Fax")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    public $fax;
+        #[Serializer\Type('string')]
+        #[Serializer\SerializedName('FullAddr')]
+        public ?string $fullAddress = null,
 
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("FullAddr")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    public $fullAddress;
-
-    /**
-     * @var ?string
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("AddressAddition")
-     *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
-     */
-    public $addressAddition;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function setId(?int $id): self
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function getAddressType(): int
-    {
-        return $this->addressType;
-    }
-
-    public function setAddressType(int $addressType): self
-    {
-        $this->addressType = $addressType;
-        return $this;
-    }
-
-    public function getCustomerId(): int
-    {
-        return $this->customerId;
-    }
-
-    public function setCustomerId(int $customerId): self
-    {
-        $this->customerId = $customerId;
-        return $this;
-    }
-
-    public function getCompany(): ?string
-    {
-        return $this->company;
-    }
-
-    public function setCompany(?string $company): self
-    {
-        $this->company = $company;
-        return $this;
-    }
-
-    public function getFirstName(): ?string
-    {
-        return $this->firstName;
-    }
-
-    public function setFirstName(?string $firstName): self
-    {
-        $this->firstName = $firstName;
-        return $this;
-    }
-
-    public function getLastName(): ?string
-    {
-        return $this->lastName;
-    }
-
-    public function setLastName(?string $lastName): self
-    {
-        $this->lastName = $lastName;
-        return $this;
-    }
-
-    public function getName2(): ?string
-    {
-        return $this->name2;
-    }
-
-    public function setName2(?string $name2): self
-    {
-        $this->name2 = $name2;
-        return $this;
-    }
-
-    public function getStreet(): ?string
-    {
-        return $this->street;
-    }
-
-    public function setStreet(?string $street): self
-    {
-        $this->street = $street;
-        return $this;
-    }
-
-    public function getHouseNumber(): ?string
-    {
-        return $this->houseNumber;
-    }
-
-    public function setHouseNumber(?string $houseNumber): self
-    {
-        $this->houseNumber = $houseNumber;
-        return $this;
-    }
-
-    public function getZip(): ?string
-    {
-        return $this->zip;
-    }
-
-    public function setZip(?string $zip): self
-    {
-        $this->zip = $zip;
-        return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(?string $city): self
-    {
-        $this->city = $city;
-        return $this;
-    }
-
-    public function getState(): ?string
-    {
-        return $this->state;
-    }
-
-    public function setState(?string $state): self
-    {
-        $this->state = $state;
-        return $this;
-    }
-
-    public function getCountryCode(): ?string
-    {
-        return $this->countryCode;
-    }
-
-    public function setCountryCode(?string $countryCode): self
-    {
-        $this->countryCode = $countryCode;
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(?string $email): self
-    {
-        $this->email = $email;
-        return $this;
-    }
-
-    public function getPhone1(): ?string
-    {
-        return $this->phone1;
-    }
-
-    public function setPhone1(?string $phone1): self
-    {
-        $this->phone1 = $phone1;
-        return $this;
-    }
-
-    public function getPhone2(): ?string
-    {
-        return $this->phone2;
-    }
-
-    public function setPhone2(?string $phone2): self
-    {
-        $this->phone2 = $phone2;
-        return $this;
-    }
-
-    public function getFax(): ?string
-    {
-        return $this->fax;
-    }
-
-    public function setFax(?string $fax): self
-    {
-        $this->fax = $fax;
-        return $this;
-    }
-
-    public function getFullAddress(): ?string
-    {
-        return $this->fullAddress;
-    }
-
-    public function setFullAddress(?string $fullAddress): self
-    {
-        $this->fullAddress = $fullAddress;
-        return $this;
-    }
-
-    public function getAddressAddition(): ?string
-    {
-        return $this->addressAddition;
-    }
-
-    public function setAddressAddition(?string $addressAddition): self
-    {
-        $this->addressAddition = $addressAddition;
-        return $this;
+        #[Serializer\Type('string')]
+        #[Serializer\SerializedName('AddressAddition')]
+        public ?string $addressAddition = null,
+    ) {
     }
 }

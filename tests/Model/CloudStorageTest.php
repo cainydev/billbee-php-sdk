@@ -7,32 +7,18 @@ use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
 
 class CloudStorageTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getCloudStorage();
-        self::assertSerialize('Model/cloud_storage.json', $result);
+        return 'Model/cloud_storage.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): CloudStorage
     {
-        self::assertDeserialize(
-            'Model/cloud_storage.json',
-            CloudStorage::class,
-            function (CloudStorage $result) {
-                self::assertEquals(1, $result->getId());
-                self::assertEquals("GDrive", $result->getName());
-                self::assertEquals("GoogleDriveStorage", $result->getType());
-                self::assertEquals(true, $result->isUsedAsPrinter());
-            }
+        return new CloudStorage(
+            id: 1,
+            name: "GDrive",
+            type: "GoogleDriveStorage",
+            usedAsPrinter: true
         );
-    }
-
-    public static function getCloudStorage(): CloudStorage
-    {
-        return (new CloudStorage())
-            ->setId(1)
-            ->setName("GDrive")
-            ->setType("GoogleDriveStorage")
-            ->setUsedAsPrinter(true);
     }
 }

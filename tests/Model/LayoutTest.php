@@ -3,34 +3,22 @@
 namespace BillbeeDe\Tests\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Model\Layout;
+use BillbeeDe\BillbeeAPI\Type\LayoutType;
 use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
 
 class LayoutTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = self::getLayout();
-        self::assertSerialize('Model/layout.json', $result);
+        return 'Model/layout.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): Layout
     {
-        self::assertDeserialize(
-            'Model/layout.json',
-            Layout::class,
-            function (Layout $result) {
-                self::assertEquals(100000000132970, $result->getId());
-                self::assertEquals("Lieferschein", $result->getName());
-                self::assertEquals(2, $result->getType());
-            }
+        return new Layout(
+            id: 100000000132970,
+            name: "Lieferschein",
+            type: LayoutType::DELIVERY_NOTE
         );
-    }
-
-    public static function getLayout(): Layout
-    {
-        return (new Layout())
-            ->setId(100000000132970)
-            ->setName("Lieferschein")
-            ->setType(2);
     }
 }

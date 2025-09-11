@@ -7,24 +7,16 @@ use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
 
 class TranslatableTextTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getFixturePath(): string
     {
-        $result = new TranslatableText();
-        $result
-            ->setText("Test")
-            ->setLanguageCode("DE");
-        self::assertSerialize('Model/translatable_text.json', $result);
+        return 'Model/translatable_text.json';
     }
 
-    public function testDeserialize(): void
+    public static function getExpectedObject(): TranslatableText
     {
-        self::assertDeserialize(
-            'Model/translatable_text.json',
-            TranslatableText::class,
-            function (TranslatableText $result) {
-                self::assertEquals("Test", $result->getText());
-                self::assertEquals("DE", $result->getLanguageCode());
-            }
+        return new TranslatableText(
+            text: "Test",
+            languageCode: "DE"
         );
     }
 }
