@@ -6,7 +6,7 @@ namespace BillbeeDe\BillbeeAPI;
 
 use BillbeeDe\BillbeeAPI\Transformer\AsIsTransformer;
 use BillbeeDe\BillbeeAPI\Transformer\DefinitionConfigTransformer;
-use JMS\Serializer\Handler\DateHandler;
+use BillbeeDe\BillbeeAPI\Transformer\LenientDateHandler;
 use JMS\Serializer\Handler\EnumHandler;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\SerializerBuilder;
@@ -25,7 +25,7 @@ final class SerializerFactory
             ->configureHandlers(function (HandlerRegistry $registry) {
                 $registry->registerSubscribingHandler(new AsIsTransformer());
                 $registry->registerSubscribingHandler(new DefinitionConfigTransformer());
-                $registry->registerSubscribingHandler(new DateHandler());
+                $registry->registerSubscribingHandler(new LenientDateHandler());
                 $registry->registerSubscribingHandler(new EnumHandler());
             });
     }
