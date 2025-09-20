@@ -14,8 +14,9 @@ use JMS\Serializer\SerializerInterface;
 
 readonly class ShipmentsEndpoint
 {
-    public function __construct(private ClientInterface $client)
-    {
+    public function __construct(
+        private ClientInterface $client,
+    ) {
     }
 
     /**

@@ -18,7 +18,7 @@ class CloudStorageTest extends SerializerTestCase
             id: 1,
             name: "GDrive",
             type: "GoogleDriveStorage",
-            usedAsPrinter: true
+            usedAsPrinter: true,
         );
     }
 }

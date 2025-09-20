@@ -17,7 +17,7 @@ class StockCodeTest extends SerializerTestCase
         return new StockCode(
             sku: "test",
             stockId: 1234,
-            stockCode: "1234"
+            stockCode: "1234",
         );
     }
 }

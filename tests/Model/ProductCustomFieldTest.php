@@ -19,7 +19,7 @@ class ProductCustomFieldTest extends SerializerTestCase
             definitionId: 100000000002236,
             definition: CustomFieldDefinitionTest::getExpectedObject(),
             articleId: 100000060427005,
-            value: ["Test1", "Test3"]
+            value: ["Test1", "Test3"],
         );
     }
 }

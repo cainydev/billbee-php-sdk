@@ -16,7 +16,7 @@ class UpdateStockResponseTest extends SerializerTestCase
     public static function getExpectedObject(): UpdateStockResponse
     {
         return new UpdateStockResponse(
-            data: StockUpdateResultTest::getExpectedObject()
+            data: StockUpdateResultTest::getExpectedObject(),
         );
     }
 }

@@ -16,7 +16,7 @@ class GetEventsResponseTest extends SerializerTestCase
     public static function getExpectedObject(): GetEventsResponse
     {
         return new GetEventsResponse(
-            data: [EventTest::getExpectedObject()]
+            data: [EventTest::getExpectedObject()],
         );
     }
 }

@@ -17,7 +17,7 @@ class DimensionsTest extends SerializerTestCase
         return new Dimensions(
             width: 200.2,
             height: 50.5,
-            length: 240.3
+            length: 240.3,
         );
     }
 }

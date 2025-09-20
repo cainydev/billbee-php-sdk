@@ -20,7 +20,7 @@ class SearchDataResponseTest extends SerializerTestCase
         return new SearchDataResponse(
             products: [ProductResultTest::getExpectedObject()],
             orders: [OrderResultTest::getExpectedObject()],
-            customers: [CustomerResultTest::getExpectedObject()]
+            customers: [CustomerResultTest::getExpectedObject()],
         );
     }
 }

@@ -18,7 +18,7 @@ class TermsInfoTest extends SerializerTestCase
             termsWebPageLink: "LinkToTermsWebPage",
             privacyWebPageLink: "LinkToPrivacyWebPage",
             termsContentLink: "LinkToTermsHtmlContent",
-            privacyContentLink: "LinkToPrivacyHtmlContent"
+            privacyContentLink: "LinkToPrivacyHtmlContent",
         );
     }
 }

@@ -62,7 +62,7 @@ class OrdersEndpointTest extends TestCase
             new DateTime('2020-01-01T01:00:00'),
             new DateTime('2020-12-31T01:00:00'),
             ArticleSource::ARTICLE_TITLE,
-            true
+            true,
         );
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);
@@ -224,7 +224,7 @@ class OrdersEndpointTest extends TestCase
             sendMode: SendMode::EMAIL,
             subject: [],
             body: [new TranslatableText('de', 'test2')],
-            alternativeEmailAddress: 'foo@bar.tld'
+            alternativeEmailAddress: 'foo@bar.tld',
         );
 
         $this->expectException(InvalidArgumentException::class);
@@ -238,7 +238,7 @@ class OrdersEndpointTest extends TestCase
             sendMode: SendMode::EMAIL,
             subject: [new TranslatableText('de', 'test')],
             body: [],
-            alternativeEmailAddress: 'foo@bar.tld'
+            alternativeEmailAddress: 'foo@bar.tld',
         );
 
         $this->expectException(InvalidArgumentException::class);
@@ -252,7 +252,7 @@ class OrdersEndpointTest extends TestCase
             sendMode: SendMode::EXTERNAL_EMAIL,
             subject: [new TranslatableText('de', 'test')],
             body: [new TranslatableText('de', 'test2')],
-            alternativeEmailAddress: 'foo@bar.tld'
+            alternativeEmailAddress: 'foo@bar.tld',
         );
 
         $this->endpoint->sendMessage(521, $message);

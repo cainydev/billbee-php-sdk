@@ -58,7 +58,7 @@ class InvoiceEndpointTest extends TestCase
             tag: ['test', 'test', 'test1'],
             minPayDate: new DateTime('2020-01-01T01:00:00'),
             maxPayDate: new DateTime('2020-12-31T01:00:00'),
-            includePositions: true
+            includePositions: true,
         );
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);

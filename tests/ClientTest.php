@@ -16,7 +16,7 @@ class ClientTest extends TestCase
             $config = new ClientConfiguration(
                 username: 'World',
                 apiPassword: '12344',
-                apiKey: 'Hello'
+                apiKey: 'Hello',
             );
 
             $this->client = new Client($config);

@@ -16,7 +16,7 @@ class GetCustomFieldDefinitionsResponseTest extends SerializerTestCase
     public static function getExpectedObject(): GetCustomFieldDefinitionsResponse
     {
         return new GetCustomFieldDefinitionsResponse(
-            data: [CustomFieldDefinitionTest::getExpectedObject()]
+            data: [CustomFieldDefinitionTest::getExpectedObject()],
         );
     }
 }

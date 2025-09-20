@@ -16,7 +16,7 @@ class WebHookFilterTest extends SerializerTestCase
     {
         return new WebHookFilter(
             name: "Filter",
-            description: "A filter"
+            description: "A filter",
         );
     }
 }

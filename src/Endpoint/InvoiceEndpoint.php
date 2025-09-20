@@ -8,13 +8,15 @@ use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Response\GetInvoicesResponse;
 use DateTimeInterface;
 use InvalidArgumentException;
+
 use function array_unique;
 use function array_values;
 
 readonly class InvoiceEndpoint
 {
-    public function __construct(private ClientInterface $client)
-    {
+    public function __construct(
+        private ClientInterface $client,
+    ) {
     }
 
     /**

@@ -25,7 +25,7 @@ class OrderTest extends SerializerTestCase
             created: new DateTime("2022-08-16T09:05:01.787Z"),
             fromCustomer: true,
             text: "test",
-            name: "customer"
+            name: "customer",
         );
         $seller = new OrderUser(
             platform: "avocadostore",
@@ -36,7 +36,7 @@ class OrderTest extends SerializerTestCase
             firstName: "vorname",
             lastName: "nachname",
             fullName: "vorname nachname",
-            email: "max@muster.tld"
+            email: "max@muster.tld",
         );
 
         return new Order(
@@ -99,7 +99,7 @@ class OrderTest extends SerializerTestCase
             apiAccountName: "test",
             merchantVatId: "1234",
             customerVatId: "1234",
-            paymentReference: "reference"
+            paymentReference: "reference",
         );
     }
 }

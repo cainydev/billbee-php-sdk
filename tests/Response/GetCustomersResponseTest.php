@@ -16,7 +16,7 @@ class GetCustomersResponseTest extends SerializerTestCase
     public static function getExpectedObject(): GetCustomersResponse
     {
         return new GetCustomersResponse(
-            data: [CustomerTest::getExpectedObject()]
+            data: [CustomerTest::getExpectedObject()],
         );
     }
 }

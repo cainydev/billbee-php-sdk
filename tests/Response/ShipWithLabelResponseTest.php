@@ -16,7 +16,7 @@ class ShipWithLabelResponseTest extends SerializerTestCase
     public static function getExpectedObject(): ShipWithLabelResponse
     {
         return new ShipWithLabelResponse(
-            data: ShipmentWithLabelResultTest::getExpectedObject()
+            data: ShipmentWithLabelResultTest::getExpectedObject(),
         );
     }
 }

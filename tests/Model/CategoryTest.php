@@ -16,7 +16,7 @@ class CategoryTest extends SerializerTestCase
     {
         return new Category(
             id: 8733,
-            name: "Schuhe"
+            name: "Schuhe",
         );
     }
 }

@@ -68,7 +68,7 @@ final class TestClient implements ClientInterface
     private function dummyResponse(?string $responseClass): mixed
     {
         if ($responseClass === null || $responseClass === AcknowledgeResponse::class) {
-            return new AcknowledgeResponse;
+            return new AcknowledgeResponse();
         }
 
         if (class_exists($responseClass)) {

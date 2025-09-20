@@ -20,7 +20,7 @@ class StockTest extends SerializerTestCase
             oldQuantity: 12.33,
             newQuantity: 19.66,
             deltaQuantity: 7.33,
-            autosubtractReservedAmount: true
+            autosubtractReservedAmount: true,
         );
     }
 }

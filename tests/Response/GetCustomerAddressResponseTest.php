@@ -16,7 +16,7 @@ class GetCustomerAddressResponseTest extends SerializerTestCase
     public static function getExpectedObject(): GetCustomerAddressResponse
     {
         return new GetCustomerAddressResponse(
-            data: CustomerAddressTest::getExpectedObject()
+            data: CustomerAddressTest::getExpectedObject(),
         );
     }
 }

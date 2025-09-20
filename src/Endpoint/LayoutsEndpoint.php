@@ -9,8 +9,9 @@ use BillbeeDe\BillbeeAPI\Response\GetLayoutsResponse;
 
 readonly class LayoutsEndpoint
 {
-    public function __construct(private ClientInterface $client)
-    {
+    public function __construct(
+        private ClientInterface $client,
+    ) {
     }
 
     /**

@@ -17,7 +17,7 @@ class BillOfMaterialProductTest extends SerializerTestCase
         return new BillOfMaterialProduct(
             articleId: 1234,
             amount: 1.0,
-            sku: "PROD1234"
+            sku: "PROD1234",
         );
     }
 }

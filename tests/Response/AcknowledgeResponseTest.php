@@ -18,7 +18,7 @@ class AcknowledgeResponseTest extends SerializerTestCase
         return new AcknowledgeResponse(
             errorMessage: 'ErrorMessage',
             errorCode: 1,
-            data: []
+            data: [],
         );
     }
 }

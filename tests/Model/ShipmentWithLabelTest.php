@@ -23,7 +23,7 @@ class ShipmentWithLabelTest extends SerializerTestCase
             weightInGram: 100,
             shipDate: new \DateTime("2022-07-22T00:00:00+00:00"),
             clientReference: "ClientReference",
-            dimension: DimensionsTest::getExpectedObject()
+            dimension: DimensionsTest::getExpectedObject(),
         );
     }
 }

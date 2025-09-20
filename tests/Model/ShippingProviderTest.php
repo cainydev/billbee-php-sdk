@@ -17,7 +17,7 @@ class ShippingProviderTest extends SerializerTestCase
         return new ShippingProvider(
             id: 100000000022240,
             name: "My provider",
-            products: [ShippingProductTest::getExpectedObject()]
+            products: [ShippingProductTest::getExpectedObject()],
         );
     }
 }

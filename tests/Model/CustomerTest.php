@@ -21,14 +21,14 @@ class CustomerTest extends SerializerTestCase
             type: CustomerMetaDataType::MAIL,
             typeName: 'EMail',
             subType: '',
-            value: 'max@mustermann.tld'
+            value: 'max@mustermann.tld',
         );
         $defaultPhone1 = new CustomerMetaData(
             id: 208297765,
             type: CustomerMetaDataType::PHONE,
             typeName: 'Phone',
             subType: '',
-            value: '12345'
+            value: '12345',
         );
 
         return new Customer(
@@ -48,7 +48,7 @@ class CustomerTest extends SerializerTestCase
             defaultPhone1: $defaultPhone1,
             defaultPhone2: $defaultPhone1,
             defaultFax: $defaultPhone1,
-            metaData: [$defaultMailAddress, $defaultPhone1]
+            metaData: [$defaultMailAddress, $defaultPhone1],
         );
     }
 }

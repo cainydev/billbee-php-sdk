@@ -20,7 +20,7 @@ class CustomerMetaDataTest extends SerializerTestCase
             type: CustomerMetaDataType::MAIL,
             typeName: "EMail",
             subType: "",
-            value: "max@mustermann.tld"
+            value: "max@mustermann.tld",
         );
     }
 }

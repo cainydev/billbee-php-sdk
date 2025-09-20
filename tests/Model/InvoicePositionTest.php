@@ -27,7 +27,7 @@ class InvoicePositionTest extends SerializerTestCase
             sku: "TESTBESTAND",
             title: "Test Bestandsabgleich",
             totalVatAmount: 25.3482,
-            rebatePercent: 2
+            rebatePercent: 2,
         );
     }
 }

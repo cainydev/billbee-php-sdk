@@ -9,8 +9,9 @@ use BillbeeDe\BillbeeAPI\Response\GetTermsInfoResponse;
 
 readonly class ProvisioningEndpoint
 {
-    public function __construct(private ClientInterface $client)
-    {
+    public function __construct(
+        private ClientInterface $client,
+    ) {
     }
 
     /**

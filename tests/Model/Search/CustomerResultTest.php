@@ -18,7 +18,7 @@ class CustomerResultTest extends SerializerTestCase
             id: 1,
             name: 'Max',
             addresses: 'Test',
-            number: '1234'
+            number: '1234',
         );
     }
 }

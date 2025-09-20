@@ -16,7 +16,7 @@ class GetOrdersResponseTest extends SerializerTestCase
     public static function getExpectedObject(): GetOrdersResponse
     {
         return new GetOrdersResponse(
-            data: [OrderTest::getExpectedObject()]
+            data: [OrderTest::getExpectedObject()],
         );
     }
 }

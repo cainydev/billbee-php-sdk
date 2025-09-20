@@ -27,7 +27,7 @@ class OrderItemTest extends SerializerTestCase
             isDigital: true,
             ean: "testejcz",
             taric: "1234",
-            countryOfOrigin: "AX"
+            countryOfOrigin: "AX",
         );
 
         return new OrderItem(
@@ -45,14 +45,14 @@ class OrderItemTest extends SerializerTestCase
                     id: "100000167774144",
                     name: "x",
                     value: "y",
-                    price: 0.00
-                )
+                    price: 0.00,
+                ),
             ],
             getPriceFromArticleIfAny: true,
             isCoupon: false,
             dontAdjustStock: false,
             serialNumber: "ycwegf",
-            invoiceSku: "TESTBESTAND"
+            invoiceSku: "TESTBESTAND",
         );
     }
 }

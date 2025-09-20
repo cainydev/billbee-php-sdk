@@ -15,7 +15,7 @@ class GetPatchableFieldsResponseTest extends SerializerTestCase
     public static function getExpectedObject(): GetPatchableFieldsResponse
     {
         return new GetPatchableFieldsResponse(
-            data: ["field1", "field2"]
+            data: ["field1", "field2"],
         );
     }
 }

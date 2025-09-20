@@ -22,7 +22,7 @@ class EventTest extends SerializerTestCase
             typeText: "Nutzung der API",
             employeeId: "employee-id",
             employeeName: "max muster",
-            orderId: 123
+            orderId: 123,
         );
     }
 }

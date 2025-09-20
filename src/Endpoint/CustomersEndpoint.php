@@ -16,8 +16,9 @@ use BillbeeDe\BillbeeAPI\Response\GetOrdersResponse;
 
 readonly class CustomersEndpoint
 {
-    public function __construct(private ClientInterface $client)
-    {
+    public function __construct(
+        private ClientInterface $client,
+    ) {
     }
 
     /**

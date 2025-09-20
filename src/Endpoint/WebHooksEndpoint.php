@@ -14,8 +14,9 @@ use InvalidArgumentException;
 
 readonly class WebHooksEndpoint
 {
-    public function __construct(private ClientInterface $client)
-    {
+    public function __construct(
+        private ClientInterface $client,
+    ) {
     }
 
     /**

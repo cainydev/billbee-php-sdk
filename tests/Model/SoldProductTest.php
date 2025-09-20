@@ -25,7 +25,7 @@ class SoldProductTest extends SerializerTestCase
             isDigital: true,
             ean: "testejcz",
             taric: "1234",
-            countryOfOrigin: "AX"
+            countryOfOrigin: "AX",
         );
     }
 }

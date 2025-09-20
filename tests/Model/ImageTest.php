@@ -21,7 +21,7 @@ class ImageTest extends SerializerTestCase
             thumbUrl: "https://cdn.stocksnap.io/img-thumbs/960w/fruit-slices_NNIRPAXZFX.jpg",
             position: 3,
             isDefault: true,
-            articleId: 40986800
+            articleId: 40986800,
         );
     }
 }

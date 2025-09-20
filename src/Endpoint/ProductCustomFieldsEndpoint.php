@@ -11,8 +11,9 @@ use BillbeeDe\BillbeeAPI\Response\GetCustomFieldDefinitionResponse;
 
 readonly class ProductCustomFieldsEndpoint
 {
-    public function __construct(private ClientInterface $client)
-    {
+    public function __construct(
+        private ClientInterface $client,
+    ) {
     }
 
     /**

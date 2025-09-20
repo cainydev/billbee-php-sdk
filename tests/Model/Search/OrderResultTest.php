@@ -20,7 +20,7 @@ class OrderResultTest extends SerializerTestCase
             buyerName: 'Max Mustermann',
             invoiceNumber: 'IN1234',
             customerName: 'Max Mustermann2',
-            articleTexts: '4711'
+            articleTexts: '4711',
         );
     }
 }

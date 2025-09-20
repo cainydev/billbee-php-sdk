@@ -23,7 +23,7 @@ class OrderUserTest extends SerializerTestCase
             firstName: "vorname",
             lastName: "nachname",
             fullName: "vorname nachname",
-            email: "max@muster.tld"
+            email: "max@muster.tld",
         );
     }
 }

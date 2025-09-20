@@ -17,7 +17,7 @@ class ShippingProductTest extends SerializerTestCase
         return new ShippingProduct(
             id: 100000000288647,
             displayName: "Test",
-            productName: "V01PAK;01"
+            productName: "V01PAK;01",
         );
     }
 }

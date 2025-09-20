@@ -16,7 +16,7 @@ class GetLayoutsResponseTest extends SerializerTestCase
     public static function getExpectedObject(): GetLayoutsResponse
     {
         return new GetLayoutsResponse(
-            data: [LayoutTest::getExpectedObject()]
+            data: [LayoutTest::getExpectedObject()],
         );
     }
 }

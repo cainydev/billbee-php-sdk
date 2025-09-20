@@ -16,7 +16,7 @@ class GetShippingProvidersResponseTest extends SerializerTestCase
     public static function getExpectedObject(): GetShippingProvidersResponse
     {
         return new GetShippingProvidersResponse(
-            data: [ShippingProviderTest::getExpectedObject()]
+            data: [ShippingProviderTest::getExpectedObject()],
         );
     }
 }

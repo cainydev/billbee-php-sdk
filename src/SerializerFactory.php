@@ -40,7 +40,7 @@ final class SerializerFactory
         return self::builder()
             ->setSerializationVisitor(
                 'json',
-                (new JsonSerializationVisitorFactory)->setOptions(JSON_PRETTY_PRINT | JSON_PRESERVE_ZERO_FRACTION)
+                (new JsonSerializationVisitorFactory())->setOptions(JSON_PRETTY_PRINT | JSON_PRESERVE_ZERO_FRACTION),
             )
             ->build();
     }

@@ -18,7 +18,7 @@ class LayoutTest extends SerializerTestCase
         return new Layout(
             id: 100000000132970,
             name: "Lieferschein",
-            type: LayoutType::DELIVERY_NOTE
+            type: LayoutType::DELIVERY_NOTE,
         );
     }
 }

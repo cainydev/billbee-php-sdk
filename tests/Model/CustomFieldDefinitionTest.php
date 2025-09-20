@@ -23,7 +23,7 @@ class CustomFieldDefinitionTest extends SerializerTestCase
                 'Multiple' => true,
             ],
             type: CustomFieldDefinitionType::DROP_DOWN,
-            isNullable: true
+            isNullable: true,
         );
     }
 }

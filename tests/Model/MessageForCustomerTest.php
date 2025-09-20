@@ -20,7 +20,7 @@ class MessageForCustomerTest extends SerializerTestCase
             sendMode: SendMode::EMAIL,
             subject: [new TranslatableText(text: "Hallo", languageCode: "DE")],
             body: [new TranslatableText(text: "Welt", languageCode: "DE")],
-            alternativeEmailAddress: "foo@bar.tld"
+            alternativeEmailAddress: "foo@bar.tld",
         );
     }
 }

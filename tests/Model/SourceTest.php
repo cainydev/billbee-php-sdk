@@ -25,7 +25,7 @@ class SourceTest extends SerializerTestCase
             stockSyncMin: 2.0,
             stockSyncMax: 3.0,
             unitsPerItem: 1.0,
-            custom: null
+            custom: null,
         );
     }
 }

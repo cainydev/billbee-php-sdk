@@ -22,7 +22,7 @@ class WebHookTest extends SerializerTestCase
             isPaused: true,
             filters: ["filter"],
             headers: ["a" => "b"],
-            properties: ["c" => "d"]
+            properties: ["c" => "d"],
         );
     }
 }

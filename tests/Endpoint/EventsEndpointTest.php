@@ -43,7 +43,7 @@ class EventsEndpointTest extends TestCase
             new DateTime('2020-01-01T00:00:00'),
             new DateTime('2020-12-31T23:59:59'),
             [1, 2, 5],
-            123
+            123,
         );
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);

@@ -26,7 +26,7 @@ class VatFlagsTest extends SerializerTestCase
             setIglWhenVatIdIsAvailableEnabled: true,
             ratesFrom: "destination_country",
             vatIdFrom: "destination_country",
-            isDistanceSale: false
+            isDistanceSale: false,
         );
     }
 }

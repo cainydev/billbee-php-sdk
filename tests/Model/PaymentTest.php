@@ -23,7 +23,7 @@ class PaymentTest extends SerializerTestCase
             sourceText: "konto",
             payValue: 162.0,
             purpose: "bestellung",
-            name: "max muster"
+            name: "max muster",
         );
     }
 }

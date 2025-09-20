@@ -20,7 +20,7 @@ class CommentTest extends SerializerTestCase
             created: new DateTime("2022-08-16T09:05:01.787Z"),
             fromCustomer: true,
             text: "test",
-            name: "customer"
+            name: "customer",
         );
     }
 }

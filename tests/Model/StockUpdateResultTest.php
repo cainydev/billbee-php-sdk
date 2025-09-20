@@ -20,7 +20,7 @@ class StockUpdateResultTest extends SerializerTestCase
             oldStock: 0.0,
             currentStock: 123.0,
             unfulfilledAmount: 0.0,
-            message: "The qty was successfully updated from 0 to 123"
+            message: "The qty was successfully updated from 0 to 123",
         );
     }
 }

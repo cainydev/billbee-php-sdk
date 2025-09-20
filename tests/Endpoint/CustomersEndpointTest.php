@@ -123,7 +123,7 @@ class CustomersEndpointTest extends TestCase
 
     public function testCreateCustomer(): void
     {
-        $request = new CreateCustomerRequest(address: new CustomerAddress);
+        $request = new CreateCustomerRequest(address: new CustomerAddress());
         $this->endpoint->createCustomer($request);
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);

@@ -22,7 +22,7 @@ class ShipmentTest extends SerializerTestCase
             shippingProviderId: 1,
             shippingProductId: 2,
             carrierId: 3,
-            type: ShipmentType::RETURN
+            type: ShipmentType::RETURN,
         );
     }
 }

@@ -25,7 +25,7 @@ class InvoiceTest extends SerializerTestCase
             gross: 11.996,
             net: 10.08,
             vatAmount: 1.916,
-            vatRate: 19
+            vatRate: 19,
         );
 
         $position = new InvoicePosition(
@@ -41,7 +41,7 @@ class InvoiceTest extends SerializerTestCase
             sku: "TESTBESTAND",
             title: "Test Bestandsabgleich",
             totalVatAmount: 25.3482,
-            rebatePercent: 2
+            rebatePercent: 2,
         );
 
         $vatFlags = new VatFlags(
@@ -56,7 +56,7 @@ class InvoiceTest extends SerializerTestCase
             setIglWhenVatIdIsAvailableEnabled: true,
             ratesFrom: "destination_country",
             vatIdFrom: "destination_country",
-            isDistanceSale: false
+            isDistanceSale: false,
         );
 
         return new Invoice(
@@ -86,7 +86,7 @@ class InvoiceTest extends SerializerTestCase
             salutation: "Sir",
             additionalFees: [$additionalFee],
             merchantVatId: "1234",
-            customerVatId: "1234"
+            customerVatId: "1234",
         );
     }
 }

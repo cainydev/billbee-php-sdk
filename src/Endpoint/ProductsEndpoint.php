@@ -20,8 +20,9 @@ use BillbeeDe\BillbeeAPI\Type\ProductLookupBy;
 
 readonly class ProductsEndpoint
 {
-    public function __construct(private ClientInterface $client)
-    {
+    public function __construct(
+        private ClientInterface $client,
+    ) {
     }
 
     /**
@@ -84,7 +85,7 @@ readonly class ProductsEndpoint
         return $this->client->post(
             'products/updatestockmultiple',
             $stockModels,
-            UpdateStocksResponse::class
+            UpdateStocksResponse::class,
         );
     }
 

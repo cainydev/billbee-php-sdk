@@ -21,7 +21,7 @@ class DeliveryNoteDocumentTest extends SerializerTestCase
             deliveryNoteNumber: "20",
             pdfData: "base64-encrypted-pdf",
             deliveryNoteDate: new DateTime("2022-08-16T14:47:00"),
-            pdfDownloadUrl: "https://objectstore.billbee.io"
+            pdfDownloadUrl: "https://objectstore.billbee.io",
         );
     }
 }

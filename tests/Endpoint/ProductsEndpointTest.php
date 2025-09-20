@@ -50,7 +50,7 @@ class ProductsEndpointTest extends TestCase
         $this->assertSame([
             'page' => 2,
             'pageSize' => 10,
-            'minCreatedAt' => '2020-10-01T00:00:00+00:00'
+            'minCreatedAt' => '2020-10-01T00:00:00+00:00',
         ], $query);
         $this->assertSame(GetProductsResponse::class, $class);
     }
@@ -138,7 +138,7 @@ class ProductsEndpointTest extends TestCase
         $stockCode = new StockCode(
             sku: '1234',
             stockId: 1234,
-            stockCode: '54321'
+            stockCode: '54321',
         );
 
         $this->endpoint->updateStockCode($stockCode);
@@ -153,7 +153,7 @@ class ProductsEndpointTest extends TestCase
 
     public function testCreateProduct(): void
     {
-        $product = new Product;
+        $product = new Product();
 
         $this->endpoint->createProduct($product);
         $requests = $this->client->getRequests();

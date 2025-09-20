@@ -12,8 +12,9 @@ use Exception;
 
 readonly class SearchEndpoint
 {
-    public function __construct(private ClientInterface $client)
-    {
+    public function __construct(
+        private ClientInterface $client,
+    ) {
     }
 
     /**

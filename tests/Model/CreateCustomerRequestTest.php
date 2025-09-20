@@ -15,7 +15,7 @@ class CreateCustomerRequestTest extends SerializerTestCase
     public static function getExpectedObject(): CreateCustomerRequest
     {
         return new CreateCustomerRequest(
-            address: CustomerAddressTest::getExpectedObject()
+            address: CustomerAddressTest::getExpectedObject(),
         );
     }
 }

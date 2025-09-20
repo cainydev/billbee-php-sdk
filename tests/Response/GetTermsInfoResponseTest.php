@@ -16,7 +16,7 @@ class GetTermsInfoResponseTest extends SerializerTestCase
     public static function getExpectedObject(): GetTermsInfoResponse
     {
         return new GetTermsInfoResponse(
-            data: TermsInfoTest::getExpectedObject()
+            data: TermsInfoTest::getExpectedObject(),
         );
     }
 }

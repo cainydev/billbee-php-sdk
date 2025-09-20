@@ -22,7 +22,7 @@ final readonly class ClientConfiguration
     ) {
         if (!is_subclass_of($this->dateTimeClass, \DateTimeInterface::class)) {
             throw new \InvalidArgumentException(
-                "DateTime class must implement DateTimeInterface, got: {$this->dateTimeClass}"
+                "DateTime class must implement DateTimeInterface, got: {$this->dateTimeClass}",
             );
         }
     }
@@ -66,7 +66,7 @@ final readonly class ClientConfiguration
     {
         if (!is_subclass_of($dateTimeClass, \DateTimeInterface::class)) {
             throw new \InvalidArgumentException(
-                "DateTime class must implement DateTimeInterface, got: {$dateTimeClass}"
+                "DateTime class must implement DateTimeInterface, got: {$dateTimeClass}",
             );
         }
 

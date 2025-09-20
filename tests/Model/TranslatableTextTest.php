@@ -16,7 +16,7 @@ class TranslatableTextTest extends SerializerTestCase
     {
         return new TranslatableText(
             text: "Test",
-            languageCode: "DE"
+            languageCode: "DE",
         );
     }
 }

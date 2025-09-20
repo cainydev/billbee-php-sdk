@@ -28,7 +28,7 @@ class AddressTest extends SerializerTestCase
             phone: "12345",
             email: "admin@domain.tld",
             houseNumber: "hausnummer",
-            nameAddition: "Zusatz"
+            nameAddition: "Zusatz",
         );
     }
 }

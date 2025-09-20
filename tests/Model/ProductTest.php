@@ -98,7 +98,7 @@ class ProductTest extends SerializerTestCase
             lengthCm: 20,
             heightCm: 40,
             billOfMaterial: [BillOfMaterialProductTest::getExpectedObject()],
-            isDeactivated: true
+            isDeactivated: true,
         );
     }
 }

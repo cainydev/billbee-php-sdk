@@ -22,7 +22,7 @@ class AcknowledgeResponse
         /** @var array{} */
         #[Annotation\Type("array")]
         #[Annotation\SerializedName("Data")]
-        public array $data = []
+        public array $data = [],
     ) {
     }
 }

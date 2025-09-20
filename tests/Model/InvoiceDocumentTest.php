@@ -22,7 +22,7 @@ class InvoiceDocumentTest extends SerializerTestCase
             invoiceDate: new DateTime("2022-07-22T09:54:25.31"),
             totalGross: 170.76,
             totalNet: 143.5,
-            pdfDownloadUrl: "https://objectstore.billbee.io"
+            pdfDownloadUrl: "https://objectstore.billbee.io",
         );
     }
 }

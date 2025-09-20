@@ -34,10 +34,7 @@
     }
   },
   "scripts": {
-    "fix-cs": [
-      "php-cs-fixer fix ./src/ --using-cache=no --rules=@PSR2",
-      "php-cs-fixer fix ./tests/ --using-cache=no --rules=@PSR2"
-    ],
+    "fix-cs": "php-cs-fixer fix",
     "analyse": "phpstan analyse",
     "test": "phpunit --colors=always"
   },

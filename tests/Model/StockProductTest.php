@@ -21,7 +21,7 @@ class StockProductTest extends SerializerTestCase
             stockWarning: 0.0,
             stockCode: "test",
             unfulfilledAmount: 0.0,
-            stockDesired: 0.0
+            stockDesired: 0.0,
         );
     }
 }

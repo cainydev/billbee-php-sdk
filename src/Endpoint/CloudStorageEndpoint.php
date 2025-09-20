@@ -9,8 +9,9 @@ use BillbeeDe\BillbeeAPI\Response\GetCloudStoragesResponse;
 
 readonly class CloudStorageEndpoint
 {
-    public function __construct(private ClientInterface $client)
-    {
+    public function __construct(
+        private ClientInterface $client,
+    ) {
     }
 
     /**

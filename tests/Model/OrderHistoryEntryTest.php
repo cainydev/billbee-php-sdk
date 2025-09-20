@@ -20,7 +20,7 @@ class OrderHistoryEntryTest extends SerializerTestCase
             eventTypeName: "Auftrag eingelesen",
             text: "Der Auftrag wurde eingelesen",
             employeeName: "max",
-            typeId: 0
+            typeId: 0,
         );
     }
 }

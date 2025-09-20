@@ -33,7 +33,7 @@ class CustomerAddressTest extends SerializerTestCase
             phone1: "12345",
             phone2: "47896",
             fax: "010234",
-            addressAddition: "Zusatz"
+            addressAddition: "Zusatz",
         );
     }
 }

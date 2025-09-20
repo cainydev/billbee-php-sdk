@@ -18,7 +18,7 @@ class ProductResultTest extends SerializerTestCase
             id: 100000060342904,
             shortText: 'test',
             sku: 'PROD1234',
-            tags: 'tag1,tag2'
+            tags: 'tag1,tag2',
         );
     }
 }

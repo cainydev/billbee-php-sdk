@@ -21,8 +21,9 @@ use InvalidArgumentException;
 
 readonly class OrdersEndpoint
 {
-    public function __construct(private ClientInterface $client)
-    {
+    public function __construct(
+        private ClientInterface $client,
+    ) {
     }
 
     /**

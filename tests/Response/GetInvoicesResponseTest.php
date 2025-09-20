@@ -16,7 +16,7 @@ class GetInvoicesResponseTest extends SerializerTestCase
     public static function getExpectedObject(): GetInvoicesResponse
     {
         return new GetInvoicesResponse(
-            data: [InvoiceTest::getExpectedObject()]
+            data: [InvoiceTest::getExpectedObject()],
         );
     }
 }

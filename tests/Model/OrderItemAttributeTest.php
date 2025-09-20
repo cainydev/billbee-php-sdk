@@ -18,7 +18,7 @@ class OrderItemAttributeTest extends SerializerTestCase
             id: "100000167774144",
             name: "x",
             value: "y",
-            price: 0.00
+            price: 0.00,
         );
     }
 }
