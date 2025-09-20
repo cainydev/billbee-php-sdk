@@ -3,6 +3,8 @@
 namespace BillbeeDe\BillbeeAPI\Endpoint;
 
 use BillbeeDe\BillbeeAPI\ClientInterface;
+use BillbeeDe\BillbeeAPI\Exception\ConnectionException;
+use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Response\GetEventsResponse;
 use DateTimeInterface;
 
@@ -12,6 +14,10 @@ readonly class EventsEndpoint
     {
     }
 
+    /**
+     * @param array<int> $typeIds
+     * @throws QuotaExceededException|ConnectionException
+     */
     public function getEvents(
         int $page = 1,
         int $pageSize = 50,

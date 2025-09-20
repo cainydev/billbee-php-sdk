@@ -18,7 +18,7 @@ class ProvisioningEndpointTest extends TestCase
         $this->endpoint = new ProvisioningEndpoint($this->client);
     }
 
-    public function testGetTermsInfo()
+    public function testGetTermsInfo(): void
     {
         $this->endpoint->getTermsInfo();
 

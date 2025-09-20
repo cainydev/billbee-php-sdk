@@ -15,10 +15,12 @@ final class MessageForCustomer
         #[Serializer\SerializedName("SendMode")]
         public SendMode $sendMode,
 
+        /** @var TranslatableText[] */
         #[Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")]
         #[Serializer\SerializedName("Subject")]
         public array $subject,
 
+        /** @var TranslatableText[] */
         #[Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")]
         #[Serializer\SerializedName("Body")]
         public array $body,

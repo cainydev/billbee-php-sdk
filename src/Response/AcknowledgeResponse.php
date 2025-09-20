@@ -19,6 +19,7 @@ class AcknowledgeResponse
         #[Annotation\SerializedName("ErrorCode")]
         public int $errorCode = 0,
 
+        /** @var array{} */
         #[Annotation\Type("array")]
         #[Annotation\SerializedName("Data")]
         public array $data = []

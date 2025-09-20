@@ -20,7 +20,7 @@ class SearchEndpointTest extends TestCase
         $this->endpoint = new SearchEndpoint($this->client);
     }
 
-    public function testSearch()
+    public function testSearch(): void
     {
         $term = 'Hello World';
         $type = [SearchType::ORDER];

@@ -8,6 +8,7 @@ use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Response\SearchDataResponse;
 use BillbeeDe\BillbeeAPI\Type\SearchType;
 use BillbeeDe\BillbeeAPI\Type\SearchMode;
+use Exception;
 
 readonly class SearchEndpoint
 {
@@ -15,6 +16,10 @@ readonly class SearchEndpoint
     {
     }
 
+    /**
+     * @param array<int, SearchType> $type
+     * @throws QuotaExceededException|ConnectionException|Exception
+     */
     public function search(
         string $term,
         array $type = [SearchType::PRODUCT, SearchType::ORDER, SearchType::CUSTOMER],

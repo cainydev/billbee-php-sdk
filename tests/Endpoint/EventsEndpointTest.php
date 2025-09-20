@@ -19,7 +19,7 @@ class EventsEndpointTest extends TestCase
         $this->endpoint = new EventsEndpoint($this->client);
     }
 
-    public function testGetEvents()
+    public function testGetEvents(): void
     {
         $this->endpoint->getEvents();
         $requests = $this->client->getRequests();
@@ -35,7 +35,7 @@ class EventsEndpointTest extends TestCase
         $this->assertSame(GetEventsResponse::class, $class);
     }
 
-    public function testGetEventsAdvanced()
+    public function testGetEventsAdvanced(): void
     {
         $this->endpoint->getEvents(
             10,

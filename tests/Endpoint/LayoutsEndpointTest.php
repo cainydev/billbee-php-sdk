@@ -18,7 +18,7 @@ class LayoutsEndpointTest extends TestCase
         $this->endpoint = new LayoutsEndpoint($this->client);
     }
 
-    public function testGetLayouts()
+    public function testGetLayouts(): void
     {
         $this->endpoint->getLayouts();
 

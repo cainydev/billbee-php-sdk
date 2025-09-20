@@ -20,7 +20,7 @@ class ShipmentsEndpointTest extends TestCase
         $this->endpoint = new ShipmentsEndpoint($this->client);
     }
 
-    public function testGetShippingProviders()
+    public function testGetShippingProviders(): void
     {
         $this->endpoint->getShippingProviders();
         $requests = $this->client->getRequests();
@@ -33,7 +33,7 @@ class ShipmentsEndpointTest extends TestCase
         $this->assertSame(sprintf('array<%s>', ShippingProvider::class), $class);
     }
 
-    public function testShipWithLabel()
+    public function testShipWithLabel(): void
     {
         $shipment = new ShipmentWithLabel(42);
         $this->endpoint->shipWithLabel($shipment);

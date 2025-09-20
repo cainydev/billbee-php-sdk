@@ -20,7 +20,7 @@ class ProductCustomFieldsEndpointTest extends TestCase
         $this->endpoint = new ProductCustomFieldsEndpoint($this->client);
     }
 
-    public function testGetCustomFieldDefinitions()
+    public function testGetCustomFieldDefinitions(): void
     {
         $this->endpoint->getCustomFieldDefinitions(4, 100);
 
@@ -37,13 +37,13 @@ class ProductCustomFieldsEndpointTest extends TestCase
         $this->assertSame(GetCustomFieldDefinitionsResponse::class, $class);
     }
 
-    public function testGetCustomFieldDefinitionFailsInvalidId()
+    public function testGetCustomFieldDefinitionFailsInvalidId(): void
     {
         $this->expectException(InvalidIdException::class);
         $this->endpoint->getCustomFieldDefinition(0);
     }
 
-    public function testGetCustomFieldDefinition()
+    public function testGetCustomFieldDefinition(): void
     {
         $this->endpoint->getCustomFieldDefinition(200);
 

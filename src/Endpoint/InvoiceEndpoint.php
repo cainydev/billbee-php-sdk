@@ -3,6 +3,8 @@
 namespace BillbeeDe\BillbeeAPI\Endpoint;
 
 use BillbeeDe\BillbeeAPI\ClientInterface;
+use BillbeeDe\BillbeeAPI\Exception\ConnectionException;
+use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Response\GetInvoicesResponse;
 use DateTimeInterface;
 use InvalidArgumentException;
@@ -15,6 +17,12 @@ readonly class InvoiceEndpoint
     {
     }
 
+    /**
+     * @param array<int> $shopId
+     * @param array<int> $orderStateId
+     * @param array<string> $tag
+     * @throws QuotaExceededException|ConnectionException
+     */
     public function getInvoices(
         int $page = 1,
         int $pageSize = 50,
@@ -35,38 +43,35 @@ readonly class InvoiceEndpoint
         if ($minInvoiceDate) {
             $query['minInvoiceDate'] = $minInvoiceDate->format('c');
         }
+
         if ($maxInvoiceDate) {
             $query['maxInvoiceDate'] = $maxInvoiceDate->format('c');
         }
-        if ($shopId) {
-            foreach ($shopId as $id) {
-                if (!is_numeric($id)) {
-                    throw new InvalidArgumentException('shopId must be an array of int');
-                }
-            }
+
+        if (!empty($shopId)) {
             $query['shopId'] = array_values(array_unique($shopId));
         }
-        if ($orderStateId) {
-            foreach ($orderStateId as $id) {
-                if (!is_numeric($id)) {
-                    throw new InvalidArgumentException('orderStateId must be an array of int');
-                }
-            }
 
+        if (!empty($orderStateId)) {
             $query['orderStateId'] = array_values(array_unique($orderStateId));
         }
-        if ($tag) {
+
+        if (!empty($tag)) {
             $query['tag'] = array_values(array_unique($tag));
         }
+
         if ($minPayDate) {
             $query['minPayDate'] = $minPayDate->format('c');
         }
+
         if ($maxPayDate) {
             $query['maxPayDate'] = $maxPayDate->format('c');
         }
+
         if ($includePositions) {
             $query['includePositions'] = 'true';
         }
+
         return $this->client->get('orders/invoices', $query, GetInvoicesResponse::class);
     }
 }

@@ -11,7 +11,6 @@ use BillbeeDe\BillbeeAPI\Model\MessageForCustomer;
 use BillbeeDe\BillbeeAPI\Response\AcknowledgeResponse;
 use BillbeeDe\BillbeeAPI\Response\GetOrdersResponse;
 use BillbeeDe\BillbeeAPI\Response\GetOrderResponse;
-use BillbeeDe\BillbeeAPI\Response\GetOrderByPartnerResponse;
 use BillbeeDe\BillbeeAPI\Response\GetPatchableFieldsResponse;
 use BillbeeDe\BillbeeAPI\Response\CreateInvoiceResponse;
 use BillbeeDe\BillbeeAPI\Response\CreateDeliveryNoteResponse;
@@ -19,8 +18,6 @@ use BillbeeDe\BillbeeAPI\Type\ArticleSource;
 use BillbeeDe\BillbeeAPI\Type\SendMode;
 use DateTimeInterface;
 use InvalidArgumentException;
-use function array_unique;
-use function array_values;
 
 readonly class OrdersEndpoint
 {
@@ -28,6 +25,12 @@ readonly class OrdersEndpoint
     {
     }
 
+    /**
+     * @param array<int> $shopId
+     * @param array<int> $orderStateId
+     * @param array<string> $tag
+     * @throws QuotaExceededException|ConnectionException
+     */
     public function getOrders(
         int $page = 1,
         int $pageSize = 50,
@@ -78,39 +81,52 @@ readonly class OrdersEndpoint
         return $this->client->get('orders', $query, GetOrdersResponse::class);
     }
 
+    /**
+     * @throws QuotaExceededException|ConnectionException
+     */
     public function getPatchableFields(): GetPatchableFieldsResponse
     {
         return $this->client->get('orders/PatchableFields', [], GetPatchableFieldsResponse::class);
     }
 
+    /**
+     * @throws QuotaExceededException|ConnectionException
+     */
     public function getOrder(int $id): GetOrderResponse
     {
         return $this->client->get("orders/$id", [], GetOrderResponse::class);
     }
 
+    /**
+     * @throws QuotaExceededException|ConnectionException
+     */
     public function getOrderByOrderNumber(string $extRef): GetOrderResponse
     {
         $ref = urlencode($extRef);
         return $this->client->get("orders/findbyextref/$ref", [], GetOrderResponse::class);
     }
 
-    public function getOrderByPartner(string $externalId, string $partner): GetOrderByPartnerResponse
-    {
-        $id = urlencode($externalId);
-        return $this->client->get("orders/find/$id/$partner", [], GetOrderByPartnerResponse::class);
-    }
-
+    /**
+     * @throws QuotaExceededException|ConnectionException
+     */
     public function createOrder(Order $order, int $shopId): ?GetOrderResponse
     {
         $payload = $this->client->getSerializer()->serialize($order, 'json');
         return $this->client->post("orders?shopId=$shopId", $payload, GetOrderResponse::class);
     }
 
+    /**
+     * @param array<string> $tags
+     * @throws QuotaExceededException|ConnectionException
+     */
     public function addOrderTags(int $orderId, array $tags = []): ?AcknowledgeResponse
     {
         return $this->client->post("orders/$orderId/tags", json_encode(['Tags' => $tags]), AcknowledgeResponse::class);
     }
 
+    /**
+     * @throws QuotaExceededException|ConnectionException
+     */
     public function addOrderShipment(int $orderId, Shipment $shipment): bool
     {
         $payload = $this->client->getSerializer()->serialize($shipment, 'json');
@@ -118,12 +134,18 @@ readonly class OrdersEndpoint
         return $res->errorCode === 0;
     }
 
+    /**
+     * @throws QuotaExceededException|ConnectionException
+     */
     public function createDeliveryNote(int $orderId, bool $includePdf = false): CreateDeliveryNoteResponse
     {
         $uri = "orders/CreateDeliveryNote/$orderId?includePdf=" . ($includePdf ? 'True' : 'False');
         return $this->client->post($uri, [], CreateDeliveryNoteResponse::class);
     }
 
+    /**
+     * @throws QuotaExceededException|ConnectionException
+     */
     public function createInvoice(
         int $orderId,
         bool $includePdf = false,
@@ -140,15 +162,15 @@ readonly class OrdersEndpoint
         return $this->client->post($uri, [], CreateInvoiceResponse::class);
     }
 
+    /**
+     * @throws QuotaExceededException|ConnectionException
+     */
     public function sendMessage(int $orderId, MessageForCustomer $message): bool
     {
-        if ($message->sendMode < 0 || $message->sendMode > 4) {
-            throw new InvalidArgumentException("Invalid sendMode");
-        }
-        if (!is_array($message->subject) || count($message->subject) === 0) {
+        if (count($message->subject) === 0) {
             throw new InvalidArgumentException("You have to specify a message subject");
         }
-        if (!is_array($message->body) || count($message->body) === 0) {
+        if (count($message->body) === 0) {
             throw new InvalidArgumentException("You have to specify a message body");
         }
         if ($message->sendMode === SendMode::EXTERNAL_EMAIL && empty($message->alternativeEmailAddress)) {
@@ -156,20 +178,27 @@ readonly class OrdersEndpoint
         }
         if ($message->sendMode !== SendMode::EXTERNAL_EMAIL
             && !empty($message->alternativeEmailAddress)
-            && $this->client->getLogger() !== null
         ) {
-            $this->client->getLogger()->warning('The alternative email address is ignored because sendMode != 4');
+            $this->client->getLogger()->warning("The alternative email address is ignored because sendMode != " . SendMode::EXTERNAL_EMAIL->name);
         }
+
         $payload = $this->client->getSerializer()->serialize($message, 'json');
         $res = $this->client->post("orders/$orderId/send-message", $payload, AcknowledgeResponse::class);
-        return $res === '' || $res === null;
+        return $res->errorCode === 0;
     }
 
+    /**
+     * @param array<string> $tags
+     * @throws QuotaExceededException|ConnectionException
+     */
     public function setOrderTags(int $orderId, array $tags = []): AcknowledgeResponse
     {
         return $this->client->put("orders/$orderId/tags", json_encode(['Tags' => $tags]), AcknowledgeResponse::class);
     }
 
+    /**
+     * @throws QuotaExceededException|ConnectionException
+     */
     public function setOrderState(int $orderId, int $newState): bool
     {
         $res = $this->client->put(
@@ -177,9 +206,13 @@ readonly class OrdersEndpoint
             json_encode(['NewStateId' => $newState]),
             AcknowledgeResponse::class,
         );
-        return $res === null;
+        return $res->errorCode === 0;
     }
 
+    /**
+     * @param array<string, mixed> $fields
+     * @throws QuotaExceededException|ConnectionException
+     */
     public function patchOrder(int $orderId, array $fields): ?GetOrderResponse
     {
         return $this->client->patch("orders/$orderId", $fields, GetOrderResponse::class);

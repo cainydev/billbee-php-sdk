@@ -3,6 +3,8 @@
 namespace BillbeeDe\Tests\BillbeeAPI\Endpoint;
 
 use BillbeeDe\BillbeeAPI\Endpoint\InvoiceEndpoint;
+use BillbeeDe\BillbeeAPI\Exception\ConnectionException;
+use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Response\GetInvoicesResponse;
 use BillbeeDe\Tests\BillbeeAPI\TestClient;
 use DateTime;
@@ -20,19 +22,11 @@ class InvoiceEndpointTest extends TestCase
         $this->endpoint = new InvoiceEndpoint($this->client);
     }
 
-    public function testGetInvoicesFailsInvalidShopId()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->endpoint->getInvoices(1, 50, null, null, ['test']);
-    }
-
-    public function testGetInvoicesFailsInvalidOrderStateId()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->endpoint->getInvoices(1, 50, null, null, [], ['test']);
-    }
-
-    public function testGetInvoices()
+    /**
+     * @throws QuotaExceededException
+     * @throws ConnectionException
+     */
+    public function testGetInvoices(): void
     {
         $this->endpoint->getInvoices();
         $requests = $this->client->getRequests();
@@ -48,19 +42,23 @@ class InvoiceEndpointTest extends TestCase
         $this->assertSame(GetInvoicesResponse::class, $class);
     }
 
-    public function testGetInvoicesAdvanced()
+    /**
+     * @throws ConnectionException
+     * @throws QuotaExceededException
+     */
+    public function testGetInvoicesAdvanced(): void
     {
         $this->endpoint->getInvoices(
-            12,
-            24,
-            new DateTime('2020-01-01T00:00:00'),
-            new DateTime('2020-12-31T00:00:00'),
-            [1, 233, 1],
-            [1, 2, 3, 4, 4],
-            ['test', 'test', 'test1'],
-            new DateTime('2020-01-01T01:00:00'),
-            new DateTime('2020-12-31T01:00:00'),
-            true
+            page: 12,
+            pageSize: 24,
+            minInvoiceDate: new DateTime('2020-01-01T00:00:00'),
+            maxInvoiceDate: new DateTime('2020-12-31T00:00:00'),
+            shopId: [1, 233, 1],
+            orderStateId: [1, 2, 3, 4, 4],
+            tag: ['test', 'test', 'test1'],
+            minPayDate: new DateTime('2020-01-01T01:00:00'),
+            maxPayDate: new DateTime('2020-12-31T01:00:00'),
+            includePositions: true
         );
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);

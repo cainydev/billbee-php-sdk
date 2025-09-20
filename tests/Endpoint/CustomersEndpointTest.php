@@ -26,7 +26,7 @@ class CustomersEndpointTest extends TestCase
         $this->endpoint = new CustomersEndpoint($this->client);
     }
 
-    public function testGetCustomers()
+    public function testGetCustomers(): void
     {
         $this->endpoint->getCustomers();
         $requests = $this->client->getRequests();
@@ -39,13 +39,13 @@ class CustomersEndpointTest extends TestCase
         $this->assertSame(GetCustomersResponse::class, $class);
     }
 
-    public function testGetCustomerFailsNegativeId()
+    public function testGetCustomerFailsNegativeId(): void
     {
         $this->expectException(InvalidIdException::class);
         $this->endpoint->getCustomer(-1);
     }
 
-    public function testGetCustomer()
+    public function testGetCustomer(): void
     {
         $this->endpoint->getCustomer(123);
         $requests = $this->client->getRequests();
@@ -58,13 +58,13 @@ class CustomersEndpointTest extends TestCase
         $this->assertSame(GetCustomerResponse::class, $class);
     }
 
-    public function testGetCustomerAddressesFailsNegativeId()
+    public function testGetCustomerAddressesFailsNegativeId(): void
     {
         $this->expectException(InvalidIdException::class);
         $this->endpoint->getCustomerAddresses(-1);
     }
 
-    public function testGetCustomerAddresses()
+    public function testGetCustomerAddresses(): void
     {
         $this->endpoint->getCustomerAddresses(123);
         $requests = $this->client->getRequests();
@@ -80,13 +80,13 @@ class CustomersEndpointTest extends TestCase
         $this->assertSame(GetCustomerAddressesResponse::class, $class);
     }
 
-    public function testGetCustomerAddressFailsNegativeId()
+    public function testGetCustomerAddressFailsNegativeId(): void
     {
         $this->expectException(InvalidIdException::class);
         $this->endpoint->getCustomerAddress(-1);
     }
 
-    public function testGetCustomerAddress()
+    public function testGetCustomerAddress(): void
     {
         $this->endpoint->getCustomerAddress(123);
         $requests = $this->client->getRequests();
@@ -99,13 +99,13 @@ class CustomersEndpointTest extends TestCase
         $this->assertSame(GetCustomerAddressResponse::class, $class);
     }
 
-    public function testGetCustomerOrdersFailsNegativeId()
+    public function testGetCustomerOrdersFailsNegativeId(): void
     {
         $this->expectException(InvalidIdException::class);
         $this->endpoint->getCustomerOrders(-1);
     }
 
-    public function testGetCustomerOrders()
+    public function testGetCustomerOrders(): void
     {
         $this->endpoint->getCustomerOrders(123);
         $requests = $this->client->getRequests();
@@ -121,7 +121,7 @@ class CustomersEndpointTest extends TestCase
         $this->assertSame(GetOrdersResponse::class, $class);
     }
 
-    public function testCreateCustomer()
+    public function testCreateCustomer(): void
     {
         $request = new CreateCustomerRequest(address: new CustomerAddress);
         $this->endpoint->createCustomer($request);
@@ -134,7 +134,7 @@ class CustomersEndpointTest extends TestCase
         $this->assertSame(GetCustomerResponse::class, $class);
     }
 
-    public function testUpdateCustomerFailsNegativeId()
+    public function testUpdateCustomerFailsNegativeId(): void
     {
         $this->expectException(InvalidIdException::class);
         $customer = new Customer();
@@ -142,7 +142,7 @@ class CustomersEndpointTest extends TestCase
         $this->endpoint->updateCustomer($customer);
     }
 
-    public function testUpdateCustomer()
+    public function testUpdateCustomer(): void
     {
         $customer = new Customer();
         $customer->id = 123;
@@ -156,7 +156,7 @@ class CustomersEndpointTest extends TestCase
         $this->assertSame(GetCustomerResponse::class, $class);
     }
 
-    public function testPatchAddress()
+    public function testPatchAddress(): void
     {
         $this->endpoint->patchAddress(123, ['foo' => 'bar']);
         $requests = $this->client->getRequests();

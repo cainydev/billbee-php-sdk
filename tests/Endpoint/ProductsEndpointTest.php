@@ -3,6 +3,7 @@
 namespace BillbeeDe\Tests\BillbeeAPI\Endpoint;
 
 use BillbeeDe\BillbeeAPI\Endpoint\ProductsEndpoint;
+use BillbeeDe\BillbeeAPI\Model\Product;
 use BillbeeDe\BillbeeAPI\Model\Stock;
 use BillbeeDe\BillbeeAPI\Model\StockCode;
 use BillbeeDe\BillbeeAPI\Response\AcknowledgeResponse;
@@ -29,7 +30,7 @@ class ProductsEndpointTest extends TestCase
         $this->endpoint = new ProductsEndpoint($this->client);
     }
 
-    public function testGetProducts()
+    public function testGetProducts(): void
     {
         $this->endpoint->getProducts(1, 1);
         $this->endpoint->getProducts(2, 10, new DateTime('2020-10-01T00:00:00'));
@@ -54,7 +55,7 @@ class ProductsEndpointTest extends TestCase
         $this->assertSame(GetProductsResponse::class, $class);
     }
 
-    public function testGetProduct()
+    public function testGetProduct(): void
     {
         $this->endpoint->getProduct(4711);
         $this->endpoint->getProduct(1234, ProductLookupBy::EAN);
@@ -75,7 +76,7 @@ class ProductsEndpointTest extends TestCase
         $this->assertSame(GetProductResponse::class, $class);
     }
 
-    public function testGetCategories()
+    public function testGetCategories(): void
     {
         $this->endpoint->getCategories();
         $requests = $this->client->getRequests();
@@ -88,7 +89,7 @@ class ProductsEndpointTest extends TestCase
         $this->assertSame(GetCategoriesResponse::class, $class);
     }
 
-    public function testGetPatchableProductFields()
+    public function testGetPatchableProductFields(): void
     {
         $this->endpoint->getPatchableProductFields();
         $requests = $this->client->getRequests();
@@ -101,9 +102,9 @@ class ProductsEndpointTest extends TestCase
         $this->assertSame(GetPatchableFieldsResponse::class, $class);
     }
 
-    public function testUpdateStock()
+    public function testUpdateStock(): void
     {
-        $stockModel = new Stock(4711, 1234, 0);
+        $stockModel = new Stock('4711', 1234, '0');
 
         $this->endpoint->updateStock($stockModel);
         $requests = $this->client->getRequests();
@@ -116,10 +117,10 @@ class ProductsEndpointTest extends TestCase
         $this->assertSame(UpdateStockResponse::class, $class);
     }
 
-    public function testUpdateStockMultiple()
+    public function testUpdateStockMultiple(): void
     {
-        $stockModel1 = new Stock(4711, 1234, 0);
-        $stockModel2 = new Stock(1234, 500, 600);
+        $stockModel1 = new Stock('4711', 1234, '0');
+        $stockModel2 = new Stock('1234', 500, '600');
 
         $this->endpoint->updateStockMultiple([$stockModel1, $stockModel2]);
         $requests = $this->client->getRequests();
@@ -132,7 +133,7 @@ class ProductsEndpointTest extends TestCase
         $this->assertSame(UpdateStocksResponse::class, $class);
     }
 
-    public function testUpdateStockCode()
+    public function testUpdateStockCode(): void
     {
         $stockCode = new StockCode(
             sku: '1234',
@@ -150,9 +151,9 @@ class ProductsEndpointTest extends TestCase
         $this->assertSame(UpdateStockResponse::class, $class);
     }
 
-    public function testCreateProduct()
+    public function testCreateProduct(): void
     {
-        $product = new \BillbeeDe\BillbeeAPI\Model\Product();
+        $product = new Product;
 
         $this->endpoint->createProduct($product);
         $requests = $this->client->getRequests();
@@ -164,7 +165,7 @@ class ProductsEndpointTest extends TestCase
         $this->assertSame(GetProductResponse::class, $class);
     }
 
-    public function testPatchProduct()
+    public function testPatchProduct(): void
     {
         $this->endpoint->patchProduct(1234, ['foo' => 'bar']);
         $requests = $this->client->getRequests();
@@ -177,7 +178,7 @@ class ProductsEndpointTest extends TestCase
         $this->assertSame(GetProductResponse::class, $class);
     }
 
-    public function testDeleteProduct()
+    public function testDeleteProduct(): void
     {
         $this->endpoint->deleteProduct(1234);
         $requests = $this->client->getRequests();

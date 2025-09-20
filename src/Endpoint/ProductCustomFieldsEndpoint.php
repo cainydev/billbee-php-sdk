@@ -15,6 +15,9 @@ readonly class ProductCustomFieldsEndpoint
     {
     }
 
+    /**
+     * @throws ConnectionException|QuotaExceededException
+     */
     public function getCustomFieldDefinitions(int $page = 1, int $pageSize = 50): GetCustomFieldDefinitionsResponse
     {
         $query = [
@@ -29,6 +32,9 @@ readonly class ProductCustomFieldsEndpoint
         );
     }
 
+    /**
+     * @throws ConnectionException|QuotaExceededException
+     */
     public function getCustomFieldDefinition(int $id): GetCustomFieldDefinitionResponse
     {
         if ($id < 1) {

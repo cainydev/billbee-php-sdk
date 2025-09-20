@@ -10,7 +10,6 @@ use BillbeeDe\BillbeeAPI\Model\TranslatableText;
 use BillbeeDe\BillbeeAPI\Response\AcknowledgeResponse;
 use BillbeeDe\BillbeeAPI\Response\CreateDeliveryNoteResponse;
 use BillbeeDe\BillbeeAPI\Response\CreateInvoiceResponse;
-use BillbeeDe\BillbeeAPI\Response\GetOrderByPartnerResponse;
 use BillbeeDe\BillbeeAPI\Response\GetOrderResponse;
 use BillbeeDe\BillbeeAPI\Response\GetOrdersResponse;
 use BillbeeDe\BillbeeAPI\Response\GetPatchableFieldsResponse;
@@ -32,7 +31,7 @@ class OrdersEndpointTest extends TestCase
         $this->endpoint = new OrdersEndpoint($this->client);
     }
 
-    public function testGetOrders()
+    public function testGetOrders(): void
     {
         $this->endpoint->getOrders();
         $requests = $this->client->getRequests();
@@ -49,7 +48,7 @@ class OrdersEndpointTest extends TestCase
         $this->assertSame(GetOrdersResponse::class, $class);
     }
 
-    public function testGetOrdersAdvanced()
+    public function testGetOrdersAdvanced(): void
     {
         $this->endpoint->getOrders(
             3,
@@ -88,7 +87,7 @@ class OrdersEndpointTest extends TestCase
         $this->assertSame(GetOrdersResponse::class, $class);
     }
 
-    public function testGetPatchableFields()
+    public function testGetPatchableFields(): void
     {
         $this->endpoint->getPatchableFields();
         $requests = $this->client->getRequests();
@@ -101,7 +100,7 @@ class OrdersEndpointTest extends TestCase
         $this->assertSame(GetPatchableFieldsResponse::class, $class);
     }
 
-    public function testGetOrder()
+    public function testGetOrder(): void
     {
         $this->endpoint->getOrder(3421);
         $requests = $this->client->getRequests();
@@ -114,7 +113,7 @@ class OrdersEndpointTest extends TestCase
         $this->assertSame(GetOrderResponse::class, $class);
     }
 
-    public function testGetOrderByOrderNumber()
+    public function testGetOrderByOrderNumber(): void
     {
         $this->endpoint->getOrderByOrderNumber('foo221');
         $requests = $this->client->getRequests();
@@ -127,20 +126,7 @@ class OrdersEndpointTest extends TestCase
         $this->assertSame(GetOrderResponse::class, $class);
     }
 
-    public function testGetOrderByPartner()
-    {
-        $this->endpoint->getOrderByPartner('foo221', 'demo');
-        $requests = $this->client->getRequests();
-        $this->assertCount(1, $requests);
-
-        [$method, $node, $data, $class] = $requests[0];
-        $this->assertSame('GET', $method);
-        $this->assertSame('orders/find/foo221/demo', $node);
-        $this->assertSame([], $data);
-        $this->assertSame(GetOrderByPartnerResponse::class, $class);
-    }
-
-    public function testCreateOrder()
+    public function testCreateOrder(): void
     {
         $order = new Order();
         $this->endpoint->createOrder($order, 521);
@@ -153,7 +139,7 @@ class OrdersEndpointTest extends TestCase
         $this->assertSame(GetOrderResponse::class, $class);
     }
 
-    public function testAddOrderTags()
+    public function testAddOrderTags(): void
     {
         $this->endpoint->addOrderTags(521, ['test', 'test2']);
         $requests = $this->client->getRequests();
@@ -166,7 +152,7 @@ class OrdersEndpointTest extends TestCase
         $this->assertSame(AcknowledgeResponse::class, $class);
     }
 
-    public function testAddOrderShipment()
+    public function testAddOrderShipment(): void
     {
         $shipment = new Shipment();
         $result = $this->endpoint->addOrderShipment(521, $shipment);
@@ -180,7 +166,7 @@ class OrdersEndpointTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testCreateDeliveryNote()
+    public function testCreateDeliveryNote(): void
     {
         $this->endpoint->createDeliveryNote(521);
         $requests = $this->client->getRequests();
@@ -193,7 +179,7 @@ class OrdersEndpointTest extends TestCase
         $this->assertSame(CreateDeliveryNoteResponse::class, $class);
     }
 
-    public function testCreateDeliveryNoteWithIncludePdf()
+    public function testCreateDeliveryNoteWithIncludePdf(): void
     {
         $this->endpoint->createDeliveryNote(521, true);
         $requests = $this->client->getRequests();
@@ -206,7 +192,7 @@ class OrdersEndpointTest extends TestCase
         $this->assertSame(CreateDeliveryNoteResponse::class, $class);
     }
 
-    public function testCreateInvoice()
+    public function testCreateInvoice(): void
     {
         $this->endpoint->createInvoice(521);
         $requests = $this->client->getRequests();
@@ -219,7 +205,7 @@ class OrdersEndpointTest extends TestCase
         $this->assertSame(CreateInvoiceResponse::class, $class);
     }
 
-    public function testCreateInvoiceAdvanced()
+    public function testCreateInvoiceAdvanced(): void
     {
         $this->endpoint->createInvoice(521, true, 234, 543);
         $requests = $this->client->getRequests();
@@ -232,7 +218,7 @@ class OrdersEndpointTest extends TestCase
         $this->assertSame(CreateInvoiceResponse::class, $class);
     }
 
-    public function testSendMessageFailsNoSubject()
+    public function testSendMessageFailsNoSubject(): void
     {
         $message = new MessageForCustomer(
             sendMode: SendMode::EMAIL,
@@ -246,7 +232,7 @@ class OrdersEndpointTest extends TestCase
         $this->endpoint->sendMessage(521, $message);
     }
 
-    public function testSendMessageFailsNoBody()
+    public function testSendMessageFailsNoBody(): void
     {
         $message = new MessageForCustomer(
             sendMode: SendMode::EMAIL,
@@ -260,7 +246,7 @@ class OrdersEndpointTest extends TestCase
         $this->endpoint->sendMessage(521, $message);
     }
 
-    public function testSendMessage()
+    public function testSendMessage(): void
     {
         $message = new MessageForCustomer(
             sendMode: SendMode::EXTERNAL_EMAIL,
@@ -279,7 +265,7 @@ class OrdersEndpointTest extends TestCase
         $this->assertSame(AcknowledgeResponse::class, $class);
     }
 
-    public function testSetOrderTags()
+    public function testSetOrderTags(): void
     {
         $this->endpoint->setOrderTags(521, ['test', 'test2']);
         $requests = $this->client->getRequests();
@@ -292,7 +278,7 @@ class OrdersEndpointTest extends TestCase
         $this->assertSame(AcknowledgeResponse::class, $class);
     }
 
-    public function testSetOrderState()
+    public function testSetOrderState(): void
     {
         $this->endpoint->setOrderState(521, 23);
         $requests = $this->client->getRequests();
@@ -305,7 +291,7 @@ class OrdersEndpointTest extends TestCase
         $this->assertSame(AcknowledgeResponse::class, $class);
     }
 
-    public function testPatchOrder()
+    public function testPatchOrder(): void
     {
         $model = ['hello' => 'world'];
         $this->endpoint->patchOrder(521, $model);

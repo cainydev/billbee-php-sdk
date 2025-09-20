@@ -25,14 +25,17 @@ class DefinitionConfigTransformer implements SubscribingHandlerInterface
     }
 
     /**
-     * @param mixed $data
+     * @param JsonDeserializationVisitor $visitor
+     * @param array<string, mixed> $data
      * @param array<string, mixed> $type
+     * @param Context $context
      * @return array<string, mixed>
      */
-    public static function deserialize(JsonDeserializationVisitor $visitor, $data, array $type, Context $context): array
+    public static function deserialize(JsonDeserializationVisitor $visitor, array $data, array $type, Context $context): array
     {
         if (isset($data['Choices']) && !is_array($data['Choices'])) {
-            $data['Choices'] = explode("\n", $data['Choices']);
+            $choices = is_string($data['Choices']) ? $data['Choices'] : '';
+            $data['Choices'] = explode("\n", $choices);
         }
 
         return $data;

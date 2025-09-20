@@ -18,7 +18,7 @@ class CloudStorageEndpointTest extends TestCase
         $this->endpoint = new CloudStorageEndpoint($this->client);
     }
 
-    public function testGetCloudStorages()
+    public function testGetCloudStorages(): void
     {
         $this->endpoint->getCloudStorages();
         $requests = $this->client->getRequests();

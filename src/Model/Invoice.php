@@ -80,11 +80,10 @@ final class Invoice
         #[Serializer\SerializedName("ShopName")]
         public ?string $shopName = null,
 
-        /** @var ?InvoicePosition[] $positions */
+        /** @var InvoicePosition[] */
         #[Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\InvoicePosition>")]
         #[Serializer\SerializedName("Positions")]
-        public ?array $positions = [],
-
+        public array $positions = [],
         #[Serializer\Type("DateTimeInterface<'Y-m-d\TH:i:s.v', 'UTC'>")]
         #[Serializer\SerializedName("PayDate")]
         public ?DateTimeInterface $payDate = null,
@@ -109,10 +108,10 @@ final class Invoice
         #[Serializer\SerializedName("Salutation")]
         public ?string $salutation = null,
 
+        /** @var InvoiceAdditionalFee[] */
         #[Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\InvoiceAdditionalFee>")]
         #[Serializer\SerializedName("AdditionalFees")]
-        public ?array $additionalFees = [],
-
+        public array $additionalFees = [],
         #[Serializer\Type("string")]
         #[Serializer\SerializedName("MerchantVatId")]
         public ?string $merchantVatId = null,

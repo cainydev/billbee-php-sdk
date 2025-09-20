@@ -2,27 +2,16 @@
 
 namespace BillbeeDe\Tests\BillbeeAPI;
 
-use BillbeeDe\BillbeeAPI\BatchClient;
 use BillbeeDe\BillbeeAPI\ClientInterface;
-use BillbeeDe\BillbeeAPI\Configuration\ClientConfiguration;
 use BillbeeDe\BillbeeAPI\Response\AcknowledgeResponse;
 use BillbeeDe\BillbeeAPI\SerializerFactory;
-use BillbeeDe\BillbeeAPI\Transformer\AsIsTransformer;
-use BillbeeDe\BillbeeAPI\Transformer\DefinitionConfigTransformer;
-use BillbeeDe\BillbeeAPI\Transformer\NativeDateTimeHandler;
-use Exception;
-use JMS\Serializer\Handler\EnumHandler;
-use JMS\Serializer\Handler\HandlerRegistry;
-use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
-use JMS\Serializer\Visitor\Factory\JsonSerializationVisitorFactory;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use function str_starts_with;
 
 final class TestClient implements ClientInterface
 {
+    /** @var array<int, array{string, string, mixed, ?string}> */
     private array $requests;
 
     private ?SerializerInterface $serializer = null;
@@ -31,10 +20,18 @@ final class TestClient implements ClientInterface
     ) {
     }
 
+    /** @param array<string, mixed> $query */
     public function get(string $endpoint, array $query = [], ?string $responseClass = null): mixed
     {
         $this->requests[] = ['GET', $endpoint, $query, $responseClass];
         return $this->dummyResponse($responseClass);
+    }
+
+    /** @param array<string, mixed> $query */
+    public function getArray(string $endpoint, array $query = [], ?string $responseClass = null): array
+    {
+        $this->requests[] = ['GET', $endpoint, $query, sprintf('array<%s>', $responseClass)];
+        return [];
     }
 
     public function post(string $endpoint, mixed $data = null, ?string $responseClass = null): mixed
@@ -55,21 +52,17 @@ final class TestClient implements ClientInterface
         return $this->dummyResponse($responseClass);
     }
 
+    /** @param array<string, mixed> $query */
     public function delete(string $endpoint, array $query = [], ?string $responseClass = null): mixed
     {
         $this->requests[] = ['DELETE', $endpoint, $query, $responseClass];
         return $this->dummyResponse($responseClass);
     }
 
-    /** @return array<array<string, mixed>> */
+    /** @return array<int, array{string, string, mixed, ?string}> */
     public function getRequests(): array
     {
         return $this->requests;
-    }
-
-    public function clearRequests(): void
-    {
-        $this->requests = [];
     }
 
     private function dummyResponse(?string $responseClass): mixed

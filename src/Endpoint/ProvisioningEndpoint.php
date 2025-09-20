@@ -13,6 +13,9 @@ readonly class ProvisioningEndpoint
     {
     }
 
+    /**
+     * @throws ConnectionException|QuotaExceededException
+     */
     public function getTermsInfo(): GetTermsInfoResponse
     {
         return $this->client->get('automaticprovision/termsinfo', [], GetTermsInfoResponse::class);

@@ -20,6 +20,10 @@
     {
       "name": "Julian Finkler",
       "email": "julian@billbee.io"
+    },
+    {
+      "name": "John Wagner",
+      "email": "info@techbra.in"
     }
   ],
   "minimum-stability": "stable",
@@ -34,7 +38,8 @@
       "php-cs-fixer fix ./src/ --using-cache=no --rules=@PSR2",
       "php-cs-fixer fix ./tests/ --using-cache=no --rules=@PSR2"
     ],
-    "analyse": "phpstan analyse"
+    "analyse": "phpstan analyse",
+    "test": "phpunit --colors=always"
   },
   "archive": {
     "exclude": [

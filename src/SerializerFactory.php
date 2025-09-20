@@ -6,15 +6,16 @@ namespace BillbeeDe\BillbeeAPI;
 
 use BillbeeDe\BillbeeAPI\Transformer\AsIsTransformer;
 use BillbeeDe\BillbeeAPI\Transformer\DefinitionConfigTransformer;
-use BillbeeDe\BillbeeAPI\Transformer\NativeDateTimeHandler;
+use JMS\Serializer\Handler\DateHandler;
 use JMS\Serializer\Handler\EnumHandler;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
+use JMS\Serializer\Visitor\Factory\JsonSerializationVisitorFactory;
 
 final class SerializerFactory
 {
-    public static function create(): SerializerInterface
+    private static function builder(): SerializerBuilder
     {
         return SerializerBuilder::create()
             ->addDefaultDeserializationVisitors()
@@ -24,9 +25,23 @@ final class SerializerFactory
             ->configureHandlers(function (HandlerRegistry $registry) {
                 $registry->registerSubscribingHandler(new AsIsTransformer());
                 $registry->registerSubscribingHandler(new DefinitionConfigTransformer());
-                $registry->registerSubscribingHandler(new NativeDateTimeHandler());
+                $registry->registerSubscribingHandler(new DateHandler());
                 $registry->registerSubscribingHandler(new EnumHandler());
-            })
+            });
+    }
+
+    public static function create(): SerializerInterface
+    {
+        return self::builder()->build();
+    }
+
+    public static function createPretty(): SerializerInterface
+    {
+        return self::builder()
+            ->setSerializationVisitor(
+                'json',
+                (new JsonSerializationVisitorFactory)->setOptions(JSON_PRETTY_PRINT | JSON_PRESERVE_ZERO_FRACTION)
+            )
             ->build();
     }
 }

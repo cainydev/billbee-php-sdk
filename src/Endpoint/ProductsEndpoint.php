@@ -24,6 +24,9 @@ readonly class ProductsEndpoint
     {
     }
 
+    /**
+     * @throws ConnectionException|QuotaExceededException
+     */
     public function getProducts(int $page = 1, int $pageSize = 50, ?DateTimeInterface $minCreatedAt = null): GetProductsResponse
     {
         $query = [
@@ -36,6 +39,9 @@ readonly class ProductsEndpoint
         return $this->client->get('products', $query, GetProductsResponse::class);
     }
 
+    /**
+     * @throws ConnectionException|QuotaExceededException
+     */
     public function getProduct(int|string $productId, ProductLookupBy $lookupBy = ProductLookupBy::ID): GetProductResponse
     {
         return $this->client->get(
@@ -45,21 +51,34 @@ readonly class ProductsEndpoint
         );
     }
 
+    /**
+     * @throws ConnectionException|QuotaExceededException
+     */
     public function getCategories(): GetCategoriesResponse
     {
         return $this->client->get('products/category', [], GetCategoriesResponse::class);
     }
 
+    /**
+     * @throws ConnectionException|QuotaExceededException
+     */
     public function getPatchableProductFields(): GetPatchableFieldsResponse
     {
         return $this->client->get('products/PatchableFields', [], GetPatchableFieldsResponse::class);
     }
 
+    /**
+     * @throws ConnectionException|QuotaExceededException
+     */
     public function updateStock(Stock $stockModel): UpdateStockResponse
     {
         return $this->client->post('products/updatestock', $stockModel, UpdateStockResponse::class);
     }
 
+    /**
+     * @param array<int, Stock> $stockModels
+     * @throws ConnectionException|QuotaExceededException
+     */
     public function updateStockMultiple(array $stockModels): UpdateStocksResponse
     {
         return $this->client->post(
@@ -69,23 +88,36 @@ readonly class ProductsEndpoint
         );
     }
 
+    /**
+     * @throws ConnectionException|QuotaExceededException
+     */
     public function updateStockCode(StockCode $stockCodeModel): ?UpdateStockResponse
     {
         $json = $this->client->getSerializer()->serialize($stockCodeModel, 'json');
         return $this->client->post('products/updatestockcode', $json, UpdateStockResponse::class);
     }
 
+    /**
+     * @throws ConnectionException|QuotaExceededException
+     */
     public function createProduct(Product $product): GetProductResponse
     {
         $json = $this->client->getSerializer()->serialize($product, 'json');
         return $this->client->post('products', $json, GetProductResponse::class);
     }
 
+    /**
+     * @param array<string, mixed> $fields
+     * @throws ConnectionException|QuotaExceededException
+     */
     public function patchProduct(int $productId, array $fields): ?GetProductResponse
     {
         return $this->client->patch("products/$productId", $fields, GetProductResponse::class);
     }
 
+    /**
+     * @throws ConnectionException|QuotaExceededException
+     */
     public function deleteProduct(int $productId): void
     {
         $this->client->delete("products/$productId", [], AcknowledgeResponse::class);

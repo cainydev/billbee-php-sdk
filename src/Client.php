@@ -43,12 +43,14 @@ final readonly class Client implements ClientInterface
     private SearchEndpoint $searchEndpoint;
 
     private BatchClient $batchClient;
-    private ?SerializerInterface $serializer;
+    private SerializerInterface $serializer;
 
     public function __construct(
         private ClientConfiguration $config,
     ) {
+        $this->serializer = SerializerFactory::create();
         $this->httpClient = new HttpClient($config, $this->getSerializer());
+        $this->batchClient = new BatchClient($this);
 
         $this->productsEndpoint = new ProductsEndpoint($this);
         $this->provisioningEndpoint = new ProvisioningEndpoint($this);
@@ -62,8 +64,6 @@ final readonly class Client implements ClientInterface
         $this->cloudStoragesEndpoint = new CloudStorageEndpoint($this);
         $this->layoutsEndpoint = new LayoutsEndpoint($this);
         $this->searchEndpoint = new SearchEndpoint($this);
-
-        $this->batchClient = new BatchClient($this);
     }
 
     public function products(): ProductsEndpoint
@@ -127,7 +127,8 @@ final readonly class Client implements ClientInterface
     }
 
     /**
-     * @throws QuotaExceededException|InvalidIdException|ConnectionException|Exception
+     * @param array<string, mixed> $query
+     * @throws QuotaExceededException|InvalidIdException|ConnectionException
      */
     public function get(string $endpoint, array $query = [], ?string $responseClass = null): mixed
     {
@@ -147,7 +148,28 @@ final readonly class Client implements ClientInterface
     }
 
     /**
-     * @throws QuotaExceededException|InvalidIdException|ConnectionException|Exception
+     * @param array<string, mixed> $query
+     * @throws QuotaExceededException|InvalidIdException|ConnectionException
+     */
+    public function getArray(string $endpoint, array $query = [], ?string $responseClass = null): array
+    {
+        try {
+            return $this->httpClient->get($endpoint, $query, sprintf('array<%s>', $responseClass));
+        } catch (ClientException $e) {
+            if ($e->getCode() === 429) {
+                throw new QuotaExceededException('API rate limit exceeded', 429, $e);
+            }
+            if ($e->getCode() === 404) {
+                throw new InvalidIdException('Invalid resource ID', 404, $e);
+            }
+            throw new ConnectionException($e->getMessage(), $e->getCode(), $e);
+        } catch (Exception|GuzzleException $e) {
+            throw new ConnectionException($e->getMessage(), $e->getCode(), $e);
+        }
+    }
+
+    /**
+     * @throws QuotaExceededException|InvalidIdException|ConnectionException
      */
     public function post(string $endpoint, mixed $data = null, ?string $responseClass = null): mixed
     {
@@ -167,7 +189,7 @@ final readonly class Client implements ClientInterface
     }
 
     /**
-     * @throws QuotaExceededException|InvalidIdException|ConnectionException|Exception
+     * @throws QuotaExceededException|InvalidIdException|ConnectionException
      */
     public function put(string $endpoint, mixed $data = null, ?string $responseClass = null): mixed
     {
@@ -187,7 +209,7 @@ final readonly class Client implements ClientInterface
     }
 
     /**
-     * @throws QuotaExceededException|InvalidIdException|ConnectionException|Exception
+     * @throws QuotaExceededException|InvalidIdException|ConnectionException
      */
     public function patch(string $endpoint, mixed $data = null, ?string $responseClass = null): mixed
     {
@@ -207,7 +229,7 @@ final readonly class Client implements ClientInterface
     }
 
     /**
-     * @throws QuotaExceededException|InvalidIdException|ConnectionException|Exception
+     * @throws QuotaExceededException|InvalidIdException|ConnectionException
      */
     public function delete(string $endpoint, array $query = [], ?string $responseClass = null): mixed
     {
@@ -233,7 +255,7 @@ final readonly class Client implements ClientInterface
 
     public function getSerializer(): SerializerInterface
     {
-        return $this->serializer ??= SerializerFactory::create();
+        return $this->serializer;
     }
 
     public function getLogger(): LoggerInterface

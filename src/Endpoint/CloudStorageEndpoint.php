@@ -14,7 +14,7 @@ readonly class CloudStorageEndpoint
     }
 
     /**
-     * Get a list of all cloud storages.
+     * @throws QuotaExceededException|ConnectionException
      */
     public function getCloudStorages(): GetCloudStoragesResponse
     {

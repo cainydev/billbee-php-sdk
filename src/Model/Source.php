@@ -49,6 +49,7 @@ final class Source
         #[Serializer\SerializedName("UnitsPerItem")]
         public ?float $unitsPerItem = null,
 
+        /** @var array<array<string, mixed>>|null */
         #[Serializer\Type("array")]
         #[Serializer\SerializedName("Custom")]
         public ?array $custom = null,

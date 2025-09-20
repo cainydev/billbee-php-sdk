@@ -24,32 +24,32 @@ final class Product
         #[Serializer\SerializedName("Type")]
         public ProductType $type = ProductType::PRODUCT,
 
-        /** @var ?TranslatableText[] $title */
+        /** @var TranslatableText[] $title */
         #[Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")]
         #[Serializer\SerializedName("Title")]
         public ?array $title = null,
 
-        /** @var ?TranslatableText[] $invoiceText */
+        /** @var TranslatableText[] $invoiceText */
         #[Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")]
         #[Serializer\SerializedName("InvoiceText")]
         public array $invoiceText = [],
 
-        /** @var ?TranslatableText[] $shortDescription */
+        /** @var TranslatableText[] $shortDescription */
         #[Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")]
         #[Serializer\SerializedName("ShortDescription")]
         public array $shortDescription = [],
 
-        /** @var ?Image[] $images */
+        /** @var Image[] $images */
         #[Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\Image>")]
         #[Serializer\SerializedName("Images")]
         public array $images = [],
 
-        /** @var ?TranslatableText[] $description */
+        /** @var TranslatableText[] $description */
         #[Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")]
         #[Serializer\SerializedName("Description")]
         public array $description = [],
 
-        /** @var ?TranslatableText[] $attributes */
+        /** @var TranslatableText[] $attributes */
         #[Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")]
         #[Serializer\SerializedName("BasicAttributes")]
         public array $attributes = [],
@@ -62,6 +62,7 @@ final class Product
         #[Serializer\SerializedName("EAN")]
         public ?string $ean = null,
 
+        /** @var ?Source[] $sources */
         #[Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\Source>")]
         #[Serializer\SerializedName("Sources")]
         public ?array $sources = [],
@@ -102,12 +103,12 @@ final class Product
         #[Serializer\SerializedName("Vat2Rate")]
         public float $vatRateReduced = 0.00,
 
-        /** @var ?TranslatableText[] $materials */
+        /** @var TranslatableText[] $materials */
         #[Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")]
         #[Serializer\SerializedName("Materials")]
         public array $materials = [],
 
-        /** @var ?TranslatableText[] $tags */
+        /** @var TranslatableText[] $tags */
         #[Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")]
         #[Serializer\SerializedName("Tags")]
         public array $tags = [],
@@ -136,7 +137,7 @@ final class Product
         #[Serializer\SerializedName("StockReduceItemsPerSale")]
         public ?float $stockReduceItemsPerSale = null,
 
-        /** @var ?StockProduct[] $stocks */
+        /** @var StockProduct[] $stocks */
         #[Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\StockProduct>")]
         #[Serializer\SerializedName("Stocks")]
         public array $stocks = [],
@@ -213,7 +214,7 @@ final class Product
         #[Serializer\SerializedName("ExportDescription")]
         public ?string $exportDescription = null,
 
-        /** @var ?TranslatableText[] $exportDescriptionMultiLanguage */
+        /** @var TranslatableText[] $exportDescriptionMultiLanguage */
         #[Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")]
         #[Serializer\SerializedName("ExportDescriptionMultiLanguage")]
         public array $exportDescriptionMultiLanguage = [],
@@ -222,7 +223,7 @@ final class Product
         #[Serializer\SerializedName("TaricNumber")]
         public ?string $taricNumber = null,
 
-        /** @var ?ProductCustomField[] $customFields */
+        /** @var ProductCustomField[] $customFields */
         #[Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\ProductCustomField>")]
         #[Serializer\SerializedName("CustomFields")]
         public array $customFields = [],

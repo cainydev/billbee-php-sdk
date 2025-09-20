@@ -3,6 +3,8 @@
 namespace BillbeeDe\Tests\BillbeeAPI\Endpoint;
 
 use BillbeeDe\BillbeeAPI\Endpoint\WebHooksEndpoint;
+use BillbeeDe\BillbeeAPI\Exception\ConnectionException;
+use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Model\WebHook;
 use BillbeeDe\BillbeeAPI\Model\WebHookFilter;
 use BillbeeDe\BillbeeAPI\Response\AcknowledgeResponse;
@@ -21,7 +23,7 @@ class WebHooksEndpointTest extends TestCase
         $this->endpoint = new WebHooksEndpoint($this->client);
     }
 
-    public function testGetWebHooks()
+    public function testGetWebHooks(): void
     {
         $this->endpoint->getWebHooks();
 
@@ -35,7 +37,7 @@ class WebHooksEndpointTest extends TestCase
         $this->assertSame(sprintf('array<%s>', WebHook::class), $class);
     }
 
-    public function testGetWebHook()
+    public function testGetWebHook(): void
     {
         $this->endpoint->getWebHook('abasd');
 
@@ -49,7 +51,10 @@ class WebHooksEndpointTest extends TestCase
         $this->assertSame(WebHook::class, $class);
     }
 
-    public function testGetWebHookFilters()
+    /**
+     * @throws QuotaExceededException|ConnectionException
+     */
+    public function testGetWebHookFilters(): void
     {
         $this->endpoint->getWebHookFilters();
 
@@ -63,7 +68,7 @@ class WebHooksEndpointTest extends TestCase
         $this->assertSame(sprintf('array<%s>', WebHookFilter::class), $class);
     }
 
-    public function testCreateWebHook()
+    public function testCreateWebHook(): void
     {
         $webHook = new WebHook();
         $this->endpoint->createWebHook($webHook);
@@ -77,7 +82,7 @@ class WebHooksEndpointTest extends TestCase
         $this->assertSame(WebHook::class, $class);
     }
 
-    public function testUpdateWebHookFailsMissingId()
+    public function testUpdateWebHookFailsMissingId(): void
     {
         $webHook = new WebHook();
 
@@ -86,7 +91,7 @@ class WebHooksEndpointTest extends TestCase
         $this->endpoint->updateWebHook($webHook);
     }
 
-    public function testUpdateWebHook()
+    public function testUpdateWebHook(): void
     {
         $webHook = new WebHook();
         $webHook->id = 'HelloWorld';
@@ -102,7 +107,7 @@ class WebHooksEndpointTest extends TestCase
         $this->assertSame(WebHook::class, $class);
     }
 
-    public function testDeleteAllWebHooks()
+    public function testDeleteAllWebHooks(): void
     {
         $this->endpoint->deleteAllWebHooks();
 
@@ -116,7 +121,7 @@ class WebHooksEndpointTest extends TestCase
         $this->assertSame(AcknowledgeResponse::class, $class);
     }
 
-    public function testDeleteWebHookById()
+    public function testDeleteWebHookById(): void
     {
         $this->endpoint->deleteWebHookById('HelloWorld');
 
@@ -130,7 +135,7 @@ class WebHooksEndpointTest extends TestCase
         $this->assertSame(AcknowledgeResponse::class, $class);
     }
 
-    public function testDeleteWebHookFailsMissingId()
+    public function testDeleteWebHookFailsMissingId(): void
     {
         $webHook = new WebHook();
 
@@ -139,7 +144,7 @@ class WebHooksEndpointTest extends TestCase
         $this->endpoint->deleteWebHook($webHook);
     }
 
-    public function testDeleteWebHook()
+    public function testDeleteWebHook(): void
     {
         $webHook = new WebHook();
         $webHook->id = 'HelloWorld';
