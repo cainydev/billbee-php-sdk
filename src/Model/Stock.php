@@ -38,4 +38,12 @@ final class Stock
         public bool $autosubtractReservedAmount = false,
     ) {
     }
+
+    public static function fromProduct(Product $product): Stock
+    {
+        return new Stock(
+            sku: $product->getSku(),
+            oldQuantity: $product->getStockCurrent(),
+        );
+    }
 }
