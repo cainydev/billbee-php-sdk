@@ -21,4 +21,6 @@ enum OrderState: int
     case PACKED = 13;
     case OFFERED = 14;
     case REMINDER = 15;
+    case IN_FULFILLMENT = 16;
+    case RETOUR = 17;
 }
