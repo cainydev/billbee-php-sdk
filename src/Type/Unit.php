@@ -22,4 +22,6 @@ enum Unit: int
     case GALLON = 14;
     case PAIR = 15;
     case GRAM = 16;
+    case HOUR = 17;
+    case DAY = 18;
 }
