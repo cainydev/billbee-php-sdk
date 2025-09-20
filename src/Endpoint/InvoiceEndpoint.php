@@ -74,6 +74,6 @@ readonly class InvoiceEndpoint
             $query['includePositions'] = 'true';
         }
 
-        return $this->client->get('orders/invoices', $query, GetInvoicesResponse::class);
+        return $this->client->get('orders/invoices', GetInvoicesResponse::class, $query);
     }
 }

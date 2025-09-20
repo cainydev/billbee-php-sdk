@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace BillbeeDe\BillbeeAPI;
 
 use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
-use Exception;
+use BillbeeDe\BillbeeAPI\Exception\ConnectionException;
+use BillbeeDe\BillbeeAPI\Exception\InvalidIdException;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\RequestOptions;
-use JMS\Serializer\SerializerInterface;
 use Psr\Http\Message\ResponseInterface;
+use Exception;
 
 final class HttpClient
 {
@@ -18,7 +20,6 @@ final class HttpClient
 
     public function __construct(
         private readonly ClientConfiguration $config,
-        private readonly SerializerInterface $serializer,
     ) {
         $this->client = new GuzzleClient([
             'base_uri' => $config->baseUrl,
@@ -35,25 +36,19 @@ final class HttpClient
 
     /**
      * @param array<string, mixed> $query
-     * @param class-string|null $responseClass
-     * @throws Exception
-     * @throws GuzzleException
+     * @throws QuotaExceededException|InvalidIdException|ConnectionException
      */
-    public function get(string $endpoint, array $query = [], ?string $responseClass = null): mixed
+    public function get(string $endpoint, array $query = []): ResponseInterface
     {
-        $response = $this->request('GET', $endpoint, [
+        return $this->request('GET', $endpoint, [
             RequestOptions::QUERY => $query,
         ]);
-
-        return $this->deserializeResponse($response, $responseClass);
     }
 
     /**
-     * @param class-string|null $responseClass
-     * @throws Exception
-     * @throws GuzzleException
+     * @throws QuotaExceededException|InvalidIdException|ConnectionException
      */
-    public function post(string $endpoint, mixed $data = null, ?string $responseClass = null): mixed
+    public function post(string $endpoint, mixed $data = null): ResponseInterface
     {
         $options = [];
         if ($data !== null) {
@@ -64,16 +59,13 @@ final class HttpClient
             }
         }
 
-        $response = $this->request('POST', $endpoint, $options);
-        return $this->deserializeResponse($response, $responseClass);
+        return $this->request('POST', $endpoint, $options);
     }
 
     /**
-     * @param class-string|null $responseClass
-     * @throws Exception
-     * @throws GuzzleException
+     * @throws QuotaExceededException|InvalidIdException|ConnectionException
      */
-    public function put(string $endpoint, mixed $data = null, ?string $responseClass = null): mixed
+    public function put(string $endpoint, mixed $data = null): ResponseInterface
     {
         $options = [];
         if ($data !== null) {
@@ -84,16 +76,13 @@ final class HttpClient
             }
         }
 
-        $response = $this->request('PUT', $endpoint, $options);
-        return $this->deserializeResponse($response, $responseClass);
+        return $this->request('PUT', $endpoint, $options);
     }
 
     /**
-     * @param class-string|null $responseClass
-     * @throws Exception
-     * @throws GuzzleException
+     * @throws QuotaExceededException|InvalidIdException|ConnectionException
      */
-    public function patch(string $endpoint, mixed $data = null, ?string $responseClass = null): mixed
+    public function patch(string $endpoint, mixed $data = null): ResponseInterface
     {
         $options = [];
         if ($data !== null) {
@@ -104,34 +93,29 @@ final class HttpClient
             }
         }
 
-        $response = $this->request('PATCH', $endpoint, $options);
-        return $this->deserializeResponse($response, $responseClass);
+        return $this->request('PATCH', $endpoint, $options);
     }
 
     /**
      * @param array<string, mixed> $query
-     * @param class-string|null $responseClass
-     * @throws Exception|GuzzleException
+     * @throws QuotaExceededException|InvalidIdException|ConnectionException
      */
-    public function delete(string $endpoint, array $query = [], ?string $responseClass = null): mixed
+    public function delete(string $endpoint, array $query = []): ResponseInterface
     {
-        $response = $this->request('DELETE', $endpoint, [
+        return $this->request('DELETE', $endpoint, [
             RequestOptions::QUERY => $query,
         ]);
-
-        return $this->deserializeResponse($response, $responseClass);
     }
 
     /**
      * @param array<string, mixed> $options
-     * @throws QuotaExceededException
-     * @throws GuzzleException
+     * @throws QuotaExceededException|InvalidIdException|ConnectionException
      */
     private function request(string $method, string $endpoint, array $options = []): ResponseInterface
     {
         try {
             if ($this->config->enableRequestLogging) {
-                $this->config->logger->debug("Making {$method} request to {$endpoint}", [
+                $this->config->logger->debug("Making $method request to $endpoint", [
                     'options' => $options,
                 ]);
             }
@@ -147,44 +131,39 @@ final class HttpClient
 
             return $response;
 
-        } catch (GuzzleException $e) {
-            if ($e->getCode() === 429) {
+        } catch (ClientException $e) {
+            $code = $e->getCode();
+            if ($code === 429) {
                 $this->config->logger->warning('Request quota exceeded');
-                throw new QuotaExceededException('API rate limit exceeded', 0, $e);
+                throw new QuotaExceededException('API rate limit exceeded', 429, $e);
             }
-
+            if ($code === 404) {
+                $this->config->logger->warning('Invalid resource ID');
+                throw new InvalidIdException('Invalid resource ID', 404, $e);
+            }
+            $this->config->logger->error('HTTP client error', [
+                'method' => $method,
+                'endpoint' => $endpoint,
+                'error' => $e->getMessage(),
+                'code' => $code,
+            ]);
+            throw new ConnectionException($e->getMessage(), $code, $e);
+        } catch (GuzzleException $e) {
             $this->config->logger->error('HTTP request failed', [
                 'method' => $method,
                 'endpoint' => $endpoint,
                 'error' => $e->getMessage(),
                 'code' => $e->getCode(),
             ]);
-
-            throw $e;
-        }
-    }
-
-    /**
-     * @param class-string|null $responseClass
-     * @throws Exception
-     */
-    private function deserializeResponse(ResponseInterface $response, ?string $responseClass): mixed
-    {
-        $content = $response->getBody()->getContents();
-
-        if ($responseClass === null || trim($content) === '') {
-            return $content;
-        }
-
-        try {
-            return $this->serializer->deserialize($content, $responseClass, 'json');
-        } catch (\Exception $e) {
-            $this->config->logger->error('Failed to deserialize response', [
-                'responseClass' => $responseClass,
-                'content' => $content,
+            throw new ConnectionException($e->getMessage(), $e->getCode(), $e);
+        } catch (Exception $e) {
+            $this->config->logger->error('Unexpected error during HTTP request', [
+                'method' => $method,
+                'endpoint' => $endpoint,
                 'error' => $e->getMessage(),
+                'code' => $e->getCode(),
             ]);
-            throw $e;
+            throw new ConnectionException($e->getMessage(), $e->getCode(), $e);
         }
     }
 }

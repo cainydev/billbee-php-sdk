@@ -79,7 +79,7 @@ readonly class OrdersEndpoint
             $query['excludeTags'] = 'true';
         }
 
-        return $this->client->get('orders', $query, GetOrdersResponse::class);
+        return $this->client->get('orders', GetOrdersResponse::class, $query);
     }
 
     /**
@@ -87,7 +87,7 @@ readonly class OrdersEndpoint
      */
     public function getPatchableFields(): GetPatchableFieldsResponse
     {
-        return $this->client->get('orders/PatchableFields', [], GetPatchableFieldsResponse::class);
+        return $this->client->get('orders/PatchableFields', GetPatchableFieldsResponse::class);
     }
 
     /**
@@ -95,7 +95,7 @@ readonly class OrdersEndpoint
      */
     public function getOrder(int $id): GetOrderResponse
     {
-        return $this->client->get("orders/$id", [], GetOrderResponse::class);
+        return $this->client->get("orders/$id", GetOrderResponse::class);
     }
 
     /**
@@ -104,7 +104,7 @@ readonly class OrdersEndpoint
     public function getOrderByOrderNumber(string $extRef): GetOrderResponse
     {
         $ref = urlencode($extRef);
-        return $this->client->get("orders/findbyextref/$ref", [], GetOrderResponse::class);
+        return $this->client->get("orders/findbyextref/$ref", GetOrderResponse::class);
     }
 
     /**
@@ -113,7 +113,7 @@ readonly class OrdersEndpoint
     public function createOrder(Order $order, int $shopId): ?GetOrderResponse
     {
         $payload = $this->client->getSerializer()->serialize($order, 'json');
-        return $this->client->post("orders?shopId=$shopId", $payload, GetOrderResponse::class);
+        return $this->client->post("orders?shopId=$shopId", GetOrderResponse::class, $payload);
     }
 
     /**
@@ -122,7 +122,7 @@ readonly class OrdersEndpoint
      */
     public function addOrderTags(int $orderId, array $tags = []): ?AcknowledgeResponse
     {
-        return $this->client->post("orders/$orderId/tags", json_encode(['Tags' => $tags]), AcknowledgeResponse::class);
+        return $this->client->post("orders/$orderId/tags", AcknowledgeResponse::class, json_encode(['Tags' => $tags]));
     }
 
     /**
@@ -131,7 +131,7 @@ readonly class OrdersEndpoint
     public function addOrderShipment(int $orderId, Shipment $shipment): bool
     {
         $payload = $this->client->getSerializer()->serialize($shipment, 'json');
-        $res = $this->client->post("orders/$orderId/shipment", $payload, AcknowledgeResponse::class);
+        $res = $this->client->post("orders/$orderId/shipment", AcknowledgeResponse::class, $payload);
         return $res->errorCode === 0;
     }
 
@@ -141,7 +141,7 @@ readonly class OrdersEndpoint
     public function createDeliveryNote(int $orderId, bool $includePdf = false): CreateDeliveryNoteResponse
     {
         $uri = "orders/CreateDeliveryNote/$orderId?includePdf=" . ($includePdf ? 'True' : 'False');
-        return $this->client->post($uri, [], CreateDeliveryNoteResponse::class);
+        return $this->client->post($uri, CreateDeliveryNoteResponse::class);
     }
 
     /**
@@ -160,7 +160,7 @@ readonly class OrdersEndpoint
         if ($sendToCloudId) {
             $uri .= "&sendToCloudId=$sendToCloudId";
         }
-        return $this->client->post($uri, [], CreateInvoiceResponse::class);
+        return $this->client->post($uri, CreateInvoiceResponse::class);
     }
 
     /**
@@ -184,7 +184,7 @@ readonly class OrdersEndpoint
         }
 
         $payload = $this->client->getSerializer()->serialize($message, 'json');
-        $res = $this->client->post("orders/$orderId/send-message", $payload, AcknowledgeResponse::class);
+        $res = $this->client->post("orders/$orderId/send-message", AcknowledgeResponse::class, $payload);
         return $res->errorCode === 0;
     }
 
@@ -194,7 +194,7 @@ readonly class OrdersEndpoint
      */
     public function setOrderTags(int $orderId, array $tags = []): AcknowledgeResponse
     {
-        return $this->client->put("orders/$orderId/tags", json_encode(['Tags' => $tags]), AcknowledgeResponse::class);
+        return $this->client->put("orders/$orderId/tags", AcknowledgeResponse::class, json_encode(['Tags' => $tags]));
     }
 
     /**
@@ -204,8 +204,8 @@ readonly class OrdersEndpoint
     {
         $res = $this->client->put(
             "orders/$orderId/orderstate",
-            json_encode(['NewStateId' => $newState]),
             AcknowledgeResponse::class,
+            json_encode(['NewStateId' => $newState]),
         );
         return $res->errorCode === 0;
     }
@@ -216,6 +216,6 @@ readonly class OrdersEndpoint
      */
     public function patchOrder(int $orderId, array $fields): ?GetOrderResponse
     {
-        return $this->client->patch("orders/$orderId", $fields, GetOrderResponse::class);
+        return $this->client->patch("orders/$orderId", GetOrderResponse::class, $fields);
     }
 }

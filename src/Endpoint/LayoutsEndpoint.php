@@ -19,6 +19,6 @@ readonly class LayoutsEndpoint
      */
     public function getLayouts(): GetLayoutsResponse
     {
-        return $this->client->get('layouts', [], GetLayoutsResponse::class);
+        return $this->client->get('layouts', GetLayoutsResponse::class);
     }
 }

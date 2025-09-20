@@ -175,7 +175,7 @@ class OrdersEndpointTest extends TestCase
         [$method, $node, $data, $class] = $requests[0];
         $this->assertSame('POST', $method);
         $this->assertSame('orders/CreateDeliveryNote/521?includePdf=False', $node);
-        $this->assertSame([], $data);
+        $this->assertSame(null, $data);
         $this->assertSame(CreateDeliveryNoteResponse::class, $class);
     }
 
@@ -188,7 +188,7 @@ class OrdersEndpointTest extends TestCase
         [$method, $node, $data, $class] = $requests[0];
         $this->assertSame('POST', $method);
         $this->assertSame('orders/CreateDeliveryNote/521?includePdf=True', $node);
-        $this->assertSame([], $data);
+        $this->assertSame(null, $data);
         $this->assertSame(CreateDeliveryNoteResponse::class, $class);
     }
 
@@ -201,7 +201,7 @@ class OrdersEndpointTest extends TestCase
         [$method, $node, $data, $class] = $requests[0];
         $this->assertSame('POST', $method);
         $this->assertSame('orders/CreateInvoice/521?includeInvoicePdf=False', $node);
-        $this->assertSame([], $data);
+        $this->assertSame(null, $data);
         $this->assertSame(CreateInvoiceResponse::class, $class);
     }
 
@@ -214,7 +214,7 @@ class OrdersEndpointTest extends TestCase
         [$method, $node, $data, $class] = $requests[0];
         $this->assertSame('POST', $method);
         $this->assertSame('orders/CreateInvoice/521?includeInvoicePdf=True&templateId=234&sendToCloudId=543', $node);
-        $this->assertSame([], $data);
+        $this->assertSame(null, $data);
         $this->assertSame(CreateInvoiceResponse::class, $class);
     }
 

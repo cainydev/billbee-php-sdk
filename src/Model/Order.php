@@ -109,6 +109,7 @@ final class Order
         #[Serializer\SerializedName("AdjustmentReason")]
         public ?string $adjustmentReason = null,
 
+        /** @var OrderItem[] */
         #[Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\OrderItem>")]
         #[Serializer\SerializedName("OrderItems")]
         public array $orderItems = [],
@@ -141,6 +142,7 @@ final class Order
         #[Serializer\SerializedName("VatId")]
         public ?string $vatId = null,
 
+        /** @var string[]|null */
         #[Serializer\Type("array")]
         #[Serializer\SerializedName("Tags")]
         public ?array $tags = [],
@@ -213,6 +215,7 @@ final class Order
         #[Serializer\SerializedName("Customer")]
         public ?Customer $customer = null,
 
+        /** @var Payment[]|null */
         #[Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\Payment>")]
         #[Serializer\SerializedName("Payments")]
         public ?array $payments = [],
@@ -221,10 +224,12 @@ final class Order
         #[Serializer\SerializedName("RebateDifference")]
         public ?float $rebateDifference = null,
 
+        /** @var Shipment[]|null */
         #[Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\Shipment>")]
         #[Serializer\SerializedName("ShippingIds")]
         public ?array $shipments = [],
 
+        /** @var array<OrderHistoryEntry> */
         #[Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\OrderHistoryEntry>")]
         #[Serializer\SerializedName("History")]
         public ?array $historyEntries = [],

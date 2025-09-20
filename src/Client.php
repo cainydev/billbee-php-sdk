@@ -22,8 +22,8 @@ use BillbeeDe\BillbeeAPI\Exception\ConnectionException;
 use Exception;
 use JMS\Serializer\SerializerInterface;
 use Psr\Log\LoggerInterface;
-use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Exception\ClientException;
+use Psr\Http\Message\ResponseInterface;
+use T;
 
 final readonly class Client implements ClientInterface
 {
@@ -42,15 +42,13 @@ final readonly class Client implements ClientInterface
     private LayoutsEndpoint $layoutsEndpoint;
     private SearchEndpoint $searchEndpoint;
 
-    private BatchClient $batchClient;
     private SerializerInterface $serializer;
 
     public function __construct(
         private ClientConfiguration $config,
     ) {
         $this->serializer = SerializerFactory::create();
-        $this->httpClient = new HttpClient($config, $this->getSerializer());
-        $this->batchClient = new BatchClient($this);
+        $this->httpClient = new HttpClient($config);
 
         $this->productsEndpoint = new ProductsEndpoint($this);
         $this->provisioningEndpoint = new ProvisioningEndpoint($this);
@@ -127,124 +125,117 @@ final readonly class Client implements ClientInterface
     }
 
     /**
+     * @template T
+     * @param class-string<T> $responseClass
      * @param array<string, mixed> $query
+     * @return T
      * @throws QuotaExceededException|InvalidIdException|ConnectionException
      */
-    public function get(string $endpoint, array $query = [], ?string $responseClass = null): mixed
+    public function get(string $endpoint, string $responseClass, array $query = []): mixed
     {
-        try {
-            return $this->httpClient->get($endpoint, $query, $responseClass);
-        } catch (ClientException $e) {
-            if ($e->getCode() === 429) {
-                throw new QuotaExceededException('API rate limit exceeded', 429, $e);
-            }
-            if ($e->getCode() === 404) {
-                throw new InvalidIdException('Invalid resource ID', 404, $e);
-            }
-            throw new ConnectionException($e->getMessage(), $e->getCode(), $e);
-        } catch (GuzzleException $e) {
-            throw new ConnectionException($e->getMessage(), $e->getCode(), $e);
-        }
+        $response = $this->httpClient->get($endpoint, $query);
+        return $this->deserializeResponse($response, $responseClass);
     }
 
     /**
+     * @template T
+     * @param class-string<T> $responseClass
      * @param array<string, mixed> $query
+     * @return array<T>
      * @throws QuotaExceededException|InvalidIdException|ConnectionException
      */
-    public function getArray(string $endpoint, array $query = [], ?string $responseClass = null): array
+    public function getArray(string $endpoint, string $responseClass, array $query = []): array
     {
-        try {
-            return $this->httpClient->get($endpoint, $query, sprintf('array<%s>', $responseClass));
-        } catch (ClientException $e) {
-            if ($e->getCode() === 429) {
-                throw new QuotaExceededException('API rate limit exceeded', 429, $e);
-            }
-            if ($e->getCode() === 404) {
-                throw new InvalidIdException('Invalid resource ID', 404, $e);
-            }
-            throw new ConnectionException($e->getMessage(), $e->getCode(), $e);
-        } catch (Exception|GuzzleException $e) {
-            throw new ConnectionException($e->getMessage(), $e->getCode(), $e);
-        }
+        $response = $this->httpClient->get($endpoint, $query);
+
+        /** @var class-string<mixed> $arrayResponseClass */
+        $arrayResponseClass = sprintf('array<%s>', $responseClass);
+
+        $result = $this->deserializeResponse($response, $arrayResponseClass);
+        return is_array($result) ? $result : [];
     }
 
     /**
-     * @throws QuotaExceededException|InvalidIdException|ConnectionException
+     * @template T
+     * @param class-string<T> $responseClass
+     * @return T
+     * @throws ConnectionException
+     * @throws QuotaExceededException
      */
-    public function post(string $endpoint, mixed $data = null, ?string $responseClass = null): mixed
+    public function post(string $endpoint, string $responseClass, mixed $data = null): mixed
     {
-        try {
-            return $this->httpClient->post($endpoint, $data, $responseClass);
-        } catch (ClientException $e) {
-            if ($e->getCode() === 429) {
-                throw new QuotaExceededException('API rate limit exceeded', 429, $e);
-            }
-            if ($e->getCode() === 404) {
-                throw new InvalidIdException('Invalid resource ID', 404, $e);
-            }
-            throw new ConnectionException($e->getMessage(), $e->getCode(), $e);
-        } catch (GuzzleException $e) {
-            throw new ConnectionException($e->getMessage(), $e->getCode(), $e);
-        }
+        $response = $this->httpClient->post($endpoint, $data);
+        return $this->deserializeResponse($response, $responseClass);
     }
 
     /**
+     * @template T
+     * @param class-string<T> $responseClass
+     * @return T
      * @throws QuotaExceededException|InvalidIdException|ConnectionException
      */
-    public function put(string $endpoint, mixed $data = null, ?string $responseClass = null): mixed
+    public function put(string $endpoint, string $responseClass, mixed $data = null): mixed
     {
-        try {
-            return $this->httpClient->put($endpoint, $data, $responseClass);
-        } catch (ClientException $e) {
-            if ($e->getCode() === 429) {
-                throw new QuotaExceededException('API rate limit exceeded', 429, $e);
-            }
-            if ($e->getCode() === 404) {
-                throw new InvalidIdException('Invalid resource ID', 404, $e);
-            }
-            throw new ConnectionException($e->getMessage(), $e->getCode(), $e);
-        } catch (GuzzleException $e) {
-            throw new ConnectionException($e->getMessage(), $e->getCode(), $e);
-        }
+        $response = $this->httpClient->put($endpoint, $data);
+        return $this->deserializeResponse($response, $responseClass);
     }
 
     /**
+     * @template T
+     * @param class-string<T> $responseClass
+     * @return T
      * @throws QuotaExceededException|InvalidIdException|ConnectionException
      */
-    public function patch(string $endpoint, mixed $data = null, ?string $responseClass = null): mixed
+    public function patch(string $endpoint, string $responseClass, mixed $data = null): mixed
     {
-        try {
-            return $this->httpClient->patch($endpoint, $data, $responseClass);
-        } catch (ClientException $e) {
-            if ($e->getCode() === 429) {
-                throw new QuotaExceededException('API rate limit exceeded', 429, $e);
-            }
-            if ($e->getCode() === 404) {
-                throw new InvalidIdException('Invalid resource ID', 404, $e);
-            }
-            throw new ConnectionException($e->getMessage(), $e->getCode(), $e);
-        } catch (GuzzleException $e) {
-            throw new ConnectionException($e->getMessage(), $e->getCode(), $e);
-        }
+        $response = $this->httpClient->patch($endpoint, $data);
+        return $this->deserializeResponse($response, $responseClass);
     }
 
     /**
+     * @template T
+     * @param class-string<T> $responseClass
+     * @param array<string, mixed> $query
+     * @return T
      * @throws QuotaExceededException|InvalidIdException|ConnectionException
      */
-    public function delete(string $endpoint, array $query = [], ?string $responseClass = null): mixed
+    public function delete(string $endpoint, string $responseClass, array $query = []): mixed
     {
+        $response = $this->httpClient->delete($endpoint, $query);
+        return $this->deserializeResponse($response, $responseClass);
+    }
+
+    /**
+     * @template T
+     * @param class-string<T> $responseClass
+     * @return T
+     * @throws ConnectionException
+     */
+    private function deserializeResponse(ResponseInterface $response, string $responseClass): mixed
+    {
+        $content = $response->getBody()->getContents();
+
+        if (trim($content) === '') {
+            // For array types, return empty array; for others, throw?
+            if (str_starts_with($responseClass, 'array<')) {
+                /** @var T $empty */
+                $empty = [];
+                return $empty;
+            }
+            throw new ConnectionException('Empty response body for class: ' . $responseClass);
+        }
+
         try {
-            return $this->httpClient->delete($endpoint, $query, $responseClass);
-        } catch (ClientException $e) {
-            if ($e->getCode() === 429) {
-                throw new QuotaExceededException('API rate limit exceeded', 429, $e);
-            }
-            if ($e->getCode() === 404) {
-                throw new InvalidIdException('Invalid resource ID', 404, $e);
-            }
-            throw new ConnectionException($e->getMessage(), $e->getCode(), $e);
-        } catch (GuzzleException $e) {
-            throw new ConnectionException($e->getMessage(), $e->getCode(), $e);
+            /** @var T $result */
+            $result = $this->serializer->deserialize($content, $responseClass, 'json');
+            return $result;
+        } catch (Exception $e) {
+            $this->config->logger->error('Failed to deserialize response', [
+                'responseClass' => $responseClass,
+                'content' => $content,
+                'error' => $e->getMessage(),
+            ]);
+            throw new ConnectionException('Failed to deserialize response: ' . $e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -261,10 +252,5 @@ final readonly class Client implements ClientInterface
     public function getLogger(): LoggerInterface
     {
         return $this->config->logger;
-    }
-
-    public function batch(): BatchClient
-    {
-        return $this->batchClient;
     }
 }

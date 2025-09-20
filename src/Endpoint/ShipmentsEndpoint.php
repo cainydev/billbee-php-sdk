@@ -24,7 +24,7 @@ readonly class ShipmentsEndpoint
      */
     public function getShippingProviders(): ?GetShippingProvidersResponse
     {
-        $providers = $this->client->getArray('shipment/shippingproviders', [], ShippingProvider::class);
+        $providers = $this->client->getArray('shipment/shippingproviders', ShippingProvider::class, []);
 
         $response = new GetShippingProvidersResponse();
         $response->data = $providers;
@@ -38,6 +38,6 @@ readonly class ShipmentsEndpoint
     public function shipWithLabel(ShipmentWithLabel $shipment): ShipWithLabelResponse
     {
         $json = $this->client->getSerializer()->serialize($shipment, 'json');
-        return $this->client->post('shipment/shipwithlabel', $json, ShipWithLabelResponse::class);
+        return $this->client->post('shipment/shipwithlabel', ShipWithLabelResponse::class, $json);
     }
 }

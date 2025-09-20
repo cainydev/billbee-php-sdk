@@ -19,6 +19,6 @@ readonly class ProvisioningEndpoint
      */
     public function getTermsInfo(): GetTermsInfoResponse
     {
-        return $this->client->get('automaticprovision/termsinfo', [], GetTermsInfoResponse::class);
+        return $this->client->get('automaticprovision/termsinfo', GetTermsInfoResponse::class);
     }
 }

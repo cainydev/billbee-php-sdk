@@ -28,8 +28,8 @@ readonly class ProductCustomFieldsEndpoint
 
         return $this->client->get(
             'products/custom-fields',
-            $query,
             GetCustomFieldDefinitionsResponse::class,
+            $query,
         );
     }
 
@@ -44,7 +44,6 @@ readonly class ProductCustomFieldsEndpoint
 
         return $this->client->get(
             "products/custom-fields/$id",
-            [],
             GetCustomFieldDefinitionResponse::class,
         );
     }

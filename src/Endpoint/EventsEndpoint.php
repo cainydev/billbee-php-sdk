@@ -43,6 +43,6 @@ readonly class EventsEndpoint
         if ($orderId) {
             $query['orderId'] = $orderId;
         }
-        return $this->client->get('events', $query, GetEventsResponse::class);
+        return $this->client->get('events', GetEventsResponse::class, $query);
     }
 }

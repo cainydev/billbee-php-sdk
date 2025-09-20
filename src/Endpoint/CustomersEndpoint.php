@@ -26,7 +26,7 @@ readonly class CustomersEndpoint
      */
     public function getCustomers(): GetCustomersResponse
     {
-        return $this->client->get('customers', [], GetCustomersResponse::class);
+        return $this->client->get('customers', GetCustomersResponse::class);
     }
 
     /**
@@ -37,7 +37,7 @@ readonly class CustomersEndpoint
         if ($id < 1) {
             throw new InvalidIdException();
         }
-        return $this->client->get("customers/$id", [], GetCustomerResponse::class);
+        return $this->client->get("customers/$id", GetCustomerResponse::class);
     }
 
     /**
@@ -52,7 +52,7 @@ readonly class CustomersEndpoint
             'page' => max(1, $page),
             'pageSize' => max(1, $pageSize),
         ];
-        return $this->client->get("customers/$id/addresses", $query, GetCustomerAddressesResponse::class);
+        return $this->client->get("customers/$id/addresses", GetCustomerAddressesResponse::class, $query);
     }
 
     /**
@@ -63,7 +63,7 @@ readonly class CustomersEndpoint
         if ($id < 1) {
             throw new InvalidIdException();
         }
-        return $this->client->get("customers/addresses/$id", [], GetCustomerAddressResponse::class);
+        return $this->client->get("customers/addresses/$id", GetCustomerAddressResponse::class);
     }
 
     /**
@@ -78,7 +78,7 @@ readonly class CustomersEndpoint
             'page' => max(1, $page),
             'pageSize' => max(1, $pageSize),
         ];
-        return $this->client->get("customers/$id/orders", $query, GetOrdersResponse::class);
+        return $this->client->get("customers/$id/orders", GetOrdersResponse::class, $query);
     }
 
     /**
@@ -86,7 +86,7 @@ readonly class CustomersEndpoint
      */
     public function createCustomer(CreateCustomerRequest $request): GetCustomerResponse
     {
-        return $this->client->post('customers', json_encode($request), GetCustomerResponse::class);
+        return $this->client->post('customers', GetCustomerResponse::class, json_encode($request));
     }
 
     /**
@@ -97,7 +97,7 @@ readonly class CustomersEndpoint
         if ($customer->id < 1) {
             throw new InvalidIdException();
         }
-        return $this->client->put("customers/$customer->id", $customer, GetCustomerResponse::class);
+        return $this->client->put("customers/$customer->id", GetCustomerResponse::class, $customer);
     }
 
     /**
@@ -106,6 +106,6 @@ readonly class CustomersEndpoint
      */
     public function patchAddress(int $addressId, array $fields): ?GetCustomerAddressResponse
     {
-        return $this->client->patch("customers/addresses/$addressId", $fields, GetCustomerAddressResponse::class);
+        return $this->client->patch("customers/addresses/$addressId", GetCustomerAddressResponse::class, $fields);
     }
 }

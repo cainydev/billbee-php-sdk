@@ -28,12 +28,12 @@ readonly class SearchEndpoint
     ): SearchDataResponse {
         return $this->client->post(
             'search',
+            SearchDataResponse::class,
             [
                 'Type' => $type,
                 'Term' => $term,
                 'SearchMode' => $searchMode,
             ],
-            SearchDataResponse::class,
         );
     }
 }

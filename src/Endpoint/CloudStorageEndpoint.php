@@ -19,6 +19,6 @@ readonly class CloudStorageEndpoint
      */
     public function getCloudStorages(): GetCloudStoragesResponse
     {
-        return $this->client->get('cloudstorages', [], GetCloudStoragesResponse::class);
+        return $this->client->get('cloudstorages', GetCloudStoragesResponse::class);
     }
 }

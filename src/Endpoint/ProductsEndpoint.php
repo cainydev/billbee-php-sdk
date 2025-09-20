@@ -37,7 +37,7 @@ readonly class ProductsEndpoint
         if ($minCreatedAt) {
             $query['minCreatedAt'] = $minCreatedAt->format('c');
         }
-        return $this->client->get('products', $query, GetProductsResponse::class);
+        return $this->client->get('products', GetProductsResponse::class, $query);
     }
 
     /**
@@ -47,8 +47,8 @@ readonly class ProductsEndpoint
     {
         return $this->client->get(
             "products/$productId",
-            ['lookupBy' => $lookupBy],
             GetProductResponse::class,
+            ['lookupBy' => $lookupBy],
         );
     }
 
@@ -57,7 +57,7 @@ readonly class ProductsEndpoint
      */
     public function getCategories(): GetCategoriesResponse
     {
-        return $this->client->get('products/category', [], GetCategoriesResponse::class);
+        return $this->client->get('products/category', GetCategoriesResponse::class);
     }
 
     /**
@@ -65,7 +65,7 @@ readonly class ProductsEndpoint
      */
     public function getPatchableProductFields(): GetPatchableFieldsResponse
     {
-        return $this->client->get('products/PatchableFields', [], GetPatchableFieldsResponse::class);
+        return $this->client->get('products/PatchableFields', GetPatchableFieldsResponse::class);
     }
 
     /**
@@ -73,7 +73,7 @@ readonly class ProductsEndpoint
      */
     public function updateStock(Stock $stockModel): UpdateStockResponse
     {
-        return $this->client->post('products/updatestock', $stockModel, UpdateStockResponse::class);
+        return $this->client->post('products/updatestock', UpdateStockResponse::class, $stockModel);
     }
 
     /**
@@ -84,8 +84,8 @@ readonly class ProductsEndpoint
     {
         return $this->client->post(
             'products/updatestockmultiple',
-            $stockModels,
             UpdateStocksResponse::class,
+            $stockModels,
         );
     }
 
@@ -95,7 +95,7 @@ readonly class ProductsEndpoint
     public function updateStockCode(StockCode $stockCodeModel): ?UpdateStockResponse
     {
         $json = $this->client->getSerializer()->serialize($stockCodeModel, 'json');
-        return $this->client->post('products/updatestockcode', $json, UpdateStockResponse::class);
+        return $this->client->post('products/updatestockcode', UpdateStockResponse::class, $json);
     }
 
     /**
@@ -104,7 +104,7 @@ readonly class ProductsEndpoint
     public function createProduct(Product $product): GetProductResponse
     {
         $json = $this->client->getSerializer()->serialize($product, 'json');
-        return $this->client->post('products', $json, GetProductResponse::class);
+        return $this->client->post('products', GetProductResponse::class, $json);
     }
 
     /**
@@ -113,7 +113,7 @@ readonly class ProductsEndpoint
      */
     public function patchProduct(int $productId, array $fields): ?GetProductResponse
     {
-        return $this->client->patch("products/$productId", $fields, GetProductResponse::class);
+        return $this->client->patch("products/$productId", GetProductResponse::class, $fields);
     }
 
     /**
@@ -121,6 +121,6 @@ readonly class ProductsEndpoint
      */
     public function deleteProduct(int $productId): void
     {
-        $this->client->delete("products/$productId", [], AcknowledgeResponse::class);
+        $this->client->delete("products/$productId", AcknowledgeResponse::class);
     }
 }

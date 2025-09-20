@@ -25,7 +25,7 @@ readonly class WebHooksEndpoint
      */
     public function getWebHooks(): array
     {
-        return $this->client->getArray('webhooks', [], WebHook::class);
+        return $this->client->getArray('webhooks', WebHook::class, []);
     }
 
     /**
@@ -33,7 +33,7 @@ readonly class WebHooksEndpoint
      */
     public function getWebHook(string $id): WebHook
     {
-        return $this->client->get("webhooks/$id", [], WebHook::class);
+        return $this->client->get("webhooks/$id", WebHook::class);
     }
 
     /**
@@ -42,7 +42,7 @@ readonly class WebHooksEndpoint
      */
     public function getWebHookFilters(): ?array
     {
-        return $this->client->getArray('webhooks/filters', [], WebHookFilter::class);
+        return $this->client->getArray('webhooks/filters', WebHookFilter::class, []);
     }
 
     /**
@@ -51,7 +51,7 @@ readonly class WebHooksEndpoint
     public function createWebHook(WebHook $webHook): WebHook
     {
         $json = $this->client->getSerializer()->serialize($webHook, 'json');
-        return $this->client->post('webhooks', $json, WebHook::class);
+        return $this->client->post('webhooks', WebHook::class, $json);
     }
 
     /**
@@ -63,7 +63,7 @@ readonly class WebHooksEndpoint
             throw new InvalidArgumentException('The id of the webHook cannot be empty');
         }
         $json = $this->client->getSerializer()->serialize($webHook, 'json');
-        $this->client->put("webhooks/$webHook->id", $json, WebHook::class);
+        $this->client->put("webhooks/$webHook->id", WebHook::class, $json);
         return true;
     }
 
@@ -72,7 +72,7 @@ readonly class WebHooksEndpoint
      */
     public function deleteAllWebHooks(): bool
     {
-        $res = $this->client->delete('webhooks', [], AcknowledgeResponse::class);
+        $res = $this->client->delete('webhooks', AcknowledgeResponse::class);
         return $res->errorCode === 0;
     }
 
@@ -94,7 +94,7 @@ readonly class WebHooksEndpoint
         if ($webHook->id === null) {
             throw new InvalidIdException('The id of the webHook cannot be empty');
         }
-        $res = $this->client->delete("webhooks/$webHook->id", [], AcknowledgeResponse::class);
+        $res = $this->client->delete("webhooks/$webHook->id", AcknowledgeResponse::class);
         return $res->errorCode === 0;
     }
 }
