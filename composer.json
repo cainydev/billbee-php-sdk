@@ -1,8 +1,8 @@
 {
-  "name": "cainydev/billbee-api",
+  "name": "cainy/billbee-api",
   "description": "A fork of the official Billbee API SDK for PHP",
   "type": "library",
-  "version": "v3.0.0",
+  "version": "v3.1.0",
   "require": {
     "php": "^8.2",
     "guzzlehttp/guzzle": "^7.4.0",
